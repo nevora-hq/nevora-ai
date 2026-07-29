@@ -1,23 +1,22 @@
 // カテゴリ別のマスコットキャラクター設定。
 // 現状はジャンル(対象分野はプロジェクト直下のCLAUDE.mdが唯一の情報源)全体で
-// 美容ブランチ(スキンケア/メイク/美容)のみ「ツヤミンちゃん」を割り当てている。
-// ダイエットや将来追加するジャンルは、専用マスコットができ次第ここに追記する
+// AI活用ブランチのみ「ピコルくん」を割り当てている。
+// 実際のカテゴリ名はキーワード調査・記事制作が進み次第確定するため、
+// カテゴリページ設計時にCATEGORY_MASCOTSのキーを実際のカテゴリ名に合わせて追記・修正すること
 // (未登録カテゴリはnullを返し、マスコットは非表示になる)。
-const TSUYAMIN = {
-  name: "ツヤミンちゃん",
-  normalImage: "/images/mascot/tsuyamin-normal.svg",
-  researchImage: "/images/mascot/tsuyamin-research.svg",
+const PICORU = {
+  name: "ピコルくん",
+  normalImage: "/images/mascot/picoru-normal.svg",
+  researchImage: "/images/mascot/picoru-research.svg",
   comments: [
-    "肌にあうかどうかは人それぞれ。まずは少量から試してみてね。",
-    "似合うかどうかは、実際に試してみるのが一番だよ。",
-    "情報を集めて、自分に合う方法を見つけよう。",
+    "AIツールは色々あるから、目的に合わせて使い分けるのがコツだよ。",
+    "まずは無料プランで試してみて、自分に合うか確かめてみてね。",
+    "新しい機能はどんどん出てくるから、一緒に最新情報を追いかけよう。",
   ],
 };
 
 const CATEGORY_MASCOTS = {
-  "スキンケア": TSUYAMIN,
-  "メイク": TSUYAMIN,
-  "美容": TSUYAMIN,
+  "AI活用": PICORU,
 };
 
 function pickComment(mascot, seed) {
