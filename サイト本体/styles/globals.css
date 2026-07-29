@@ -1,12 +1,12 @@
 :root {
-  --color-primary: #d6336c;
-  --color-primary-dark: #b32657;
-  --color-primary-light: #ffe3ec;
-  --color-primary-surface: #fff5f8;
-  --color-bg: #faf9fb;
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-light: #dbe7fd;
+  --color-primary-surface: #f2f6fe;
+  --color-bg: #f7f9fc;
   --color-surface: #fff;
-  --color-border: #ececec;
-  --color-text: #24242b;
+  --color-border: #e5e9f0;
+  --color-text: #1f2430;
   --color-text-muted: #6b7280;
   --color-text-faint: #9ca3af;
   --radius-sm: 6px;
@@ -14,7 +14,7 @@
   --radius-lg: 16px;
   --shadow-sm: 0 1px 2px rgba(20, 20, 30, 0.05);
   --shadow-md: 0 6px 20px rgba(20, 20, 30, 0.07);
-  --shadow-hover: 0 10px 28px rgba(214, 51, 108, 0.14);
+  --shadow-hover: 0 10px 28px rgba(37, 99, 235, 0.14);
   --transition: 180ms ease;
 }
 
@@ -72,14 +72,14 @@ img {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: linear-gradient(160deg, #fdf1f4 0%, #f7f2fb 35%, #eef6fb 65%, #e9f2fb 100%);
+  background: linear-gradient(160deg, #f5f7fb 0%, #eef2fb 45%, #e8eefb 100%);
 }
 
 /* ---- Header ----
    同系色の水色グラデーション+ごく薄い水玉模様を全ページ共通で敷く。 */
 .site-header {
-  background-image: radial-gradient(rgba(56, 163, 217, 0.14) 1px, transparent 1.6px),
-    linear-gradient(120deg, rgba(255, 241, 244, 0.92), rgba(234, 244, 251, 0.92));
+  background-image: radial-gradient(rgba(37, 99, 235, 0.12) 1px, transparent 1.6px),
+    linear-gradient(120deg, rgba(242, 246, 254, 0.92), rgba(234, 240, 251, 0.92));
   background-size: 16px 16px, 100% 100%;
   background-repeat: repeat, no-repeat;
   backdrop-filter: saturate(180%) blur(8px);
@@ -288,8 +288,8 @@ img {
   color: var(--color-text-faint);
   font-size: 0.85rem;
   border-top: 1px solid var(--color-border);
-  background-image: radial-gradient(rgba(56, 163, 217, 0.12) 1px, transparent 1.6px),
-    linear-gradient(160deg, rgba(238, 246, 251, 1), rgba(253, 241, 244, 1));
+  background-image: radial-gradient(rgba(37, 99, 235, 0.1) 1px, transparent 1.6px),
+    linear-gradient(160deg, rgba(238, 243, 251, 1), rgba(245, 247, 251, 1));
   background-size: 18px 18px, 100% 100%;
   background-repeat: repeat, no-repeat;
 }
@@ -334,7 +334,7 @@ img {
   inset: 0;
   display: flex;
   align-items: center;
-  background: linear-gradient(100deg, rgba(45, 16, 28, 0.74) 0%, rgba(70, 24, 45, 0.56) 45%, rgba(112, 72, 232, 0.28) 100%);
+  background: linear-gradient(100deg, rgba(15, 23, 42, 0.74) 0%, rgba(30, 41, 59, 0.56) 45%, rgba(37, 99, 235, 0.32) 100%);
 }
 
 .hero-banner::after {
@@ -342,7 +342,7 @@ img {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(420px 220px at 88% 10%, rgba(255, 177, 153, 0.35), transparent 70%);
+  background: radial-gradient(420px 220px at 88% 10%, rgba(96, 165, 250, 0.35), transparent 70%);
 }
 
 .hero-banner-inner {
@@ -355,7 +355,7 @@ img {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: #ffe3ec;
+  color: #dbe7fd;
 }
 
 .hero-banner-title {
@@ -371,7 +371,7 @@ img {
   margin: 0;
   font-size: clamp(0.85rem, 0.8rem + 0.3vw, 0.98rem);
   line-height: 1.7;
-  color: #f5eef1;
+  color: #eef2fb;
   max-width: 460px;
 }
 
@@ -641,7 +641,7 @@ img {
   font-weight: 700;
   margin: 0 0 6px;
   color: var(--color-primary-dark);
-  background: linear-gradient(120deg, var(--color-primary), #ff8fab 65%, #ffb199);
+  background: linear-gradient(120deg, var(--color-primary), #60a5fa 65%, #93c5fd);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -976,7 +976,7 @@ h1.page-title {
   line-height: 1.6;
   margin: 2.4em 0 1em;
   padding: 0.6em 0.9em;
-  background: linear-gradient(120deg, var(--color-primary-light), #fff6f9 75%);
+  background: linear-gradient(120deg, var(--color-primary-light), #f6f9ff 75%);
   border-left: 6px solid var(--color-primary);
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
   color: var(--color-text);
@@ -1356,8 +1356,8 @@ h1.page-title {
   gap: 12px;
   margin: 24px 0;
   padding: 16px;
-  background: #fff9fb;
-  border: 1px dashed #f3b6cd;
+  background: #f7faff;
+  border: 1px dashed #b6d0f3;
   border-radius: var(--radius-md);
 }
 
@@ -1424,7 +1424,7 @@ h1.page-title {
   justify-content: space-between;
   width: 100%;
   padding: 14px 18px;
-  background: linear-gradient(120deg, var(--color-primary-light), #fff6f9 75%);
+  background: linear-gradient(120deg, var(--color-primary-light), #f6f9ff 75%);
   border: none;
   font-weight: 700;
   font-size: 0.95rem;
@@ -1643,7 +1643,7 @@ h1.page-title {
   font-weight: 700;
   color: #fff;
   white-space: nowrap;
-  background: linear-gradient(135deg, var(--color-primary), #ff9fc2);
+  background: linear-gradient(135deg, var(--color-primary), #60a5fa);
   border-radius: 45% 55% 60% 40% / 60% 45% 55% 40%;
   box-shadow: var(--shadow-sm);
 }
