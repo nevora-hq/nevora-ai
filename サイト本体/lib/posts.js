@@ -57,6 +57,21 @@ function applyInlineMarkup(html) {
     .replace(/%%([^%\n]+?)%%/g, '<span class="article-note">$1</span>');
 }
 
+// ステマ規制対応の記事内広告表記(「※本記事にはアフィリエイト広告(PR)を含みます...」)は
+// 読者が本文と混同せず一目で「広告に関する注記」と認識できる必要がある(景品表示法の
+// 明瞭性の要件)。通常のblockquote(引用)と区別するため専用クラス+PRバッジを付与する。
+// 打消し表示規制の観点から、文字を小さく・薄くする方向の装飾は行わない。
+const AD_DISCLOSURE_BLOCKQUOTE_RE =
+  /<blockquote>\s*<p>\s*(※本記事にはアフィリエイト広告[\s\S]*?)<\/p>\s*<\/blockquote>/;
+
+function markAdDisclosureBlockquote(html) {
+  return html.replace(
+    AD_DISCLOSURE_BLOCKQUOTE_RE,
+    (_, text) =>
+      `<blockquote class="ad-disclosure"><p><span class="pr-badge">PR</span>${text}</p></blockquote>`
+  );
+}
+
 function escapeHtmlText(text) {
   return String(text || "")
     .replace(/&/g, "&amp;")
@@ -636,7 +651,9 @@ export async function getPostBySlug(slug) {
     .use(remarkGfm)
     .use(remarkHtml)
     .process(stripHtmlComments(content));
-  const rawHtml = applyInlineMarkup(processedContent.toString());
+  const rawHtml = markAdDisclosureBlockquote(
+    applyInlineMarkup(processedContent.toString())
+  );
   // 目次(TOC)表示・アンカーリンクのため、H2/H3見出しにid属性を付与する。
   // charts/アフィリエイトバナーの挿入(段落単位の分割・再結合)より前に行う
   // (挿入処理は開始タグの属性追加に影響されず、見出しブロック判定の

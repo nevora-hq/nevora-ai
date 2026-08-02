@@ -1317,6 +1317,24 @@ h1.page-title {
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 
+/* 記事内の広告表記(ステマ規制対応)。通常のblockquote(引用)と混同されないよう、
+   本文と同じ大きさ・十分なコントラストの文字色を保ったまま、PRバッジと専用の
+   縁取りで「広告に関する注記」だと一目でわかるようにする。景品表示法上、
+   打消し表示を過度に小さく・薄くすることは禁止されているため、フォントサイズ・
+   色は縮小しない。 */
+.article-body blockquote.ad-disclosure {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  border-left-color: var(--color-primary);
+  background: var(--color-surface-alt, var(--color-primary-surface));
+  color: var(--color-text-secondary, var(--color-text));
+}
+
+.article-body blockquote.ad-disclosure .pr-badge {
+  margin-top: 2px;
+}
+
 .article-body img {
   border-radius: var(--radius-md);
   margin: 1em 0;
