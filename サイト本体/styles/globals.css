@@ -803,6 +803,11 @@ img {
   color: var(--cat-color, var(--color-primary));
 }
 
+.category-summary-more-disabled {
+  color: var(--color-text-muted, #868e96);
+  cursor: default;
+}
+
 /* ---- 注目記事/新着記事セクション ---- */
 .home-featured-section {
   padding: clamp(20px, 3vw, 28px);

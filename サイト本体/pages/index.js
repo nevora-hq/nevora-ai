@@ -5,7 +5,7 @@ import HeroBanner from "../components/HeroBanner";
 import ImageSlider from "../components/ImageSlider";
 import Sidebar from "../components/Sidebar";
 import { getAllPostsMeta, getAllCategories, getPostsByCategory } from "../lib/posts";
-import { getCategoryMeta } from "../lib/categoryMeta";
+import { getCategoryMeta, MAJOR_CATEGORIES } from "../lib/categoryMeta";
 import { getCategoryMascot } from "../lib/categoryMascot";
 import Mascot from "../components/Mascot";
 import Link from "next/link";
@@ -15,10 +15,14 @@ export async function getStaticProps() {
   const categories = getAllCategories();
   const sliderPosts = posts.filter((p) => p.thumbnail).slice(0, 5);
 
-  const categorySummaries = categories.map((c) => ({
-    ...c,
-    ...getCategoryMeta(c.name),
-    posts: getPostsByCategory(c.name).slice(0, 3),
+  // 大カテゴリは記事が0件でも「準備中」として常にホームページに表示する
+  // (中カテゴリ・小カテゴリはMAJOR_CATEGORIESに含めないため、ここには出てこない)。
+  const countByName = new Map(categories.map((c) => [c.name, c.count]));
+  const categorySummaries = MAJOR_CATEGORIES.map((name) => ({
+    name,
+    count: countByName.get(name) || 0,
+    ...getCategoryMeta(name),
+    posts: getPostsByCategory(name).slice(0, 3),
   }));
 
   return {
@@ -88,7 +92,9 @@ export default function Home({
                         </span>
                         <div>
                           <h3 className="category-summary-name">{cat.name}</h3>
-                          <span className="category-summary-count">{cat.count}件の記事</span>
+                          <span className="category-summary-count">
+                            {cat.count > 0 ? `${cat.count}件の記事` : "準備中"}
+                          </span>
                         </div>
                       </div>
                       <p className="category-summary-desc">{cat.description}</p>
@@ -106,12 +112,18 @@ export default function Home({
                           ))}
                         </ul>
                       )}
-                      <Link
-                        href={`/category/${encodeURIComponent(cat.name)}`}
-                        className="category-summary-more"
-                      >
-                        {cat.name}の記事をすべて見る →
-                      </Link>
+                      {cat.count > 0 ? (
+                        <Link
+                          href={`/category/${encodeURIComponent(cat.name)}`}
+                          className="category-summary-more"
+                        >
+                          {cat.name}の記事をすべて見る →
+                        </Link>
+                      ) : (
+                        <span className="category-summary-more category-summary-more-disabled">
+                          近日公開予定
+                        </span>
+                      )}
                     </div>
                   ))}
                 </div>
