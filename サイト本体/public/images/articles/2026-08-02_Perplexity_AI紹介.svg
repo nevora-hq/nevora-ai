@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#4338ca"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <g fill="#ffffff" opacity="0.08">
+    <circle cx="1020" cy="110" r="190"/>
+    <circle cx="110" cy="540" r="150"/>
+  </g>
+
+  <!-- 検索結果カード(出典付き回答をイメージ) -->
+  <g transform="translate(860,330)">
+    <rect x="-70" y="-110" width="240" height="200" rx="20" fill="#ffffff" opacity="0.96"/>
+    <rect x="-45" y="-80" width="180" height="14" rx="7" fill="#4338ca" opacity="0.6"/>
+    <rect x="-45" y="-52" width="150" height="14" rx="7" fill="#4338ca" opacity="0.4"/>
+    <rect x="-45" y="-24" width="165" height="14" rx="7" fill="#4338ca" opacity="0.4"/>
+    <!-- 出典番号バッジ -->
+    <circle cx="140" cy="-73" r="12" fill="#818cf8"/>
+    <text x="140" y="-68" font-family="'Hiragino Sans','Yu Gothic',sans-serif" font-size="14" font-weight="700" fill="#1e1b4b" text-anchor="middle">1</text>
+    <circle cx="115" cy="-45" r="12" fill="#818cf8"/>
+    <text x="115" y="-40" font-family="'Hiragino Sans','Yu Gothic',sans-serif" font-size="14" font-weight="700" fill="#1e1b4b" text-anchor="middle">2</text>
+    <rect x="-45" y="10" width="120" height="30" rx="15" fill="#4338ca" opacity="0.15"/>
+    <text x="15" y="30" font-family="'Hiragino Sans','Yu Gothic',sans-serif" font-size="15" font-weight="700" fill="#4338ca" text-anchor="middle">Sources</text>
+  </g>
+
+  <!-- 虫眼鏡アイコン(AI検索) -->
+  <g transform="translate(1005,150)">
+    <circle cx="0" cy="0" r="38" fill="none" stroke="#fde047" stroke-width="10"/>
+    <line x1="27" y1="27" x2="55" y2="55" stroke="#fde047" stroke-width="10" stroke-linecap="round"/>
+  </g>
+
+  <!-- 光る星(AI感) -->
+  <g transform="translate(960,480)" opacity="0.9">
+    <polygon points="0,-30 8,-8 30,0 8,8 0,30 -8,8 -30,0 -8,-8" fill="#a5b4fc"/>
+  </g>
+
+  <text x="90" y="220" font-family="'Hiragino Sans','Yu Gothic',sans-serif" font-size="52" font-weight="700" fill="#ffffff">Perplexity AIとは？</text>
+  <text x="90" y="290" font-family="'Hiragino Sans','Yu Gothic',sans-serif" font-size="46" font-weight="700" fill="#ffffff">出典付きAI検索の実力</text>
+  <text x="90" y="345" font-family="'Hiragino Sans','Yu Gothic',sans-serif" font-size="28" fill="#c7d2fe">ChatGPTとの違いを徹底比較</text>
+  <text x="90" y="560" font-family="'Hiragino Sans','Yu Gothic',sans-serif" font-size="26" fill="#a5b4fc">nevora-ai</text>
+</svg>
