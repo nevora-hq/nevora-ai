@@ -1,6 +1,15 @@
 import Layout from "../components/Layout";
+import Mascot from "../components/Mascot";
+import { getMainMascot, getCategoryMascot } from "../lib/categoryMascot";
+import { MAJOR_CATEGORIES } from "../lib/categoryMeta";
 
 export default function About() {
+  const mainMascot = getMainMascot();
+  const categoryMascots = MAJOR_CATEGORIES.map((name) => ({
+    category: name,
+    mascot: getCategoryMascot(name),
+  })).filter((c) => c.mascot);
+
   return (
     <Layout
       title="運営者情報 | AI活用の総合ガイド｜NEVORA"
@@ -50,6 +59,32 @@ export default function About() {
           「カタログのような情報の羅列」ではなく、実際に使う場面を想定した比較・体験ベースの記事作りを心がけています。
           ツールの仕様・料金・機能は変更される場合があるため、導入の際は必ず公式サイトの最新情報をご確認ください。
         </p>
+
+        <h2>サイトの案内キャラクターについて</h2>
+        <p>
+          当サイトでは、カテゴリごとの案内役として公式マスコットキャラクターを起用しています。
+          いずれも実在の専門家・資格保有者を表すものではなく、読者の皆様に記事内容を分かりやすくお伝えするための、
+          当サイト独自のブランドキャラクターです。
+        </p>
+        <div className="mascot-roster-main">
+          <Mascot mascot={mainMascot} size={64} />
+          <div>
+            <p className="mascot-roster-role">{mainMascot.role}</p>
+            <p className="mascot-roster-desc">
+              サイト全体の案内役。トップページやカテゴリ紹介、各カテゴリ担当キャラクターをまとめる役割を担っています。
+            </p>
+          </div>
+        </div>
+        <ul className="mascot-roster-grid">
+          {categoryMascots.map(({ category, mascot }) => (
+            <li key={category} className="mascot-roster-item">
+              <Mascot mascot={mascot} size={48} />
+              <div>
+                <p className="mascot-roster-role">{category} 担当</p>
+              </div>
+            </li>
+          ))}
+        </ul>
 
         <h2>記事制作・情報の取り扱いについて</h2>
         <p>

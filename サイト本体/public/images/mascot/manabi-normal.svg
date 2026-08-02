@@ -1,0 +1,23 @@
+<svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="マスコットキャラクター マナビ">
+  <ellipse cx="120" cy="215" rx="55" ry="10" fill="#d6336c" opacity="0.08"/>
+  <line x1="90" y1="60" x2="90" y2="46" stroke="#d6336c" stroke-width="6" stroke-linecap="round"/>
+  <line x1="120" y1="60" x2="120" y2="42" stroke="#d6336c" stroke-width="6" stroke-linecap="round"/>
+  <line x1="150" y1="60" x2="150" y2="46" stroke="#d6336c" stroke-width="6" stroke-linecap="round"/>
+  <line x1="55" y1="100" x2="42" y2="100" stroke="#d6336c" stroke-width="6" stroke-linecap="round"/>
+  <line x1="55" y1="150" x2="42" y2="150" stroke="#d6336c" stroke-width="6" stroke-linecap="round"/>
+  <line x1="185" y1="100" x2="198" y2="100" stroke="#d6336c" stroke-width="6" stroke-linecap="round"/>
+  <line x1="185" y1="150" x2="198" y2="150" stroke="#d6336c" stroke-width="6" stroke-linecap="round"/>
+  <rect x="55" y="58" width="130" height="132" rx="30" fill="#ffe3ec" stroke="#d6336c" stroke-width="6"/>
+  <circle cx="120" cy="40" r="7" fill="#38d9a9"/>
+  <circle cx="86" cy="140" r="10" fill="#d6336c" opacity="0.3"/>
+  <circle cx="154" cy="140" r="10" fill="#d6336c" opacity="0.3"/>
+  <circle cx="98" cy="122" r="7" fill="#24242b"/>
+  <circle cx="142" cy="122" r="7" fill="#24242b"/>
+  <circle cx="100.5" cy="119" r="2.2" fill="#fff"/>
+  <circle cx="144.5" cy="119" r="2.2" fill="#fff"/>
+  <path d="M108 148 Q120 158 132 148" stroke="#99244e" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M92 162 Q120 154 148 162 L148 176 Q120 168 92 176 Z" fill="none" stroke="#38d9a9" stroke-width="3.5" stroke-linejoin="round"/>
+  <line x1="120" y1="158" x2="120" y2="176" stroke="#38d9a9" stroke-width="3.5"/>
+  <path d="M62 178 q-18 4 -22 20" stroke="#d6336c" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M178 178 q18 4 22 20" stroke="#d6336c" stroke-width="6" fill="none" stroke-linecap="round"/>
+</svg>

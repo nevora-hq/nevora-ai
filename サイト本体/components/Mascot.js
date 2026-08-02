@@ -2,7 +2,7 @@ export default function Mascot({ mascot, size = 34 }) {
   if (!mascot) return null;
 
   return (
-    <div className="mascot-compact">
+    <div className="mascot-compact" style={{ width: size }}>
       <img
         src={mascot.normalImage}
         alt={mascot.name}

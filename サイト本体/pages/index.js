@@ -6,7 +6,7 @@ import ImageSlider from "../components/ImageSlider";
 import Sidebar from "../components/Sidebar";
 import { getAllPostsMeta, getAllCategories, getPostsByCategory } from "../lib/posts";
 import { getCategoryMeta, MAJOR_CATEGORIES } from "../lib/categoryMeta";
-import { getCategoryMascot } from "../lib/categoryMascot";
+import { getCategoryMascot, getMainMascot } from "../lib/categoryMascot";
 import Mascot from "../components/Mascot";
 import Link from "next/link";
 
@@ -33,6 +33,7 @@ export async function getStaticProps() {
       categories,
       categorySummaries,
       sliderPosts,
+      mainMascot: getMainMascot("home"),
     },
   };
 }
@@ -44,6 +45,7 @@ export default function Home({
   categories,
   categorySummaries,
   sliderPosts,
+  mainMascot,
 }) {
   return (
     <Layout
@@ -68,6 +70,25 @@ export default function Home({
       <div className="home-page">
         <div className="home-layout">
           <div className="home-main">
+            {mainMascot && (
+              <div className="mascot-comment">
+                <img
+                  src={mainMascot.normalImage}
+                  alt={mainMascot.name}
+                  width="56"
+                  height="56"
+                  className="mascot-comment-img"
+                  loading="lazy"
+                />
+                <div className="mascot-comment-bubble">
+                  <span className="mascot-comment-name">{mainMascot.name}</span>
+                  <p className="mascot-comment-text">
+                    ようこそ!ぼくはこのサイトの案内役、{mainMascot.name}だよ。カテゴリごとに専門の仲間がいるから、気になるテーマを一緒に見ていこう。
+                  </p>
+                </div>
+              </div>
+            )}
+
             {categorySummaries.length > 0 && (
               <section className="category-summary-section">
                 <h2 className="home-section-title">カテゴリで探す</h2>

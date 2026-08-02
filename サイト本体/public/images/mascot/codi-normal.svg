@@ -1,0 +1,24 @@
+<svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="マスコットキャラクター コーディ">
+  <ellipse cx="120" cy="215" rx="55" ry="10" fill="#1098ad" opacity="0.08"/>
+  <line x1="90" y1="60" x2="90" y2="46" stroke="#1098ad" stroke-width="6" stroke-linecap="round"/>
+  <line x1="120" y1="60" x2="120" y2="42" stroke="#1098ad" stroke-width="6" stroke-linecap="round"/>
+  <line x1="150" y1="60" x2="150" y2="46" stroke="#1098ad" stroke-width="6" stroke-linecap="round"/>
+  <line x1="55" y1="100" x2="42" y2="100" stroke="#1098ad" stroke-width="6" stroke-linecap="round"/>
+  <line x1="55" y1="150" x2="42" y2="150" stroke="#1098ad" stroke-width="6" stroke-linecap="round"/>
+  <line x1="185" y1="100" x2="198" y2="100" stroke="#1098ad" stroke-width="6" stroke-linecap="round"/>
+  <line x1="185" y1="150" x2="198" y2="150" stroke="#1098ad" stroke-width="6" stroke-linecap="round"/>
+  <rect x="55" y="58" width="130" height="132" rx="30" fill="#e0f7fa" stroke="#1098ad" stroke-width="6"/>
+  <circle cx="120" cy="40" r="7" fill="#38d9a9"/>
+  <circle cx="86" cy="140" r="10" fill="#1098ad" opacity="0.3"/>
+  <circle cx="154" cy="140" r="10" fill="#1098ad" opacity="0.3"/>
+  <circle cx="98" cy="122" r="7" fill="#24242b"/>
+  <circle cx="142" cy="122" r="7" fill="#24242b"/>
+  <circle cx="100.5" cy="119" r="2.2" fill="#fff"/>
+  <circle cx="144.5" cy="119" r="2.2" fill="#fff"/>
+  <path d="M108 148 Q120 158 132 148" stroke="#0b6e7a" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M108 158 L98 167 L108 176" fill="none" stroke="#38d9a9" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M132 158 L142 167 L132 176" fill="none" stroke="#38d9a9" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="116" y1="178" x2="124" y2="158" stroke="#38d9a9" stroke-width="4" stroke-linecap="round"/>
+  <path d="M62 178 q-18 4 -22 20" stroke="#1098ad" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <path d="M178 178 q18 4 22 20" stroke="#1098ad" stroke-width="6" fill="none" stroke-linecap="round"/>
+</svg>
