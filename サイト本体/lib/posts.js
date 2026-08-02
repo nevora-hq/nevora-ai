@@ -98,6 +98,9 @@ function renderMascotCommentHtml(mascot) {
 // 途中にマスコットが挟まる不具合が過去にあったため、必ず記事の大きな
 // セクション区切りであるH2見出しの直前にのみ挿入する。
 // H2が少ない(短文)記事では不自然になるため2つ未満の場合は挿入しない。
+// これは下記insertInlineMascotCommentsの手動マーカーが本文に1つも
+// 無い記事(mascotCommentのみのfrontmatterで書かれた既存記事)向けの
+// フォールバックとして残している。
 function insertMascotComment(html, mascot) {
   if (!mascot) return html;
 
@@ -111,6 +114,32 @@ function insertMascotComment(html, mascot) {
 
   const insertAt = headingPositions[Math.floor(headingPositions.length / 2)];
   return html.slice(0, insertAt) + renderMascotCommentHtml(mascot) + html.slice(insertAt);
+}
+
+// ライターが導入・補足・注意・まとめ等、本文中の任意の位置にマスコットの
+// コメントを手動配置できるようにする記法。段落単独で
+// `[[mascot: コメント本文]]` と書くと、remarkがそのまま
+// <p>[[mascot: コメント本文]]</p> としてHTML化するため、そのブロックを
+// キャラクターの吹き出し表示に置き換える。1記事に複数回使うことを想定し、
+// マッチした分だけすべて置き換える(insertMascotCommentと異なり挿入位置の
+// 上限はコード側で設けず、多用しすぎない運用はライター・編集長の
+// 執筆ルール側で担保する)。
+// マーカー内には強調記法(**太字**等)を書かせない前提のため、remarkが
+// 生成したインラインタグはstripTagsで取り除きプレーンテキスト化する。
+// 対象カテゴリにマスコットが未登録(mascotがnull)の場合は、生の記法が
+// 読者に見えてしまわないようマーカーごと除去する。
+const INLINE_MASCOT_MARKER_RE = /<p>\s*\[\[mascot:\s*([\s\S]*?)\]\]\s*<\/p>/g;
+
+function hasInlineMascotMarkers(html) {
+  return html.includes("[[mascot:");
+}
+
+function insertInlineMascotComments(html, mascot) {
+  return html.replace(INLINE_MASCOT_MARKER_RE, (_, rawComment) => {
+    const comment = decodeHtmlEntities(stripTags(rawComment)).trim();
+    if (!mascot || !comment) return "";
+    return renderMascotCommentHtml({ ...mascot, comment });
+  });
 }
 
 // 本文HTML(remarkで生成済み)を段落・リスト等のブロック単位で分割し、
@@ -620,7 +649,12 @@ export async function getPostBySlug(slug) {
     meta.affiliateLinks
   );
   const mascot = getCategoryMascot(meta.category, slug, meta.mascotComment);
-  const contentHtml = insertMascotComment(htmlWithAffiliateBanners, mascot);
+  // ライターが本文中に`[[mascot: ...]]`を手動配置していればそれを優先する
+  // (複数箇所への配置に対応)。1つも無い場合のみ、従来の自動単発挿入に
+  // フォールバックする(手動マーカーを使わない旧記事との互換性のため)。
+  const contentHtml = hasInlineMascotMarkers(htmlWithAffiliateBanners)
+    ? insertInlineMascotComments(htmlWithAffiliateBanners, mascot)
+    : insertMascotComment(htmlWithAffiliateBanners, mascot);
 
   return {
     slug,
