@@ -63,9 +63,9 @@ SNS投稿の文章を0から考えるのは意外と時間がかかりますが�
 
 [[mascot: 背景除去とMagic Writeは特に時短効果を感じやすい機能だよ。まずはこの2つから試してみるのがおすすめ。]]
 
-![Canva Magic StudioのAI機能アイコンイメージ](/images/articles/2026-08-02_CanvaMagicStudioレビュー_body.png)
-
 ## 無料版とCanva Pro、何が違うのか
+
+![Canva Magic StudioのAI機能アイコンイメージ](/images/articles/2026-08-02_CanvaMagicStudioレビュー_body.png)
 
 Magic Studioの機能の一部は無料版でも試せますが、多くの機能には利用回数の上限があり、フル活用するにはCanva Proへの加入がほぼ前提になります。
 

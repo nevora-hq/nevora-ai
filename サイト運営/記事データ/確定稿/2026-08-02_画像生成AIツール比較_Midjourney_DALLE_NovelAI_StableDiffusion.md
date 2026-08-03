@@ -62,9 +62,9 @@ thumbnail: "/images/articles/2026-08-02_画像生成AIツール比較_Midjourney
 
 <!-- TODO: 提携先確定後にリンク追加 -->
 
-![画像生成AIで作品を生み出すイメージ](/images/articles/2026-08-02_画像生成AIツール比較_Midjourney_DALLE_NovelAI_StableDiffusion_body.png)
-
 ## 用途別・こんな人にはこのツールがおすすめ
+
+![画像生成AIで作品を生み出すイメージ](/images/articles/2026-08-02_画像生成AIツール比較_Midjourney_DALLE_NovelAI_StableDiffusion_body.png)
 
 ここまでの比較を踏まえて、目的別におすすめを整理します。
 
