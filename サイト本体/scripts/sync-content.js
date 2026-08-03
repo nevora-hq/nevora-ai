@@ -12,8 +12,8 @@ const fs = require("fs");
 const path = require("path");
 
 const SOURCE_DIRS = [
-  path.join(process.cwd(), "..", "記事データ", "確定稿"),
-  path.join(process.cwd(), "..", "記事データ", "公開済み"),
+  path.join(process.cwd(), "..", "サイト運営", "記事データ", "確定稿"),
+  path.join(process.cwd(), "..", "サイト運営", "記事データ", "公開済み"),
 ];
 const DEST_DIR = path.join(process.cwd(), "content", "articles");
 
