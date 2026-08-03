@@ -23,29 +23,30 @@ export default function ImageSlider({ slides = [] }) {
   };
 
   return (
-    <section className="hero-slider" aria-label="注目記事スライド">
+    <section className="hero-slider" aria-label="カテゴリスライド">
       <div className="container">
         <div className="hero-slider-viewport">
           <div
             className="hero-slider-track"
             style={{ transform: `translateX(-${index * 100}%)` }}
           >
-            {slides.map((post, i) => (
+            {slides.map((cat, i) => (
               <Link
-                key={post.slug}
-                href={`/posts/${post.slug}`}
+                key={cat.name}
+                href={`/category/${encodeURIComponent(cat.name)}`}
                 className="hero-slider-slide"
               >
                 {/* 先頭スライドは初期表示範囲に入るため遅延読み込みにしない(LCP対策) */}
                 <img
-                  src={post.thumbnail}
-                  alt={post.title}
+                  src={cat.image}
+                  alt={cat.name}
                   loading={i === 0 ? undefined : "lazy"}
                   fetchPriority={i === 0 ? "high" : undefined}
                 />
                 <div className="hero-slider-caption">
-                  <span className="category-badge">{post.category}</span>
-                  <p>{post.title}</p>
+                  <span className="hero-slider-caption-name">
+                    <span aria-hidden="true">{cat.icon}</span> {cat.name}
+                  </span>
                 </div>
               </Link>
             ))}
@@ -75,12 +76,12 @@ export default function ImageSlider({ slides = [] }) {
 
         {count > 1 && (
           <div className="hero-slider-dots">
-            {slides.map((post, i) => (
+            {slides.map((cat, i) => (
               <button
-                key={post.slug}
+                key={cat.name}
                 type="button"
                 className={`hero-slider-dot${i === index ? " active" : ""}`}
-                aria-label={`${i + 1}枚目を表示`}
+                aria-label={`${cat.name}を表示`}
                 onClick={() => goTo(i)}
               />
             ))}

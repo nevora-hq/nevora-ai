@@ -8,6 +8,7 @@ const CATEGORY_META = {
     icon: "💬",
     color: "#2a78d6",
     soft: "#e3f0ff",
+    image: "/images/category/gen-ai.png",
     description:
       "ChatGPT・Claude・Gemini・画像/動画/音声生成AIなど、生成AIの基本と使い方をまとめています。",
   },
@@ -15,6 +16,7 @@ const CATEGORY_META = {
     icon: "🛠️",
     color: "#2f9e44",
     soft: "#e6f7ea",
+    image: "/images/category/ai-tools.png",
     description:
       "仕事効率化・Web制作・ライティング・デザイン・マーケティングなど、目的別のAIツールを紹介します。",
   },
@@ -22,6 +24,7 @@ const CATEGORY_META = {
     icon: "💡",
     color: "#e8590c",
     soft: "#ffe8d9",
+    image: "/images/category/ai-katsuyo.png",
     description:
       "仕事・個人利用・学生・クリエイターなど、シーン別のAI活用アイデアをまとめています。",
   },
@@ -29,6 +32,7 @@ const CATEGORY_META = {
     icon: "⚙️",
     color: "#7048e8",
     soft: "#ede6fd",
+    image: "/images/category/ai-automation.png",
     description:
       "業務自動化・AIエージェント・API連携・ノーコード自動化など、AIで作業を効率化する方法を紹介します。",
   },
@@ -36,6 +40,7 @@ const CATEGORY_META = {
     icon: "👨‍💻",
     color: "#1098ad",
     soft: "#e0f7fa",
+    image: "/images/category/ai-dev.png",
     description:
       "AIプログラミング・AIアプリ開発・AIモデル・AIインフラなど、開発者向けの情報をまとめています。",
   },
@@ -43,6 +48,7 @@ const CATEGORY_META = {
     icon: "📚",
     color: "#d6336c",
     soft: "#ffe3ec",
+    image: "/images/category/ai-gakushu.png",
     description:
       "AIの基礎知識・プロンプトの書き方・AI資格・AIスキルなど、学びたい人向けの情報を紹介します。",
   },
@@ -50,6 +56,7 @@ const CATEGORY_META = {
     icon: "📈",
     color: "#f08c00",
     soft: "#fff3d9",
+    image: "/images/category/ai-business.png",
     description:
       "AI副業・AI起業・企業への導入・AI業界動向など、ビジネス視点のAI情報をまとめています。",
   },
@@ -57,6 +64,7 @@ const CATEGORY_META = {
     icon: "📰",
     color: "#495057",
     soft: "#eef1f3",
+    image: "/images/category/ai-news.png",
     description:
       "最新ニュース・AIの未来・AI倫理・AIリスクなど、押さえておきたいAIの知識を紹介します。",
   },

@@ -4,7 +4,7 @@ import PostCard from "../components/PostCard";
 import HeroBanner from "../components/HeroBanner";
 import ImageSlider from "../components/ImageSlider";
 import Sidebar from "../components/Sidebar";
-import { getAllPostsMeta, getAllCategories, getPostsByCategory } from "../lib/posts";
+import { getAllPostsMeta, getAllCategories } from "../lib/posts";
 import { getCategoryMeta, MAJOR_CATEGORIES } from "../lib/categoryMeta";
 import { getCategoryMascot, getMainMascot } from "../lib/categoryMascot";
 import Mascot from "../components/Mascot";
@@ -13,7 +13,6 @@ import Link from "next/link";
 export async function getStaticProps() {
   const posts = getAllPostsMeta();
   const categories = getAllCategories();
-  const sliderPosts = posts.filter((p) => p.thumbnail).slice(0, 5);
 
   // 大カテゴリは記事が0件でも「準備中」として常にホームページに表示する
   // (中カテゴリ・小カテゴリはMAJOR_CATEGORIESに含めないため、ここには出てこない)。
@@ -22,7 +21,6 @@ export async function getStaticProps() {
     name,
     count: countByName.get(name) || 0,
     ...getCategoryMeta(name),
-    posts: getPostsByCategory(name).slice(0, 3),
   }));
 
   return {
@@ -32,7 +30,6 @@ export async function getStaticProps() {
       popularPosts: posts.slice(0, 5),
       categories,
       categorySummaries,
-      sliderPosts,
       mainMascot: getMainMascot("home"),
     },
   };
@@ -44,7 +41,6 @@ export default function Home({
   popularPosts,
   categories,
   categorySummaries,
-  sliderPosts,
   mainMascot,
 }) {
   return (
@@ -55,7 +51,7 @@ export default function Home({
       hero={
         <>
           <HeroBanner />
-          <ImageSlider slides={sliderPosts} />
+          <ImageSlider slides={categorySummaries} />
         </>
       }
     >
@@ -96,57 +92,51 @@ export default function Home({
                   気になるテーマから、関連記事をまとめてチェックできます。
                 </p>
                 <div className="category-summary-grid">
-                  {categorySummaries.map((cat) => (
-                    <div
-                      key={cat.name}
-                      className="category-summary-card"
-                      style={{ "--cat-color": cat.color, "--cat-soft": cat.soft }}
-                    >
-                      {getCategoryMascot(cat.name) && (
-                        <div className="category-summary-mascot">
-                          <Mascot mascot={getCategoryMascot(cat.name)} />
-                        </div>
-                      )}
-                      <div className="category-summary-head">
-                        <span className="category-summary-icon" aria-hidden="true">
-                          {cat.icon}
-                        </span>
-                        <div>
-                          <h3 className="category-summary-name">{cat.name}</h3>
-                          <span className="category-summary-count">
-                            {cat.count > 0 ? `${cat.count}件の記事` : "準備中"}
-                          </span>
-                        </div>
-                      </div>
-                      <p className="category-summary-desc">{cat.description}</p>
-                      {cat.posts.length > 0 && (
-                        <ul className="category-summary-posts">
-                          {cat.posts.map((p) => (
-                            <li key={p.slug}>
-                              <Link href={`/posts/${p.slug}`} className="category-summary-post-link">
-                                {p.thumbnail && (
-                                  <img src={p.thumbnail} alt="" loading="lazy" />
-                                )}
-                                <span>{p.title}</span>
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                      {cat.count > 0 ? (
+                  {categorySummaries.map((cat) => {
+                    const mascot = getCategoryMascot(cat.name, cat.name, cat.description);
+                    return (
+                      <div
+                        key={cat.name}
+                        className="category-summary-card"
+                        style={{ "--cat-color": cat.color, "--cat-soft": cat.soft }}
+                      >
                         <Link
                           href={`/category/${encodeURIComponent(cat.name)}`}
-                          className="category-summary-more"
+                          className="category-summary-image-link"
+                          aria-label={`${cat.name}の記事一覧を見る`}
                         >
-                          {cat.name}の記事をすべて見る →
+                          <img
+                            src={cat.image}
+                            alt={cat.name}
+                            className="category-summary-image"
+                            loading="lazy"
+                          />
+                          <span className="category-summary-image-overlay">
+                            <span className="category-summary-image-icon" aria-hidden="true">
+                              {cat.icon}
+                            </span>
+                            <span className="category-summary-image-name">{cat.name}</span>
+                          </span>
+                          <span className="category-summary-image-count">
+                            {cat.count > 0 ? `${cat.count}件の記事` : "準備中"}
+                          </span>
                         </Link>
-                      ) : (
-                        <span className="category-summary-more category-summary-more-disabled">
-                          近日公開予定
-                        </span>
-                      )}
-                    </div>
-                  ))}
+
+                        {mascot && (
+                          <div className="category-summary-mascot-row">
+                            <Mascot mascot={mascot} size={44} />
+                            <div className="category-summary-mascot-bubble">
+                              <span className="category-summary-mascot-name">{mascot.name}</span>
+                              <p className="category-summary-mascot-text">{mascot.comment}</p>
+                              <p className="category-summary-cta">
+                                気になる方は、上の画像をクリックして記事をチェックしてみてね。
+                              </p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </section>
             )}
