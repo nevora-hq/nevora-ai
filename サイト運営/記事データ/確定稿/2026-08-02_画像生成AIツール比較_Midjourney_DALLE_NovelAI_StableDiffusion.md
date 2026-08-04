@@ -7,7 +7,7 @@ publishDate: "2026-08-02"
 thumbnail: "/images/articles/2026-08-02_画像生成AIツール比較_Midjourney_DALLE_NovelAI_StableDiffusion.png"
 ---
 
-# 画像生成AI比較｜Midjourney・DALL·E3・NovelAI・Stable Diffusionはどう違う?
+[[mascot: こんにちは、ツウリだよ。今日は画像生成AIの選び方を、絵柄の違いに注目しながら整理していくね。]]
 
 「画像生成AI、とりあえずMidjourneyが有名っぽいから試してみたら、思っていたようなリアルな写真にならなかった」。実はこれ、かなりよくある失敗です。
 
@@ -21,8 +21,6 @@ thumbnail: "/images/articles/2026-08-02_画像生成AIツール比較_Midjourney
 - Midjourney・DALL·E3・NovelAI・Stable Diffusionの絵柄の違いと得意分野
 - 料金プランと商用利用の可否の比較
 - 用途別(リアル系/イラスト系/ChatGPT完結型/自由なカスタマイズ)でどれを選べばいいか
-
-[[mascot: こんにちは、ツウリだよ。今日は画像生成AIの選び方を、絵柄の違いに注目しながら整理していくね。]]
 
 ## なぜ「とりあえず有名なやつ」で選ぶと失敗するのか
 
