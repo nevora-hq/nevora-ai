@@ -87,6 +87,15 @@ export default function PostPage({ post, related, nextPost }) {
     >
       <ScrollProgressBar />
       <article>
+        {post.thumbnail && (
+          <img
+            src={post.thumbnail}
+            alt={post.title}
+            className="article-hero-image"
+            fetchPriority="high"
+          />
+        )}
+
         <nav className="breadcrumb" aria-label="パンくずリスト">
           <a href="/">トップ</a>
           <span className="sep">/</span>
@@ -111,13 +120,17 @@ export default function PostPage({ post, related, nextPost }) {
           )}
         </div>
 
-        {post.thumbnail && (
-          <img
-            src={post.thumbnail}
-            alt={post.title}
-            className="article-hero-image"
-            fetchPriority="high"
-          />
+        {post.summary.length > 0 && (
+          <div className="article-summary-box">
+            <div className="article-summary-block">
+              <h2 className="article-summary-heading">この記事で分かること</h2>
+              <ul>
+                {post.summary.map((line, i) => (
+                  <li key={i}>{line}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
         )}
 
         <ArticleToc items={post.toc} />

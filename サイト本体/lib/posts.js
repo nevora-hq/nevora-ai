@@ -548,10 +548,12 @@ function normalizeFrontmatter(data, slug) {
     category: data.category || "未分類",
     tags: Array.isArray(data.tags) ? data.tags : [],
     affiliateLinks: normalizeAffiliateLinks(data.affiliateLinks),
-    date: data.date || null,
+    date: data.date || data.publishDate || null,
     updatedDate: data.updatedDate || data.updated || null,
     thumbnail: data.thumbnail || "",
     mascotComment: data.mascotComment || "",
+    // 記事上部サマリー用(任意項目。設定した記事のみ表示される)
+    summary: Array.isArray(data.summary) ? data.summary : [],
   };
 }
 

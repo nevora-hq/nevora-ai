@@ -25,8 +25,8 @@ export async function getStaticProps() {
 
   return {
     props: {
-      newPosts: posts.slice(0, 6),
-      featuredPosts: posts.slice(0, 3),
+      newPosts: posts.slice(0, 2),
+      popularCardPosts: posts.slice(2, 4),
       popularPosts: posts.slice(0, 5),
       categories,
       categorySummaries,
@@ -37,7 +37,7 @@ export async function getStaticProps() {
 
 export default function Home({
   newPosts,
-  featuredPosts,
+  popularCardPosts,
   popularPosts,
   categories,
   categorySummaries,
@@ -141,27 +141,29 @@ export default function Home({
               </section>
             )}
 
-            <section className="home-featured-section">
-              <h2 className="home-section-title">注目記事</h2>
-              {featuredPosts.length === 0 ? (
+            <section className="home-new-section">
+              <h2 className="home-section-title">新着記事</h2>
+              {newPosts.length === 0 ? (
                 <p>まだ記事がありません。記事データを確定稿フォルダに追加してください。</p>
               ) : (
                 <div className="post-list">
-                  {featuredPosts.map((post) => (
+                  {newPosts.map((post) => (
                     <PostCard key={post.slug} post={post} />
                   ))}
                 </div>
               )}
             </section>
 
-            <section className="home-new-section">
-              <h2 className="home-section-title">新着記事</h2>
-              <div className="post-list">
-                {newPosts.map((post) => (
-                  <PostCard key={post.slug} post={post} />
-                ))}
-              </div>
-            </section>
+            {popularCardPosts.length > 0 && (
+              <section className="home-featured-section">
+                <h2 className="home-section-title">人気記事</h2>
+                <div className="post-list">
+                  {popularCardPosts.map((post) => (
+                    <PostCard key={post.slug} post={post} />
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
 
           <Sidebar popularPosts={popularPosts} categories={categories} />

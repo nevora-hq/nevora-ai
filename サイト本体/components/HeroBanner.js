@@ -12,7 +12,7 @@ export default function HeroBanner() {
           <p className="hero-banner-eyebrow">WEB MAGAZINE</p>
           <h1 className="hero-banner-title">AI活用の総合ガイド｜NEVORA</h1>
           <p className="hero-banner-lead">
-            生成AIツールの選び方・使い方・業務効率化のコツを信頼できる情報でわかりやすく解説します。
+            AIツールの選び方から使い方まで、はじめての一歩をやさしく解説
           </p>
         </div>
       </div>
