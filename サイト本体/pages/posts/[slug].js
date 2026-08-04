@@ -87,15 +87,6 @@ export default function PostPage({ post, related, nextPost }) {
     >
       <ScrollProgressBar />
       <article>
-        {post.thumbnail && (
-          <img
-            src={post.thumbnail}
-            alt={post.title}
-            className="article-hero-image"
-            fetchPriority="high"
-          />
-        )}
-
         <nav className="breadcrumb" aria-label="パンくずリスト">
           <a href="/">トップ</a>
           <span className="sep">/</span>
@@ -119,6 +110,15 @@ export default function PostPage({ post, related, nextPost }) {
             </p>
           )}
         </div>
+
+        {post.thumbnail && (
+          <img
+            src={post.thumbnail}
+            alt={post.title}
+            className="article-hero-image"
+            fetchPriority="high"
+          />
+        )}
 
         {post.summary.length > 0 && (
           <div className="article-summary-box">
