@@ -826,6 +826,126 @@ img {
   color: var(--color-text-muted);
 }
 
+/* ---- カテゴリーで探す: アコーディオン(もっと見る) ---- */
+/* 非人気カテゴリーはJSで生成せず常にDOMに存在させ、この親要素で
+   表示・非表示のみ切り替える。display:contentsで子カードを親グリッドの
+   直接の子として扱わせ、レイアウトを崩さずに開閉できるようにする。 */
+.category-summary-more {
+  display: contents;
+}
+
+.category-summary-more .category-summary-card {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: -20px;
+  border-width: 0;
+  pointer-events: none;
+  transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.3s ease,
+    padding 0.3s ease, border-width 0.3s ease;
+}
+
+.category-summary-more-expanded .category-summary-card {
+  max-height: 600px;
+  opacity: 1;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  margin-top: 0;
+  border-width: 1px;
+  border-top-width: 4px;
+  pointer-events: auto;
+}
+
+.category-summary-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: 1px solid var(--color-primary-light);
+  border-radius: 999px;
+  background: var(--color-primary-surface);
+  color: var(--color-primary-dark);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.category-summary-toggle:hover,
+.category-summary-toggle:focus-visible {
+  background: var(--color-primary-light);
+}
+
+.category-summary-toggle:active {
+  transform: scale(0.98);
+}
+
+/* ---- あなたのAI活用の悩みから探す ---- */
+.concern-section {
+  margin-bottom: 32px;
+  padding: clamp(20px, 4vw, 36px);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(6px) saturate(140%);
+  -webkit-backdrop-filter: blur(6px) saturate(140%);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.concern-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.concern-group-title {
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.concern-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.concern-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--color-primary-light);
+  background: var(--color-primary-surface);
+  color: var(--color-primary-dark);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background var(--transition), transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.concern-chip:hover,
+.concern-chip:focus-visible {
+  background: var(--color-primary-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.concern-chip:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 480px) {
+  .concern-chip {
+    font-size: 0.8rem;
+    padding: 8px 14px;
+  }
+}
+
 /* ---- 注目記事/新着記事セクション ---- */
 .home-featured-section {
   padding: clamp(20px, 3vw, 28px);
