@@ -350,7 +350,11 @@ function CategorySummaryCard({ cat, popular = false, index = 0 }) {
       className={`category-summary-card${
         cat.count === 0 ? " category-summary-card--empty" : ""
       }`}
-      style={{ "--cat-color": cat.color, "--cat-soft": cat.soft }}
+      style={{
+        "--cat-color": cat.color,
+        "--cat-color-text": cat.colorText || cat.color,
+        "--cat-soft": cat.soft,
+      }}
     >
       {cat.image && (
         <Link
