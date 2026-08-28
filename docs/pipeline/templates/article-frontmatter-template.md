@@ -10,14 +10,15 @@ summaryPoints/targetReader)+ほぼ必須のdateを「事実上の必須項目」
   本文に置くのみで、frontmatterへの反映は工程2/3の仕事(docs/pipeline/README.md 決定事項#5)。
 - affiliateLinks: ASP提携が確定している場合のみ追加する(SPEC-EXTRACT.md §0.2、14/90記事のみ)。
   無い場合はキー自体を書かない(空配列やプレースホルダー文言を残さない)。
-- mascotComment: カテゴリがマスコット対応済み(SPEC-EXTRACT.md §5の14カテゴリ)の場合のみ追加。
+- mascotComment: 大カテゴリ12種すべてにマスコットを割り当て済みのため、全記事で追加する
+  (割り当ては lib/categoryMascot.js が実装の正)。
   中盤に挿入される1コメント(40〜70字目安)。挨拶・まとめは自動生成されるため書かない。
 -->
 
 ---
 title: "SEOキーワードを含むタイトル"
 description: "検索結果に表示される120字程度の要約"
-category: "SPEC-EXTRACT.md §5 の14カテゴリ、またはRUN-PARAMS.mdで指定されたカテゴリと一致させる"
+category: "lib/categoryMeta.js の MAJOR_CATEGORIES(大カテゴリ12種)のいずれかと完全一致させる"
 tags: ["キーワード1", "キーワード2"]
 date: "YYYY-MM-DD"
 thumbnail: ""
