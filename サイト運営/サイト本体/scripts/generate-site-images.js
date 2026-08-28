@@ -23,38 +23,42 @@ const path = require("path");
 const fs = require("fs");
 const sharp = require("sharp");
 
+// 元画像(ChatGPTで生成したPNG)の置き場。
+// 画像を差し替えたときは、下のMANIFESTのsrcを新しいファイル名に書き換えて再実行する。
 const SRC_DIR =
-  "c:/Users/kokim/OneDrive/デスクトップ/画像フォルダ/美容サイト/ホームページ修正用";
+  "c:/Users/kokim/OneDrive/デスクトップ/画像フォルダ/各種サイト/AIサイト/ライブラリ";
 const PUBLIC_DIR = path.join(__dirname, "..", "public");
 const RESPONSIVE_WIDTHS = [640, 1024, 1600];
 const RESPONSIVE_FALLBACK = 1600;
 const CARD_WIDTH = 800;
 const QUALITY = 78;
 
-// key: 絞り込み用の識別子 / src: 元画像 / out: public配下の出力パス(拡張子なし)
+// key: 絞り込み用の識別子 / src: 元画像(SRC_DIR内のファイル名) / out: public配下の出力パス(拡張子なし)
+// 元画像はいずれも1536x1024で生成したもの(docs/image-prompts.md のプロンプト1〜15に対応)。
 const MANIFEST = [
-  // ---- ヒーロー(Step1) ----
-  { key: "hero", src: "ChatGPT Image 2026年8月17日 15_49_19.png", out: "images/hero/home-hero", responsive: true },
+  // ---- ヒーロー(プロンプト1) ----
+  // 左45%が白壁の余白。そこに白文字の見出しを重ねる
+  { key: "hero", src: "ChatGPT Image 2026年8月28日 11_25_25.png", out: "images/hero/home-hero", responsive: true },
 
-  // ---- セクションバンド(Step4) ----
-  // band-01: 左側に白壁の余白がある横長写真。「あなたの美容の悩みから探す」の見出しを重ねる
-  { key: "band-01", src: "ChatGPT Image 2026年8月17日 15_49_25.png", out: "images/band/band-01", responsive: true },
-  // band-02: ゴールドポンプのボトル3本と木製コームの静物(テキストは重ねない)
-  { key: "band-02", src: "ChatGPT Image 2026年8月17日 15_49_40.png", out: "images/band/band-02", responsive: true },
+  // ---- セクションバンド(プロンプト2・3) ----
+  // band-01: 左半分が白壁の余白。「あなたのAIの困りごとから探す」の見出しを重ねる
+  { key: "band-01", src: "ChatGPT Image 2026年8月28日 11_25_30.png", out: "images/band/band-01", responsive: true },
+  // band-02: デスクの静物(テキストは重ねない)
+  { key: "band-02", src: "ChatGPT Image 2026年8月28日 11_25_39.png", out: "images/band/band-02", responsive: true },
 
-  // ---- カテゴリカード(Step3)。出力名は既存の/images/category/*.webpをそのまま踏襲する ----
-  { key: "category-skincare", src: "ChatGPT Image 2026年8月17日 15_49_35.png", out: "images/category/skincare" },
-  { key: "category-ingredient", src: "ChatGPT Image 2026年8月17日 19_35_47.png", out: "images/category/ingredient" },
-  { key: "category-cosmetics", src: "ChatGPT Image 2026年8月17日 15_49_56.png", out: "images/category/cosmetics" },
-  { key: "category-haircare", src: "ChatGPT Image 2026年8月17日 15_49_48.png", out: "images/category/haircare" },
-  { key: "category-hairstyle", src: "ChatGPT Image 2026年8月17日 19_36_36.png", out: "images/category/hairstyle" },
-  { key: "category-bodycare", src: "ChatGPT Image 2026年8月17日 19_36_30.png", out: "images/category/bodycare" },
-  { key: "category-uv-care", src: "ChatGPT Image 2026年8月17日 19_38_16.png", out: "images/category/uv-care" },
-  { key: "category-beauty-habit", src: "ChatGPT Image 2026年8月17日 19_38_05.png", out: "images/category/beauty-habit" },
-  { key: "category-beauty-device", src: "ChatGPT Image 2026年8月17日 15_50_20.png", out: "images/category/beauty-device" },
-  { key: "category-beauty-service", src: "ChatGPT Image 2026年8月17日 19_36_04.png", out: "images/category/beauty-service" },
-  { key: "category-beauty-basics", src: "ChatGPT Image 2026年8月17日 19_35_58.png", out: "images/category/beauty-basics" },
-  { key: "category-diet", src: "ChatGPT Image 2026年8月17日 19_36_26.png", out: "images/category/diet" },
+  // ---- カテゴリカード(プロンプト4〜15。表示は4:3でトリミングされる) ----
+  { key: "category-chat-ai", src: "ChatGPT Image 2026年8月28日 11_25_44.png", out: "images/category/chat-ai" },
+  { key: "category-image-ai", src: "ChatGPT Image 2026年8月28日 11_25_49.png", out: "images/category/image-ai" },
+  { key: "category-video-audio-ai", src: "ChatGPT Image 2026年8月28日 11_25_54.png", out: "images/category/video-audio-ai" },
+  { key: "category-writing-ai", src: "ChatGPT Image 2026年8月28日 11_26_00.png", out: "images/category/writing-ai" },
+  { key: "category-coding-ai", src: "ChatGPT Image 2026年8月28日 11_26_05.png", out: "images/category/coding-ai" },
+  { key: "category-automation", src: "ChatGPT Image 2026年8月28日 11_26_10.png", out: "images/category/automation" },
+  { key: "category-side-job", src: "ChatGPT Image 2026年8月28日 11_26_15.png", out: "images/category/side-job" },
+  { key: "category-tool-compare", src: "ChatGPT Image 2026年8月28日 11_26_21.png", out: "images/category/tool-compare" },
+  { key: "category-ai-basics", src: "ChatGPT Image 2026年8月28日 11_26_27.png", out: "images/category/ai-basics" },
+  { key: "category-business", src: "ChatGPT Image 2026年8月28日 11_26_32.png", out: "images/category/business" },
+  { key: "category-life-learning", src: "ChatGPT Image 2026年8月28日 11_26_37.png", out: "images/category/life-learning" },
+  { key: "category-news-trend", src: "ChatGPT Image 2026年8月28日 11_26_42.png", out: "images/category/news-trend" },
 ];
 
 async function emit(srcPath, outBase, width, suffix) {
