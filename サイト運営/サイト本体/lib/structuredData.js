@@ -7,10 +7,9 @@ export const SITE_NAME = "AI活用の総合ガイド｜NEVORA";
 // 運営者(個人)の氏名。記事のauthor・Organizationのfounderに用いる。
 export const AUTHOR_NAME = "眞井 虹輝";
 
-// サイトの正式なロゴ画像は現状用意されていないため、サイト全体のメイン
-// マスコット「ネヴォミンちゃん」(public/images/mascot/nevomin-normal.svg)を
-// 512×512pxのPNGとして書き出したものを暫定のロゴとして使う
-// (Googleの推奨最小サイズ112×112pxを満たす。2026-08-09生成)。
+// サイト全体のメインマスコット「アイミンちゃん」(public/images/mascot/aimin-normal.svg)を
+// 512×512pxのPNGとして書き出したものをロゴとして使う
+// (Googleの推奨最小サイズ112×112pxを満たす。scripts/generate-brand-assets.js で生成)。
 export const LOGO_PATH = "/images/logo.png";
 
 // サイト全体で常に出す構造化データ(WebSite: サイト内検索をSearchActionとして

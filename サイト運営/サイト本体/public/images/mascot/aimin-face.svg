@@ -1,0 +1,6 @@
+<svg viewBox="38 35 164 178" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="マスコットキャラクター アイミンちゃん(顔アップ)">
+  <path d="M91 42 H149 A46 46 0 0 1 195 88 V132 A46 46 0 0 1 149 178 H118 L76 204 L88 178 H91 A46 46 0 0 1 45 132 V88 A46 46 0 0 1 91 42 Z" fill="#f4f8fc" stroke="#1e5fa8" stroke-width="6" stroke-linejoin="round"/>
+  <circle cx="88" cy="128" r="10" fill="#8fb8dd" opacity="0.55"/><circle cx="152" cy="128" r="10" fill="#8fb8dd" opacity="0.55"/>
+  <circle cx="100" cy="108" r="7" fill="#24242b"/><circle cx="140" cy="108" r="7" fill="#24242b"/><circle cx="102.5" cy="105" r="2.2" fill="#fff"/><circle cx="142.5" cy="105" r="2.2" fill="#fff"/>
+  <path d="M108 130 Q120 141 132 130" stroke="#1e5fa8" stroke-width="4" fill="none" stroke-linecap="round"/>
+</svg>

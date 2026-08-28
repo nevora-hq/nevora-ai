@@ -1,0 +1,11 @@
+<svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="マスコットキャラクター ビズミンちゃん(リサーチポーズ)">
+  <ellipse cx="120" cy="216" rx="54" ry="9" fill="#c2255c" opacity="0.08"/>
+  <path d="M91 42 H149 A46 46 0 0 1 195 88 V132 A46 46 0 0 1 149 178 H118 L76 204 L88 178 H91 A46 46 0 0 1 45 132 V88 A46 46 0 0 1 91 42 Z" fill="#fde3ee" stroke="#c2255c" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M196 25 L200.8 35.2 L211 40 L200.8 44.8 L196 55 L191.2 44.8 L181 40 L191.2 35.2 Z" fill="#c2255c"/><path d="M214 58 L216.56 63.44 L222 66 L216.56 68.56 L214 74 L211.44 68.56 L206 66 L211.44 63.44 Z" fill="#c2255c"/>
+  <circle cx="88" cy="128" r="10" fill="#e28aac" opacity="0.55"/><circle cx="152" cy="128" r="10" fill="#e28aac" opacity="0.55"/>
+  <path d="M92 108 Q100 99 108 108" stroke="#24242b" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M132 108 Q140 99 148 108" stroke="#24242b" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M112 132 H128" stroke="#c2255c" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M134 176 v18" stroke="#c2255c" stroke-width="6" stroke-linecap="round"/><path d="M160 176 v18" stroke="#c2255c" stroke-width="6" stroke-linecap="round"/>
+  <path d="M48 148 q-20 6 -24 22" stroke="#c2255c" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M192 148 q20 6 24 22" stroke="#c2255c" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <g transform="translate(194 126) scale(0.95)"><circle cx="16" cy="16" r="13" fill="#fde3ee" stroke="#c2255c" stroke-width="4"/><path d="M26 26 L38 38" stroke="#c2255c" stroke-width="5" stroke-linecap="round"/></g>
+</svg>

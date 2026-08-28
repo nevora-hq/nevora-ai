@@ -1,0 +1,11 @@
+<svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="マスコットキャラクター コードミンちゃん(まとめポーズ)">
+  <ellipse cx="120" cy="216" rx="54" ry="9" fill="#3b5bdb" opacity="0.08"/>
+  <path d="M91 42 H149 A46 46 0 0 1 195 88 V132 A46 46 0 0 1 149 178 H118 L76 204 L88 178 H91 A46 46 0 0 1 45 132 V88 A46 46 0 0 1 91 42 Z" fill="#e3e8fd" stroke="#3b5bdb" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M196 25 L200.8 35.2 L211 40 L200.8 44.8 L196 55 L191.2 44.8 L181 40 L191.2 35.2 Z" fill="#3b5bdb"/><path d="M214 58 L216.56 63.44 L222 66 L216.56 68.56 L214 74 L211.44 68.56 L206 66 L211.44 63.44 Z" fill="#3b5bdb"/>
+  <circle cx="88" cy="128" r="10" fill="#9aabee" opacity="0.55"/><circle cx="152" cy="128" r="10" fill="#9aabee" opacity="0.55"/>
+  <path d="M92 110 Q100 100 108 110" stroke="#24242b" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M132 110 Q140 100 148 110" stroke="#24242b" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <path d="M106 128 Q120 144 134 128" stroke="#3b5bdb" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M134 176 v18" stroke="#3b5bdb" stroke-width="6" stroke-linecap="round"/><path d="M160 176 v18" stroke="#3b5bdb" stroke-width="6" stroke-linecap="round"/>
+  <path d="M48 146 q-22 -4 -27 -28" stroke="#3b5bdb" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M192 146 q22 -4 27 -28" stroke="#3b5bdb" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <g transform="translate(194 126) scale(0.95)"><rect x="4" y="6" width="32" height="28" rx="4" fill="#e3e8fd" stroke="#3b5bdb" stroke-width="4"/><path d="M12 15 H28 M12 21 H28 M12 27 H22" stroke="#3b5bdb" stroke-width="3" stroke-linecap="round"/></g>
+</svg>

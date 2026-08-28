@@ -10,7 +10,7 @@ import NewPostsCarousel from "../components/NewPostsCarousel";
 import SectionBand from "../components/SectionBand";
 import { getAllPostsMeta, getAllMajorCategories } from "../lib/posts";
 import { getCategoryMeta } from "../lib/categoryMeta";
-import { getCategoryMascot, NEVOMIN } from "../lib/categoryMascot";
+import { getCategoryMascot, AIMIN } from "../lib/categoryMascot";
 import { WORRY_GROUPS, getWorryHref } from "../lib/worryTopics";
 import Link from "next/link";
 
@@ -132,23 +132,23 @@ export default function Home({
           <div className="container container--wide">
             <div className="mascot-comment mascot-comment-home">
               <img
-                src={NEVOMIN.normalImage}
-                alt={NEVOMIN.name}
+                src={AIMIN.normalImage}
+                alt={AIMIN.name}
                 width={64}
                 height={64}
                 className="mascot-comment-img"
                 loading="lazy"
               />
               <div className="mascot-comment-bubble">
-                <span className="mascot-comment-name">{NEVOMIN.name}</span>
-                <p className="mascot-comment-text">{NEVOMIN.homeComment}</p>
+                <span className="mascot-comment-name">{AIMIN.name}</span>
+                <p className="mascot-comment-text">{AIMIN.homeComment}</p>
               </div>
             </div>
 
             <Link href={`/category/${encodeURIComponent("AIの基礎知識")}`} className="diagnosis-banner">
               <img
-                src={NEVOMIN.normalImage}
-                alt={NEVOMIN.name}
+                src={AIMIN.normalImage}
+                alt={AIMIN.name}
                 width={56}
                 height={56}
                 className="diagnosis-banner-mascot"

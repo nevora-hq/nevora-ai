@@ -6,9 +6,11 @@ ChatGPTで生成するためのプロンプト集。
 ## 使い方
 
 1. 下記プロンプトをそのままChatGPTに貼り付けて画像を生成する(すべて **1536×1024ピクセル / 横長**)
-2. 生成したPNGを次のフォルダに保存する(ファイル名はChatGPTが付けた名前のままでよい)
-   `C:\Users\kokim\OneDrive\デスクトップ\画像フォルダ\各種サイト\AIサイト\ライブラリ\`
-   保存したら `scripts/generate-site-images.js` の `MANIFEST` の `src` をそのファイル名に書き換える
+2. 生成したPNGを次のフォルダに保存する
+   `C:\Users\kokim\OneDrive\デスクトップ\画像フォルダ\各種サイト\AIサイト\ライブラリ\ホームページ用\`
+   ファイル名は `home-hero.png` `band-01.png` `category-chat-ai.png` のように、
+   `scripts/generate-site-images.js` の `MANIFEST` の `src` と同じ名前で保存する
+   (同名で上書きすればスクリプトの書き換えは不要)
 3. サイト本体で変換コマンドを実行する(WebP化・リサイズが自動で走る)
 
    ```

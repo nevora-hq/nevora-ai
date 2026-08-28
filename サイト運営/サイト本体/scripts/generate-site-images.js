@@ -26,7 +26,7 @@ const sharp = require("sharp");
 // 元画像(ChatGPTで生成したPNG)の置き場。
 // 画像を差し替えたときは、下のMANIFESTのsrcを新しいファイル名に書き換えて再実行する。
 const SRC_DIR =
-  "c:/Users/kokim/OneDrive/デスクトップ/画像フォルダ/各種サイト/AIサイト/ライブラリ";
+  "c:/Users/kokim/OneDrive/デスクトップ/画像フォルダ/各種サイト/AIサイト/ライブラリ/ホームページ用";
 const PUBLIC_DIR = path.join(__dirname, "..", "public");
 const RESPONSIVE_WIDTHS = [640, 1024, 1600];
 const RESPONSIVE_FALLBACK = 1600;
@@ -35,30 +35,32 @@ const QUALITY = 78;
 
 // key: 絞り込み用の識別子 / src: 元画像(SRC_DIR内のファイル名) / out: public配下の出力パス(拡張子なし)
 // 元画像はいずれも1536x1024で生成したもの(docs/image-prompts.md のプロンプト1〜15に対応)。
+// srcは意味の分かる固定名にしてある。素材を差し替えるときは同じ名前で上書きすれば、
+// このファイルを書き換えずに再生成できる。
 const MANIFEST = [
   // ---- ヒーロー(プロンプト1) ----
   // 左45%が白壁の余白。そこに白文字の見出しを重ねる
-  { key: "hero", src: "ChatGPT Image 2026年8月28日 11_25_25.png", out: "images/hero/home-hero", responsive: true },
+  { key: "hero", src: "home-hero.png", out: "images/hero/home-hero", responsive: true },
 
   // ---- セクションバンド(プロンプト2・3) ----
   // band-01: 左半分が白壁の余白。「あなたのAIの困りごとから探す」の見出しを重ねる
-  { key: "band-01", src: "ChatGPT Image 2026年8月28日 11_25_30.png", out: "images/band/band-01", responsive: true },
+  { key: "band-01", src: "band-01.png", out: "images/band/band-01", responsive: true },
   // band-02: デスクの静物(テキストは重ねない)
-  { key: "band-02", src: "ChatGPT Image 2026年8月28日 11_25_39.png", out: "images/band/band-02", responsive: true },
+  { key: "band-02", src: "band-02.png", out: "images/band/band-02", responsive: true },
 
   // ---- カテゴリカード(プロンプト4〜15。表示は4:3でトリミングされる) ----
-  { key: "category-chat-ai", src: "ChatGPT Image 2026年8月28日 11_25_44.png", out: "images/category/chat-ai" },
-  { key: "category-image-ai", src: "ChatGPT Image 2026年8月28日 11_25_49.png", out: "images/category/image-ai" },
-  { key: "category-video-audio-ai", src: "ChatGPT Image 2026年8月28日 11_25_54.png", out: "images/category/video-audio-ai" },
-  { key: "category-writing-ai", src: "ChatGPT Image 2026年8月28日 11_26_00.png", out: "images/category/writing-ai" },
-  { key: "category-coding-ai", src: "ChatGPT Image 2026年8月28日 11_26_05.png", out: "images/category/coding-ai" },
-  { key: "category-automation", src: "ChatGPT Image 2026年8月28日 11_26_10.png", out: "images/category/automation" },
-  { key: "category-side-job", src: "ChatGPT Image 2026年8月28日 11_26_15.png", out: "images/category/side-job" },
-  { key: "category-tool-compare", src: "ChatGPT Image 2026年8月28日 11_26_21.png", out: "images/category/tool-compare" },
-  { key: "category-ai-basics", src: "ChatGPT Image 2026年8月28日 11_26_27.png", out: "images/category/ai-basics" },
-  { key: "category-business", src: "ChatGPT Image 2026年8月28日 11_26_32.png", out: "images/category/business" },
-  { key: "category-life-learning", src: "ChatGPT Image 2026年8月28日 11_26_37.png", out: "images/category/life-learning" },
-  { key: "category-news-trend", src: "ChatGPT Image 2026年8月28日 11_26_42.png", out: "images/category/news-trend" },
+  { key: "category-chat-ai", src: "category-chat-ai.png", out: "images/category/chat-ai" },
+  { key: "category-image-ai", src: "category-image-ai.png", out: "images/category/image-ai" },
+  { key: "category-video-audio-ai", src: "category-video-audio-ai.png", out: "images/category/video-audio-ai" },
+  { key: "category-writing-ai", src: "category-writing-ai.png", out: "images/category/writing-ai" },
+  { key: "category-coding-ai", src: "category-coding-ai.png", out: "images/category/coding-ai" },
+  { key: "category-automation", src: "category-automation.png", out: "images/category/automation" },
+  { key: "category-side-job", src: "category-side-job.png", out: "images/category/side-job" },
+  { key: "category-tool-compare", src: "category-tool-compare.png", out: "images/category/tool-compare" },
+  { key: "category-ai-basics", src: "category-ai-basics.png", out: "images/category/ai-basics" },
+  { key: "category-business", src: "category-business.png", out: "images/category/business" },
+  { key: "category-life-learning", src: "category-life-learning.png", out: "images/category/life-learning" },
+  { key: "category-news-trend", src: "category-news-trend.png", out: "images/category/news-trend" },
 ];
 
 async function emit(srcPath, outBase, width, suffix) {

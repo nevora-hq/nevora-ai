@@ -29,8 +29,8 @@ const TEXT = {
   tagline: "ChatGPT・画像生成AI・業務効率化の情報",
 };
 
-// 右側に並べるマスコット(中央=サイト全体のネヴォミン、左右=カテゴリ担当)
-const MASCOTS = ["kiramin-normal.svg", "nevomin-normal.svg", "tsuyamin-normal.svg"];
+// 右側に並べるマスコット(中央=サイト全体のアイミン、左右=カテゴリ担当)
+const MASCOTS = ["chamin-normal.svg", "aimin-normal.svg", "egamin-normal.svg"];
 
 function svgDataUri(filename) {
   const svg = fs.readFileSync(path.join(MASCOT_DIR, filename), "utf8");

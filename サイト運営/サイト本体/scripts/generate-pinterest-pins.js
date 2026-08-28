@@ -39,47 +39,40 @@ const PIN_HEIGHT = 1500;
 
 // カテゴリ → Pinterestボード名(依頼で指定された対応表)
 const BOARD_BY_CATEGORY = {
-  "スキンケア": "スキンケア",
-  "ヘアケア": "ヘアケア",
-  "ヘアスタイル": "ヘアスタイル",
-  "ボディケア": "ボディケア",
-  "UV・紫外線対策": "UV・紫外線対策",
-  "コスメ": "コスメ・メイク",
-  "美容成分": "美容成分",
-  "美容家電・美容機器": "美容家電・美容機器",
-  "美容習慣": "美容習慣・インナーケア",
-  "ダイエット": "ダイエット",
-  "美容サービス": "美容サービス",
-  "美容の基礎知識": "美容の基礎知識",
-  // 旧カテゴリ名(記事frontmatterに残存分)のフォールバック
-  "メイク": "コスメ・メイク",
-  "美容": "美容の基礎知識",
+  "AIチャット・対話AI": "AIチャット・対話AI",
+  "画像生成AI": "画像生成AI",
+  "動画・音声生成AI": "動画・音声生成AI",
+  "文章作成・AIライティング": "AIライティング",
+  "AIプログラミング・開発": "AIプログラミング",
+  "業務効率化・AI自動化": "業務効率化・AI自動化",
+  "AI副業・収益化": "AI副業・収益化",
+  "AIツール比較": "AIツール比較",
+  "AIの基礎知識": "AIの基礎知識",
+  "AIとビジネス活用": "AIとビジネス活用",
+  "AIと暮らし・学習": "AIと暮らし・学習",
+  "AI最新ニュース・トレンド": "AIニュース・トレンド",
 };
 
 // カテゴリ → 担当マスコット。lib/categoryMascot.js の CATEGORY_MASCOTS と同じ対応。
 // (同ファイルはESMでNode CLIからそのままrequireできないため、画像パスと名前だけ持つ)
 const MASCOT_BY_CATEGORY = {
-  "スキンケア": { file: "tsuyamin", name: "ツヤミン" },
-  "美容成分": { file: "kiramin", name: "キラミン" },
-  "コスメ": { file: "iromin", name: "イロミン" },
-  "ヘアケア": { file: "saramin", name: "サラミン" },
-  "ヘアスタイル": { file: "kurumin", name: "クルミン" },
-  "ボディケア": { file: "mochimin", name: "モチミン" },
-  "UV・紫外線対策": { file: "hikamin", name: "ヒカミン" },
-  "美容習慣": { file: "nemumin", name: "ネムミン" },
-  "美容家電・美容機器": { file: "denmin", name: "デンミン" },
-  "美容サービス": { file: "utsumin", name: "ウツミン" },
-  "美容の基礎知識": { file: "manamin", name: "マナミン" },
-  "ダイエット": { file: "karumin", name: "カルミン" },
-  "メイク": { file: "iromin", name: "イロミン" },
-  "美容": { file: "nevomin", name: "ネヴォミン" },
+  "AIチャット・対話AI": { file: "chamin", name: "チャミン" },
+  "画像生成AI": { file: "egamin", name: "エガミン" },
+  "動画・音声生成AI": { file: "mubimin", name: "ムビミン" },
+  "文章作成・AIライティング": { file: "kakimin", name: "カキミン" },
+  "AIプログラミング・開発": { file: "codemin", name: "コードミン" },
+  "業務効率化・AI自動化": { file: "jidomin", name: "ジドウミン" },
+  "AI副業・収益化": { file: "kasegimin", name: "カセギミン" },
+  "AIツール比較": { file: "kurabemin", name: "クラベミン" },
+  "AIの基礎知識": { file: "manamin", name: "マナミン" },
+  "AIとビジネス活用": { file: "bizmin", name: "ビズミン" },
+  "AIと暮らし・学習": { file: "kurashimin", name: "クラシミン" },
+  "AI最新ニュース・トレンド": { file: "newsmin", name: "ニューミン" },
 };
 
 // --sample で使う既定の3記事(異なるカテゴリ)。
 const SAMPLE_SLUGS = [
-  "2026-08-09_ニキビができる仕組み", // スキンケア
-  "2026-08-11_SPF・PA表示の仕組み", // UV・紫外線対策
-  "2026-07-17_ダイエット中の食事管理", // ダイエット
+  // AIサイトの記事がまだ無いため空。記事が増えたらカテゴリの異なる3本を入れる。
 ];
 
 function killPort(port) {
@@ -187,7 +180,7 @@ function buildRow(slug, fm) {
     slug,
     url: `${SITE_URL}/posts/${encodeURIComponent(slug)}`,
     category,
-    board: BOARD_BY_CATEGORY[category] || "美容の基礎知識",
+    board: BOARD_BY_CATEGORY[category] || "AIの基礎知識",
     pinTitle: buildPinTitle(fm),
     pinDescription: buildPinDescription(fm),
   };
@@ -518,8 +511,8 @@ async function main() {
   try {
     for (const { slug, fm } of targets) {
       const category = String(fm.category || "");
-      const mascot = MASCOT_BY_CATEGORY[category] || MASCOT_BY_CATEGORY["美容"];
-      const board = BOARD_BY_CATEGORY[category] || "美容の基礎知識";
+      const mascot = MASCOT_BY_CATEGORY[category] || MASCOT_BY_CATEGORY["AIの基礎知識"];
+      const board = BOARD_BY_CATEGORY[category] || "AIの基礎知識";
       const page = await browser.newPage({
         viewport: { width: PIN_WIDTH, height: PIN_HEIGHT },
         deviceScaleFactor: 1,

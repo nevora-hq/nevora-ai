@@ -1,15 +1,15 @@
 // カテゴリ別のマスコットキャラクター設定。
 // NEVORA公式マスコット体系。大カテゴリ12種 + サイト全体のメインマスコット
-// 「ネヴォミンちゃん」で構成する。
+// 「アイミンちゃん」で構成する。
 // 各キャラは normalImage(挨拶)/researchImage(補足)/matomeImage(振り返り)の
-// 3ポーズを持つ。
+// 3ポーズを持つ。SVGは scripts/generate-mascots.js で生成する(直接編集しない)。
 // 新ジャンル追加時はこのファイルに追記するだけで拡張できる設計を維持する。
 
 export const CHAMIN = {
   name: "チャミンちゃん",
-  normalImage: "/images/mascot/tsuyamin-normal.svg",
-  researchImage: "/images/mascot/tsuyamin-research.svg",
-  matomeImage: "/images/mascot/tsuyamin-matome.svg",
+  normalImage: "/images/mascot/chamin-normal.svg",
+  researchImage: "/images/mascot/chamin-research.svg",
+  matomeImage: "/images/mascot/chamin-matome.svg",
   comments: [
     "同じ質問でも、聞き方を変えると答えは大きく変わるよ。",
     "AIの答えは万能じゃないから、大事な情報は必ず自分でも確かめてね。",
@@ -26,9 +26,9 @@ export const CHAMIN = {
 
 export const EGAMIN = {
   name: "エガミンちゃん",
-  normalImage: "/images/mascot/kiramin-normal.svg",
-  researchImage: "/images/mascot/kiramin-research.svg",
-  matomeImage: "/images/mascot/kiramin-matome.svg",
+  normalImage: "/images/mascot/egamin-normal.svg",
+  researchImage: "/images/mascot/egamin-research.svg",
+  matomeImage: "/images/mascot/egamin-matome.svg",
   comments: [
     "思った絵にならないときは、言葉を足すより先に減らしてみるのも手だよ。",
     "生成した画像を使う前に、利用規約と商用利用の条件は確認しておこうね。",
@@ -45,9 +45,9 @@ export const EGAMIN = {
 
 export const MUBIMIN = {
   name: "ムビミンちゃん",
-  normalImage: "/images/mascot/iromin-normal.svg",
-  researchImage: "/images/mascot/iromin-research.svg",
-  matomeImage: "/images/mascot/iromin-matome.svg",
+  normalImage: "/images/mascot/mubimin-normal.svg",
+  researchImage: "/images/mascot/mubimin-research.svg",
+  matomeImage: "/images/mascot/mubimin-matome.svg",
   comments: [
     "動画も音声も、まずは短い尺で試してから本番に進むと失敗が少ないよ。",
     "人の声や姿を扱うときは、権利と本人の許可にとくに気をつけてね。",
@@ -64,9 +64,9 @@ export const MUBIMIN = {
 
 export const KAKIMIN = {
   name: "カキミンちゃん",
-  normalImage: "/images/mascot/saramin-normal.svg",
-  researchImage: "/images/mascot/saramin-research.svg",
-  matomeImage: "/images/mascot/saramin-matome.svg",
+  normalImage: "/images/mascot/kakimin-normal.svg",
+  researchImage: "/images/mascot/kakimin-research.svg",
+  matomeImage: "/images/mascot/kakimin-matome.svg",
   comments: [
     "AIが書いた文章は、最後に自分の目で通すところまでが仕事だよ。",
     "誰に向けた文章かを先に決めておくと、AIの出力もぐっと安定するよ。",
@@ -83,9 +83,9 @@ export const KAKIMIN = {
 
 export const CODEMIN = {
   name: "コードミンちゃん",
-  normalImage: "/images/mascot/kurumin-normal.svg",
-  researchImage: "/images/mascot/kurumin-research.svg",
-  matomeImage: "/images/mascot/kurumin-matome.svg",
+  normalImage: "/images/mascot/codemin-normal.svg",
+  researchImage: "/images/mascot/codemin-research.svg",
+  matomeImage: "/images/mascot/codemin-matome.svg",
   comments: [
     "生成されたコードは、動いたとしても中身を読んでから使おうね。",
     "エラーは全文をそのまま貼ると、AIの回答精度がぐっと上がるよ。",
@@ -102,9 +102,9 @@ export const CODEMIN = {
 
 export const JIDOMIN = {
   name: "ジドウミンちゃん",
-  normalImage: "/images/mascot/mochimin-normal.svg",
-  researchImage: "/images/mascot/mochimin-research.svg",
-  matomeImage: "/images/mascot/mochimin-matome.svg",
+  normalImage: "/images/mascot/jidomin-normal.svg",
+  researchImage: "/images/mascot/jidomin-research.svg",
+  matomeImage: "/images/mascot/jidomin-matome.svg",
   comments: [
     "自動化は、まず手作業の手順を書き出すところから始めるとうまくいくよ。",
     "全部を一度に自動化しなくて大丈夫。毎日やることから選ぼう。",
@@ -121,9 +121,9 @@ export const JIDOMIN = {
 
 export const KASEGIMIN = {
   name: "カセギミンちゃん",
-  normalImage: "/images/mascot/hikamin-normal.svg",
-  researchImage: "/images/mascot/hikamin-research.svg",
-  matomeImage: "/images/mascot/hikamin-matome.svg",
+  normalImage: "/images/mascot/kasegimin-normal.svg",
+  researchImage: "/images/mascot/kasegimin-research.svg",
+  matomeImage: "/images/mascot/kasegimin-matome.svg",
   comments: [
     "収益の話は、うまくいった例だけでなく続かなかった理由も見ておこうね。",
     "成果には個人差があるよ。まずは小さく始めて様子を見よう。",
@@ -140,9 +140,9 @@ export const KASEGIMIN = {
 
 export const KURABEMIN = {
   name: "クラベミンちゃん",
-  normalImage: "/images/mascot/nemumin-normal.svg",
-  researchImage: "/images/mascot/nemumin-research.svg",
-  matomeImage: "/images/mascot/nemumin-matome.svg",
+  normalImage: "/images/mascot/kurabemin-normal.svg",
+  researchImage: "/images/mascot/kurabemin-research.svg",
+  matomeImage: "/images/mascot/kurabemin-matome.svg",
   comments: [
     "比べるときは、機能の多さより自分の使い方に合うかで選ぼうね。",
     "無料プランでできる範囲を確かめてから、有料に進むのが安心だよ。",
@@ -178,9 +178,9 @@ export const MANAMIN = {
 
 export const BIZMIN = {
   name: "ビズミンちゃん",
-  normalImage: "/images/mascot/denmin-normal.svg",
-  researchImage: "/images/mascot/denmin-research.svg",
-  matomeImage: "/images/mascot/denmin-matome.svg",
+  normalImage: "/images/mascot/bizmin-normal.svg",
+  researchImage: "/images/mascot/bizmin-research.svg",
+  matomeImage: "/images/mascot/bizmin-matome.svg",
   comments: [
     "社内で使うときは、入力してよい情報の線引きを先に決めておこうね。",
     "導入は小さな部署から。効果が見えてから広げると失敗しにくいよ。",
@@ -197,9 +197,9 @@ export const BIZMIN = {
 
 export const KURASHIMIN = {
   name: "クラシミンちゃん",
-  normalImage: "/images/mascot/utsumin-normal.svg",
-  researchImage: "/images/mascot/utsumin-research.svg",
-  matomeImage: "/images/mascot/utsumin-matome.svg",
+  normalImage: "/images/mascot/kurashimin-normal.svg",
+  researchImage: "/images/mascot/kurashimin-research.svg",
+  matomeImage: "/images/mascot/kurashimin-matome.svg",
   comments: [
     "毎日の小さな手間こそ、AIに任せてみる価値があるよ。",
     "学習に使うときは、答えを写すより解き方を聞くのがおすすめだよ。",
@@ -216,9 +216,9 @@ export const KURASHIMIN = {
 
 export const NEWSMIN = {
   name: "ニューミンちゃん",
-  normalImage: "/images/mascot/karumin-normal.svg",
-  researchImage: "/images/mascot/karumin-research.svg",
-  matomeImage: "/images/mascot/karumin-matome.svg",
+  normalImage: "/images/mascot/newsmin-normal.svg",
+  researchImage: "/images/mascot/newsmin-research.svg",
+  matomeImage: "/images/mascot/newsmin-matome.svg",
   comments: [
     "新しい発表は、話題の大きさより自分の使い方に関わるかで見ていこうね。",
     "情報は動きが速いから、公式の発表元を確認する習慣をつけよう。",
@@ -234,17 +234,17 @@ export const NEWSMIN = {
 };
 
 // サイト全体のメインマスコット。カテゴリを横断する案内・ホームページで使用する。
-export const NEVOMIN = {
-  name: "ネヴォミンちゃん",
-  normalImage: "/images/mascot/nevomin-normal.svg",
-  researchImage: "/images/mascot/nevomin-research.svg",
-  matomeImage: "/images/mascot/nevomin-matome.svg",
+export const AIMIN = {
+  name: "アイミンちゃん",
+  normalImage: "/images/mascot/aimin-normal.svg",
+  researchImage: "/images/mascot/aimin-research.svg",
+  matomeImage: "/images/mascot/aimin-matome.svg",
   comments: [
     "気になるテーマは、カテゴリからも探せるよ。",
     "迷ったときは、担当のミンたちに聞いてみてね。",
   ],
   introComments: [
-    "こんにちは、ネヴォミンです。NEVORAへようこそ。",
+    "こんにちは、アイミンです。NEVORAへようこそ。",
     "ようこそ、NEVORAへ。ここでは色んな「ミン」たちが案内役をしていますよ。",
   ],
   outroComments: [
@@ -253,7 +253,7 @@ export const NEVOMIN = {
   ],
   // ホームページ冒頭専用の自己紹介コメント(トップページのみで使用)。
   homeComment:
-    "はじめまして、ネヴォミンだよ!このサイトではAIを使いこなすための情報を、カテゴリー担当のなかまたちと一緒に紹介しているよ。気になるジャンルから読んでみてね。",
+    "はじめまして、アイミンだよ!このサイトではAIを使いこなすための情報を、カテゴリー担当のなかまたちと一緒に紹介しているよ。気になるジャンルから読んでみてね。",
 };
 
 const CATEGORY_MASCOTS = {

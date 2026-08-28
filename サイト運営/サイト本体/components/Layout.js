@@ -6,6 +6,11 @@ import { SITE_NAME, buildWebsiteJsonLd } from "../lib/structuredData";
 // ページ固有のJSON-LD(Article/BreadcrumbList等)はjsonLd propで追加する。
 // サイト全体で常に出すWebSite構造化データはlib/structuredData.jsを参照。
 
+// ドメイン確定前の暫定公開ではサイト全体をnoindexにする(検索結果に載せない)。
+// 正式公開時に、Vercelの環境変数で NEXT_PUBLIC_ALLOW_INDEX=1 を設定すれば解除される。
+// pages/robots.txt.js も同じフラグを見ているので、両方まとめて切り替わる。
+const SITE_NOINDEX = process.env.NEXT_PUBLIC_ALLOW_INDEX !== "1";
+
 // SNSシェア時の共通OGP画像(1200x630)。記事側でthumbnailが無い場合もこれを使う。
 const DEFAULT_OG_IMAGE = "/images/ogp.png";
 
@@ -49,7 +54,7 @@ export default function Layout({
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {noindex && <meta name="robots" content="noindex, nofollow" />}
+        {(noindex || SITE_NOINDEX) && <meta name="robots" content="noindex, nofollow" />}
         {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
         <meta property="og:site_name" content={SITE_NAME} />
         <meta property="og:locale" content="ja_JP" />
