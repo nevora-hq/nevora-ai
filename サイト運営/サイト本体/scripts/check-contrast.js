@@ -2,7 +2,7 @@
 /**
  * 全ページのテキストコントラストを「実ピクセル方式」で測る。
  *
- *   npm run check:contrast                     … http://127.0.0.1:4399 を測定
+ *   npm run check:contrast                     … http://127.0.0.1:4401 を測定
  *   node scripts/check-contrast.js <baseUrl>   … 任意のURL(本番URLも可)
  *   node scripts/check-contrast.js <baseUrl> --min 4.5
  *
@@ -28,7 +28,11 @@
  */
 const path = require("path");
 
-const DEFAULT_BASE = "http://127.0.0.1:4399";
+// ポートはサイトごとに変える。NEVORAの各サイトは同じ手順書で動かすため、
+// 全サイトが4399を使うと、別サイトのサーバーが起動済みのときに
+// そちらを測ってしまう(2026-08-28、お金サイトのページを測っていた事故あり)。
+// AIサイトは4401を使う。
+const DEFAULT_BASE = "http://127.0.0.1:4401";
 // AIサイトの実ルート。/worry は「本文があるものだけ静的生成」に変更したため、
 // 本文が1件も無い現状では /worry・/worry/[slug] とも404になる(lib/worryTopics.js)。
 // 困りごとページの本文を書いたら "/worry" と代表1件をここに追加する。

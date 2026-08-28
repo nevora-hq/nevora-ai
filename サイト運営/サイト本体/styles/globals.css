@@ -3048,6 +3048,46 @@ h1.page-title {
 }
 
 /* ---- Page note (補足・注記テキスト) ---- */
+/* ---- お問い合わせ(メール直行) ----
+   フォーム配信サービスを使わず、運営者アドレスへのmailtoを主動線にする
+   (2026-08-28、Formspree廃止)。アドレス自体もコピーできるよう明示する。 */
+.contact-mail-box {
+  margin: 24px 0 8px;
+  padding: clamp(18px, 3vw, 26px);
+  background: var(--color-primary-surface);
+  border: 1px solid var(--color-primary-light);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.contact-mail-label {
+  margin: 0 0 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.contact-mail-address {
+  margin: 0 0 18px;
+  font-size: clamp(1.05rem, 0.95rem + 0.6vw, 1.35rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-primary-dark);
+  word-break: break-all;
+}
+
+.contact-mail-btn {
+  display: inline-block;
+}
+
+.contact-mail-note {
+  margin: 16px 0 0;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+}
+
 .page-note {
   color: var(--color-text-faint);
   font-size: 0.85rem;

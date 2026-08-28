@@ -7,7 +7,7 @@
 - フレームワーク: Next.js(React)
 - コード管理: GitHub
 - ホスティング: Vercel(無料枠でデプロイ。Gitへのpushで自動デプロイされる)
-- ドメイン: 当面はVercelが発行する `*.vercel.app` を使用し、後日独自ドメインを購入してVercelに接続する
+- ドメイン: **独自ドメインは当面取得せず、Vercelが発行する `nevora-ai.vercel.app` のまま公開する**(2026-08-28方針)。将来取得する場合は、Vercelのドメイン設定に加えて `NEXT_PUBLIC_SITE_URL` と `.github/workflows/*.yml` の同名変数を差し替える
 - 記事データ: 当面はMarkdownファイル(frontmatterに `title` / `category` / `tags` / `affiliateLinks` 等を持たせる)で管理し、`サイト運営\記事データ\確定稿\` から本サイトのcontentディレクトリへ配置する
 - データベース: 記事数・機能が増え、Markdown管理では厳しくなった段階で導入(例: Vercel Postgres等)。導入時期・方式は`site-engineer`が提案する
 
