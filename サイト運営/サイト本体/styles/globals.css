@@ -1,10 +1,10 @@
 :root {
-  --color-primary: #d6336c;
-  --color-primary-dark: #b32657;
-  --color-primary-light: #ffe3ec;
-  --color-primary-surface: #fff5f8;
+  --color-primary: #1e5fa8;
+  --color-primary-dark: #17497f;
+  --color-primary-light: #e4edf8;
+  --color-primary-surface: #f4f8fc;
   /* 汎用4type(steps/checklist/summaryCard/compareCards)+セクション交互化の既定色。
-     記事側で独自テーマ(.asemo-article等)を持つ場合は、そのスコープ内でこの4変数だけ
+     記事側で独自テーマを持つ場合は、そのスコープ内でこの4変数だけ
      再定義すれば、クラス自体をコピーしなくても配色を変えられる(2026-08-08追加)。 */
   --chart-accent: var(--color-primary);
   --chart-accent-dark: var(--color-primary-dark);
@@ -14,8 +14,8 @@
   --color-surface: #fff;
   --color-border: #ececec;
   --color-text: #24242b;
-  --color-text-muted: #6b7280;
-  --color-text-faint: #9ca3af;
+  --color-text-muted: #4b515c;
+  --color-text-faint: #565c67;
   /* 断面/構造図型・深さ比較型(chart type: crossSection/depthComparison)の
      既定色。記事側でpart.fill等を明示指定すればここを上書きできる(2026-08-13追加)。 */
   --diagram-skin: #f4e4d0;
@@ -30,7 +30,7 @@
   --radius-lg: 16px;
   --shadow-sm: 0 1px 2px rgba(20, 20, 30, 0.05);
   --shadow-md: 0 6px 20px rgba(20, 20, 30, 0.07);
-  --shadow-hover: 0 10px 28px rgba(214, 51, 108, 0.14);
+  --shadow-hover: 0 10px 28px rgba(30, 95, 168, 0.14);
   --transition: 180ms ease;
 }
 
@@ -102,14 +102,14 @@ img {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: linear-gradient(160deg, #fdf1f4 0%, #f7f2fb 35%, #eef6fb 65%, #e9f2fb 100%);
+  background: linear-gradient(160deg, #f2f7fc 0%, #eef4fb 35%, #eaf2fb 65%, #e6f0fa 100%);
 }
 
 /* ---- Header ----
-   同系色の水色グラデーション+ごく薄い水玉模様を全ページ共通で敷く。 */
+   ブランド色と同系のブルーグラデーション+ごく薄い水玉模様を全ページ共通で敷く。 */
 .site-header {
   background-image: radial-gradient(rgba(56, 163, 217, 0.14) 1px, transparent 1.6px),
-    linear-gradient(120deg, rgba(255, 241, 244, 0.92), rgba(234, 244, 251, 0.92));
+    linear-gradient(120deg, rgba(240, 246, 252, 0.92), rgba(228, 240, 250, 0.92));
   background-size: 16px 16px, 100% 100%;
   background-repeat: repeat, no-repeat;
   backdrop-filter: saturate(180%) blur(8px);
@@ -136,7 +136,9 @@ img {
   font-family: var(--font-serif);
   font-weight: 700;
   font-size: 1.15rem;
-  color: var(--color-primary);
+  /* ヘッダーの淡いブルー地(約#eaf3fb)の上ではprimary(#1e5fa8)が5.7:1にとどまるため、
+     primary-dark(#17497f、約7.9:1)を使う。 */
+  color: var(--color-primary-dark);
   letter-spacing: 0.14em;
 }
 
@@ -346,11 +348,11 @@ img {
   margin-top: 64px;
   padding: 32px 0;
   text-align: center;
-  color: var(--color-text-faint);
+  color: var(--color-text-muted);
   font-size: 0.85rem;
   border-top: 1px solid var(--color-border);
   background-image: radial-gradient(rgba(56, 163, 217, 0.12) 1px, transparent 1.6px),
-    linear-gradient(160deg, rgba(238, 246, 251, 1), rgba(253, 241, 244, 1));
+    linear-gradient(160deg, rgba(238, 246, 251, 1), rgba(228, 240, 250, 1));
   background-size: 18px 18px, 100% 100%;
   background-repeat: repeat, no-repeat;
 }
@@ -396,7 +398,7 @@ img {
 
    レイヤー構成(下から順に):
      .hero-banner-img   … 写真本体(object-fitでトリミング)
-     .hero-banner-warm  … 暖色ウォッシュ(クール系の写真をブランドのピンク寄りに寄せる)
+     .hero-banner-warm  … 色調ウォッシュ(白基調の写真をブランドのブルー寄りに寄せる)
      .hero-banner-scrim … 左側スクリム+下端/右下の落とし込み(文字とマスコットの可読性)
      .hero-banner-overlay(.hero-banner-inner) … テキスト
      .hero-banner-mascot … マスコット */
@@ -428,9 +430,9 @@ img {
   pointer-events: none;
   background: linear-gradient(
     115deg,
-    rgba(255, 176, 196, 0.18) 0%,
-    rgba(255, 214, 196, 0.12) 55%,
-    rgba(255, 244, 236, 0.06) 100%
+    rgba(148, 184, 226, 0.18) 0%,
+    rgba(186, 205, 232, 0.12) 55%,
+    rgba(232, 242, 252, 0.06) 100%
   );
   mix-blend-mode: multiply;
 }
@@ -452,15 +454,15 @@ img {
   background:
     linear-gradient(
       90deg,
-      rgba(48, 16, 30, 0.78) 0%,
-      rgba(48, 16, 30, 0.74) calc(50% + 60px),
-      rgba(56, 22, 38, 0.34) calc(50% + 200px),
-      rgba(60, 26, 44, 0) calc(50% + 330px)
+      rgba(13, 29, 51, 0.78) 0%,
+      rgba(13, 29, 51, 0.74) calc(50% + 60px),
+      rgba(17, 36, 62, 0.34) calc(50% + 200px),
+      rgba(20, 42, 70, 0) calc(50% + 330px)
     ),
     /* 右下: マスコットを明るい写真の上でも見えるようにわずかに落とす */
-      radial-gradient(220px 140px at 93% 88%, rgba(40, 14, 26, 0.3), transparent 72%),
+      radial-gradient(220px 140px at 93% 88%, rgba(11, 25, 44, 0.3), transparent 72%),
     /* 下端: 直下のスライダーとの境目をなじませる */
-      linear-gradient(to top, rgba(40, 14, 26, 0.2) 0%, rgba(40, 14, 26, 0) 38%);
+      linear-gradient(to top, rgba(11, 25, 44, 0.2) 0%, rgba(11, 25, 44, 0) 38%);
 }
 
 /* スマホは写真の右側(化粧品ボトル・窓)が明るく、左側スクリムだけでは
@@ -469,27 +471,39 @@ img {
 @media (max-width: 767px) {
   .hero-banner-scrim {
     background:
-      linear-gradient(100deg, rgba(45, 16, 28, 0.82) 0%, rgba(52, 20, 34, 0.72) 100%),
-      radial-gradient(160px 110px at 90% 86%, rgba(40, 14, 26, 0.3), transparent 72%),
-      linear-gradient(to top, rgba(40, 14, 26, 0.3) 0%, rgba(40, 14, 26, 0) 46%);
+      linear-gradient(100deg, rgba(13, 29, 51, 0.84) 0%, rgba(17, 36, 62, 0.72) 100%),
+      radial-gradient(160px 110px at 90% 86%, rgba(11, 25, 44, 0.3), transparent 72%),
+      linear-gradient(to top, rgba(11, 25, 44, 0.3) 0%, rgba(11, 25, 44, 0) 46%);
   }
 }
 
-/* タブレット〜小型PC(768〜1179px)はコンテンツ幅1180pxに達しておらず
+/* 768〜1023pxはタイトルが2行に折り返し、右端が画面幅いっぱいまで伸びるため、
+   横方向のフェードでは右端のコントラストが確保できない(2026-08-28、実測4.74:1)。
+   この帯だけスマホと同じ「ほぼ均一の濃さ」に切り替える。 */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-banner-scrim {
+    background:
+      linear-gradient(100deg, rgba(13, 29, 51, 0.86) 0%, rgba(17, 36, 62, 0.74) 100%),
+      radial-gradient(220px 140px at 93% 88%, rgba(11, 25, 44, 0.4), transparent 72%),
+      linear-gradient(to top, rgba(11, 25, 44, 0.32) 0%, rgba(11, 25, 44, 0) 42%);
+  }
+}
+
+/* 小型PC(1024〜1179px)はコンテンツ幅1180pxに達しておらず
    コピーが画面左端16pxから始まるため、中央基準(calc(50%±))の停止位置では
-   コピー右端が薄い側に掛かる。この幅帯だけ%指定の停止位置に差し替える。 */
-@media (min-width: 768px) and (max-width: 1179px) {
+   コピー右端が薄い側に掛かる。この幅帯だけpx指定の停止位置に差し替える。 */
+@media (min-width: 1024px) and (max-width: 1179px) {
   .hero-banner-scrim {
     background:
       linear-gradient(
         90deg,
-        rgba(48, 16, 30, 0.86) 0px,
-        rgba(48, 16, 30, 0.74) 520px,
-        rgba(56, 22, 38, 0.34) 760px,
-        rgba(60, 26, 44, 0) 920px
+        rgba(13, 29, 51, 0.86) 0px,
+        rgba(13, 29, 51, 0.74) 520px,
+        rgba(17, 36, 62, 0.34) 760px,
+        rgba(20, 42, 70, 0) 920px
       ),
-      radial-gradient(220px 140px at 93% 88%, rgba(40, 14, 26, 0.4), transparent 72%),
-      linear-gradient(to top, rgba(40, 14, 26, 0.32) 0%, rgba(40, 14, 26, 0) 42%);
+      radial-gradient(220px 140px at 93% 88%, rgba(11, 25, 44, 0.4), transparent 72%),
+      linear-gradient(to top, rgba(11, 25, 44, 0.32) 0%, rgba(11, 25, 44, 0) 42%);
   }
 }
 
@@ -519,7 +533,7 @@ img {
   font-weight: 700;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: #ffe3ec;
+  color: #e4edf8;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
 }
 
@@ -537,7 +551,7 @@ img {
   margin: 0;
   font-size: clamp(0.85rem, 0.8rem + 0.3vw, 0.98rem);
   line-height: 1.7;
-  color: #f5eef1;
+  color: #eef3f9;
   max-width: 460px;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
 }
@@ -648,10 +662,10 @@ img {
 /* スライダーの帯。従来は不透明の白(--color-surface)だったため、
    ワイド画面でスライダー(1180px)の左右が空白に見えていた。
    .home-stripe と同じ半透明ティントに変更し、隣の帯と色が交互になるようにする
-   (スライダー=薄ベージュ → イントロ=グラデーション → 悩み=薄ピンク →
-    カテゴリ=薄ベージュ → 記事=薄ピンク)。2026-08-17 Step5追補 */
+   (スライダー=薄ブルー → イントロ=グラデーション → 困りごと=薄ブルー →
+    カテゴリ=ほぼ白 → 記事=薄ブルー)。2026-08-17 Step5追補 */
 .hero-slider {
-  background: rgba(255, 248, 236, 0.88);
+  background: rgba(240, 246, 252, 0.9);
   border-bottom: 1px solid var(--color-border);
   padding: 22px 0;
 }
@@ -919,22 +933,21 @@ img {
   padding: clamp(26px, 3.2vw, 48px) 0;
 }
 
-/* イントロ(マスコット挨拶+診断バナー)。無地のままだと2560px幅で
-   左右319pxぶんがほぼ白(実測rgb 250,249,251)に見えるため、ここもティントを敷く。
-   スライダー(薄ベージュ)の次なので薄ピンク側にする。 */
+/* イントロ(マスコット挨拶+バナー)。無地のままだと2560px幅で
+   左右319pxぶんがほぼ白に見えるため、ここもティントを敷く。 */
 .home-stripe--intro {
   padding-top: clamp(18px, 2.2vw, 30px);
-  background: rgba(255, 241, 246, 0.72);
+  background: rgba(228, 240, 250, 0.72);
 }
 
-/* 薄ピンク(悩みから探す / 記事セクション) */
+/* 薄ブルー(困りごとから探す / 記事セクション) */
 .home-stripe--tint {
-  background: rgba(255, 241, 246, 0.72);
+  background: rgba(228, 240, 250, 0.72);
 }
 
-/* 薄ベージュ(カテゴリで探す)。ティントを交互に置いて帯の切り替わりを作る */
+/* ほぼ白(カテゴリで探す)。薄ブルーの帯と交互に置いて切り替わりを作る */
 .home-stripe--cream {
-  background: rgba(255, 251, 243, 0.82);
+  background: rgba(246, 250, 253, 0.9);
 }
 
 /* ---- 記事/ランキング/比較/検索ページ共通パネル ----
@@ -987,7 +1000,10 @@ img {
   letter-spacing: 0.08em;
   margin: 0 0 6px;
   color: var(--color-primary-dark);
-  background: linear-gradient(120deg, var(--color-primary), #ff8fab 65%, #ffb199);
+  /* グラデーションの全範囲で白背景上6:1以上を満たす配色にする
+     (#1e5fa8=6.5:1 → #145e7f=7.2:1 → #0a5e56=7.6:1)。
+     淡色を混ぜると明るい端が2:1台まで落ちるため、明度の低い色だけで構成する。 */
+  background: linear-gradient(120deg, #1e5fa8, #145e7f 60%, #0a5e56);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1077,7 +1093,9 @@ img {
   padding: 3px 10px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.92);
-  color: var(--cat-color, var(--color-primary));
+  /* --cat-colorは12カテゴリぶんの明度差があり、白地で4.2:1まで落ちる色が含まれる。
+     バッジは小さく可読性を優先するため、カテゴリ色ではなく固定の暗色を使う。 */
+  color: var(--color-primary-dark);
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -1119,6 +1137,9 @@ img {
   align-items: center;
   justify-content: center;
   font-size: 1.05rem;
+  /* 中身は絵文字(多色グリフ)だが、フォールバック時に文字色が効くため
+     12色ある--cat-soft地のいずれでも6:1以上になるprimary-darkを指定する。 */
+  color: var(--color-primary-dark);
   background: var(--cat-soft, var(--color-primary-light));
   border-radius: 50%;
 }
@@ -1196,7 +1217,6 @@ img {
 .category-summary-grid--more {
   margin-top: 20px;
 }
-
 
 /* 初期状態では非表示にするが、HTML自体は常に出力しクロール・SEOに影響しないようにする */
 .category-summary-collapsible {
@@ -1404,10 +1424,10 @@ img {
   pointer-events: none;
   background: linear-gradient(
     90deg,
-    rgba(48, 16, 30, 0.84) 0%,
-    rgba(48, 16, 30, 0.76) calc(50% - 180px),
-    rgba(56, 22, 38, 0.3) calc(50% + 60px),
-    rgba(60, 26, 44, 0) calc(50% + 220px)
+    rgba(13, 29, 51, 0.84) 0%,
+    rgba(13, 29, 51, 0.76) calc(50% - 180px),
+    rgba(17, 36, 62, 0.3) calc(50% + 60px),
+    rgba(20, 42, 70, 0) calc(50% + 220px)
   );
 }
 
@@ -1419,7 +1439,7 @@ img {
   .section-band-scrim {
     background: linear-gradient(
       100deg,
-      rgba(48, 16, 30, 0.86) 0%,
+      rgba(13, 29, 51, 0.86) 0%,
       rgba(52, 20, 34, 0.76) 100%
     );
   }
@@ -1455,7 +1475,7 @@ img {
   max-width: 24em;
   font-size: clamp(0.8rem, 0.76rem + 0.2vw, 0.9rem);
   line-height: 1.7;
-  color: #f5eef1;
+  color: #eef3f9;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
 }
 
@@ -1994,14 +2014,14 @@ h1.page-title {
   margin-bottom: 0.5em;
 }
 
-/* 記事本文リンクの既定色。以前は--color-primary(#d6336c)のままで白背景上
-   4.61:1しかなく、tint背景(#fff5f8)では4.62:1とAA(4.5:1)ぎりぎりだった。
-   閾値ちょうどはマージン不足で「背景と同化して見える」報告が繰り返し発生した
-   ため(2026-08-09)、同色相のまま暗くし白・tint双方で7:1前後を確保する。 */
+/* 記事本文リンクの既定色。--color-primary(#1e5fa8)は白背景上6.5:1だが、
+   閾値ちょうどはマージン不足で「背景と同化して見える」報告が過去に繰り返し
+   発生したため(2026-08-09、旧ピンク時代)、同色相のまま暗くした
+   --color-primary-dark相当(#17497f、白背景上9.2:1)を本文リンクに使う。 */
 .article-body a {
   text-decoration: underline;
   text-underline-offset: 2px;
-  color: #a01f4c;
+  color: #17497f;
 }
 
 .article-body strong {
@@ -2438,8 +2458,8 @@ h1.page-title {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #ffe3ec;
-  color: #9c1f49;
+  background: #e4edf8;
+  color: #17497f;
   font-weight: 700;
   font-size: 0.9rem;
   flex-shrink: 0;
@@ -2511,8 +2531,10 @@ h1.page-title {
 }
 
 .article-sources-item--editorial .article-sources-badge {
-  background: #ffe3ec;
-  color: #9c1f49;
+  /* secondaryバッジ(#e6eefa/#204a80)と色で区別が付くようアンバー系にする。
+     #fdeedd上で#7a4110は約7.0:1。 */
+  background: #fdeedd;
+  color: #7a4110;
 }
 
 .article-sources-meta {
@@ -3571,15 +3593,15 @@ table.admin-table td {
   gap: 16px;
   margin-bottom: 28px;
   padding: 18px 24px;
-  background: linear-gradient(120deg, #ffd3e2, #ffeef4);
+  background: linear-gradient(120deg, #d3e3f5, #eef5fc);
   border: 1px solid var(--color-primary);
   border-radius: var(--radius-lg);
-  box-shadow: 0 6px 16px rgba(214, 51, 108, 0.28);
+  box-shadow: 0 6px 16px rgba(30, 95, 168, 0.28);
   transition: box-shadow var(--transition), transform var(--transition);
 }
 
 .diagnosis-banner:hover {
-  box-shadow: 0 12px 30px rgba(214, 51, 108, 0.38);
+  box-shadow: 0 12px 30px rgba(30, 95, 168, 0.38);
   transform: translateY(-2px);
   text-decoration: none;
 }
@@ -3618,7 +3640,7 @@ table.admin-table td {
 
 .diagnosis-banner-arrow {
   flex-shrink: 0;
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
   font-weight: 700;
   font-size: 1.2rem;
 }
@@ -4043,7 +4065,7 @@ table.admin-table td {
    trueをfrontmatterで指定した記事だけがwrapArticleSections()で.article-sectionに
    包まれる仕様(lib/posts.js)のため、指定のない記事(フケ皮膚科受診目安 等)では
    .article-section祖先が存在せず、このルール自体が一切適用されずリンクが既定の
-   a{color:var(--color-primary)}(#d6336c)のままグラデーション背景に埋もれて読めなく
+   a{color:var(--color-primary)}のままグラデーション背景に埋もれて読めなく
    なっていた(2026-08-09報告で発覚)。祖先要素の有無に左右されないよう、リンク自身に
    専用クラス(chart-summary-card-link、renderGenericSummaryCardHtml側で付与)を付け、
    .chart-summary-card単体をセレクタにする。specificityは(0,2,1)となり、後方定義の
@@ -4134,7 +4156,7 @@ table.admin-table td {
 
 .chart-compare-card-list dt {
   font-size: 0.75rem;
-  /* 背景--chart-tint-bg(既定#fff5f8)上で--color-text-muted(#6b7280)は4.53:1と
+  /* 背景--chart-tint-bg(既定#f4f8fc)上で--color-text-muted(#6b7280)は4.53:1と
      僅差のため、同色相のまま少し暗くした値に上書き(2026-08-08、4.53:1→4.65:1)。 */
   color: #6a707e;
   margin-top: 8px;
@@ -4357,11 +4379,10 @@ table.admin-table td {
   background: var(--chart-tint-bg);
 }
 
-/* tint背景(既定#fff5f8)上でも.article-body aと同じ暗色(#a01f4c、約7:1)に統一する
-   (2026-08-09。旧#d22a65は4.62:1でAAぎりぎりのマージン不足だったため)。
+/* tint背景(既定#f4f8fc)上でも.article-body aと同じ暗色(#17497f、約8.6:1)に統一する。
    hoverはより詳しいセレクタで既定のhover色を維持する。 */
 .article-section-tint a {
-  color: #a01f4c;
+  color: #17497f;
 }
 
 .article-section-tint a:hover {
@@ -4481,178 +4502,6 @@ table.admin-table td {
   color: var(--color-primary);
   font-size: 0.78rem;
   font-weight: 700;
-}
-
-/* =========================================================================
-   「乾燥肌とは？」記事(content/articles/2026-08-05_乾燥肌とは_基本情報.md)専用
-   スタイル(2026-08-07 スマホ可読性リニューアル)。すべて .dryskin- プレフィックス
-   または .dryskin-theme スコープ配下に閉じており、他記事(.article-body)の
-   デフォルトスタイルには影響しない。テーマカラー: アイスブルー#4A90D9 +
-   ミント#7FD1C4 + ペールグレー#F2F6FA。
-   ========================================================================= */
-
-.dryskin-theme {
-  --dry-blue: #4a90d9;
-  /* 白背景上でのコントラスト比が5.19:1(プロジェクト基準の6:1未達、閾値ぎりぎり)
-     だったため2026-08-10に濃色化。#1f5490は白背景上で約7.7:1(WCAG AA
-     4.5:1は当然クリアし、プロジェクト目標の6:1にも十分な余裕を確保)。 */
-  --dry-blue-dark: #1f5490;
-  --dry-mint: #7fd1c4;
-  --dry-pale: #f2f6fa;
-  --dry-warn: #e0554a;
-  /* 汎用4type+diagnosisの共通カラー変数をこのスコープ内だけ再定義し、
-     クラス自体はコピーせずに乾燥肌記事のブルー系配色に揃える(2026-08-09)。 */
-  --chart-accent: var(--dry-blue);
-  --chart-accent-dark: var(--dry-blue-dark);
-  --chart-tint-bg: var(--dry-pale);
-  --chart-card-border: #cfe3f2;
-}
-
-/* H2:アイコン付きの帯。奇数/偶数で背景を白⇔淡色に交互化する */
-.dryskin-theme h2 {
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  background: var(--dry-pale);
-  border-left: 6px solid var(--dry-blue);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  color: #1c3a54;
-}
-
-.dryskin-theme > h2:nth-of-type(even),
-.dryskin-theme > div > h2:nth-of-type(even) {
-  background: #fff;
-  border-left-color: var(--dry-mint);
-}
-
-/* H3:左4pxアクセントバー+やや細め */
-.dryskin-theme h3 {
-  font-weight: 600;
-  border-left: 4px solid var(--dry-mint);
-  color: var(--dry-blue-dark);
-}
-
-.dryskin-theme p {
-  font-size: 1rem;
-  line-height: 1.8;
-}
-
-.dryskin-theme > h2,
-.dryskin-theme > h3 {
-  margin-top: 2.2em;
-  margin-bottom: 0.9em;
-}
-
-.dryskin-theme .article-chart,
-.dryskin-theme .article-accordion,
-.dryskin-theme .dryskin-matrix,
-.dryskin-theme .dryskin-timeline-figure,
-.dryskin-theme .dryskin-check,
-.dryskin-theme blockquote {
-  margin-top: 32px;
-  margin-bottom: 32px;
-}
-
-/* 数字・スペックはやや大きめ+等幅数字 */
-.dryskin-theme .dryskin-diagram-caption,
-.dryskin-theme .dryskin-timeline-time {
-  font-variant-numeric: tabular-nums;
-}
-
-/* 引用(結論だけ知りたい人へ/注意/NEVORAポイント)を種類ごとに帯色を変える。
-   本文中の絵文字プレフィックスで簡易判定する。 */
-.dryskin-theme blockquote {
-  border: 1px solid #d8e6f2;
-  border-left: 5px solid var(--dry-blue);
-  border-radius: var(--radius-md);
-  background: #fff;
-  padding: 14px 16px;
-}
-
-.dryskin-theme blockquote p:first-child {
-  font-weight: 700;
-  color: var(--dry-blue-dark);
-}
-
-/* 「・」区切りテキストから変換した本物のリスト。チェックリストと視覚トーンを
-   揃えるため、丸ではなく色付きの✓アイコンを疑似要素で置く。 */
-.dryskin-theme ul.dryskin-inline-list {
-  list-style: none;
-  margin: 8px 0 0;
-  padding: 0;
-}
-
-.dryskin-theme ul.dryskin-inline-list li {
-  position: relative;
-  padding: 4px 0 4px 26px;
-  line-height: 1.7;
-}
-
-.dryskin-theme ul.dryskin-inline-list li::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  top: 4px;
-  color: var(--dry-blue);
-  font-weight: 700;
-}
-
-.dryskin-theme ul.dryskin-audience-list li::before {
-  content: "●";
-  font-size: 0.5em;
-  top: 11px;
-  color: var(--dry-mint);
-}
-
-.dryskin-theme p.dryskin-inline-list-label {
-  margin: 18px 0 2px;
-}
-
-/* 📝体験メモ:個人の感想であることが一目で分かるよう、本文と区別して
-   薄ミント背景+破線枠の吹き出し風ボックスにする。 */
-.dryskin-theme .dryskin-memo-box {
-  display: flex;
-  gap: 10px;
-  background: #f4faf8;
-  border: 1px dashed var(--dry-mint);
-  border-radius: var(--radius-md);
-  padding: 14px 16px;
-}
-
-.dryskin-theme .dryskin-memo-icon {
-  font-size: 20px;
-  flex-shrink: 0;
-}
-
-.dryskin-theme .dryskin-memo-label {
-  font-weight: 700;
-  color: #2f8f7f;
-  margin: 0 0 4px;
-}
-
-.dryskin-theme .dryskin-memo-body p:last-child {
-  margin: 0;
-}
-
-/* 記事末「まとめカード」。結論リスト+次の一歩を、他ボックスより一段強い
-   トーン(テーマ色の帯+白背景)で締めくくりとして目立たせる。 */
-.dryskin-theme .dryskin-matome-card {
-  background: #fff;
-  border: 2px solid var(--dry-blue);
-  border-radius: var(--radius-md);
-  padding: 18px;
-}
-
-.dryskin-theme .dryskin-matome-label {
-  font-weight: 800;
-  font-size: 1.05rem;
-  color: var(--dry-blue-dark);
-  margin: 0 0 8px;
-}
-
-.dryskin-theme .dryskin-matome-next {
-  margin: 14px 0 0;
-  padding-top: 12px;
-  border-top: 1px solid #d8e6f2;
 }
 
 /* ==================== 断面図・ループ図・複合グラフ共通(SVG図解) ==================== */
@@ -4860,31 +4709,6 @@ table.admin-table td {
   margin: 0;
   font-size: 0.82rem;
   color: var(--dry-warn);
-}
-
-/* 旧セルフ診断カード(components/DrySkinSelfCheck.js)は2026-08-09、汎用chart type
-   "diagnosis"(.chart-diagnosis*、globals.css内の汎用4type共通領域を参照)に置き換えて
-   廃止した。乾燥肌記事のブルー系配色は.dryskin-theme内の--chart-accent系変数の
-   再定義で引き継いでいる。 */
-
-/* ==================== NEVORAポイント/注意ボックス(本文中はblockquote装飾に統合済み) ==================== */
-.dryskin-theme .dryskin-badge {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 2px 10px;
-  border-radius: 999px;
-  margin-bottom: 6px;
-}
-
-.dryskin-theme .dryskin-badge-point {
-  background: var(--dry-mint);
-  color: #0f3d34;
-}
-
-.dryskin-theme .dryskin-badge-warn {
-  background: #fbdad6;
-  color: #8a2f26;
 }
 
 /* ============================================================
@@ -5188,7 +5012,7 @@ table.admin-table td {
 }
 
 .lip-section-tint {
-  background: rgba(214, 69, 107, 0.05);
+  background: rgba(30, 95, 168, 0.05);
   border-radius: var(--radius-md);
   margin: 0 -8px;
   padding: 8px 8px 4px;
@@ -5750,19 +5574,6 @@ table.admin-table td {
   }
 }
 
-/* ================================================================
-   「マイクロニードル美容液比較」記事(2026-08-02_マイクロニードル美容液比較.md)専用
-   スマホ最適化スタイル。すべて mn- プレフィックスで、この記事のcontentHtmlに
-   しか出現しないクラス名(.mn-article配下)のためスコープしており、
-   他記事の表示には影響しない。テーマカラー: パープル#7B61FF + ゴールド#D9B86A。
-   ================================================================ */
-
-.mn-article {
-  --mn-purple: #7b61ff;
-  --mn-gold: #d9b86a;
-  --mn-ink: #2c2540;
-}
-
 /* 目次(絵文字付き折りたたみ) */
 .mn-toc {
   margin: 0 0 1.6em;
@@ -5805,25 +5616,6 @@ table.admin-table td {
 
 .mn-toc-emoji {
   margin-right: 6px;
-}
-
-/* H2/H3見出し(パープル+ゴールドの帯) */
-.mn-article .article-body h2 {
-  background: linear-gradient(120deg, #efe9ff, #fff9ec 80%);
-  border-left: 6px solid var(--mn-purple);
-  color: var(--mn-ink);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-}
-
-.mn-article .article-body h3 {
-  border-left: 4px solid var(--mn-gold);
-  color: #6a4fd6;
-}
-
-.mn-article .article-body p,
-.mn-article .article-body li {
-  line-height: 1.8;
 }
 
 /* セクション単位で背景を交互に変える(白 ⇔ テーマカラー5%淡色 ⇔ 罫線カード) */
@@ -6178,44 +5970,6 @@ table.admin-table td {
   }
 }
 
-/* ================================================================
-   「基礎化粧品の基本知識と肌質診断」記事(2026-07-26_基礎化粧品の基本知識と肌質診断.md)
-   専用スマホ最適化スタイル(2026-08-07単調さ改善リニューアル)。すべて skb- プレフィックスで、
-   この記事のcontentHtmlにしか出現しないクラス名(.skb-article配下)のためスコープしており、
-   他記事の表示には影響しない。テーマカラー: ミルクベージュ#C8A882 + アイボリー#FBF7F0 +
-   グリーンティー#8FA37E。lib/microneedleExtras.js(.mn-*)の設計・構造をそのまま踏襲し、
-   配色のみをこの記事のテーマカラーに変更している。
-   ================================================================ */
-
-.skb-article {
-  --skb-beige: #c8a882;
-  --skb-beige-dark: #8b6f52;
-  --skb-green: #8fa37e;
-  --skb-green-dark: #6b8161;
-  --skb-ivory: #fbf7f0;
-  --skb-ink: #4a3f35;
-}
-
-/* H2/H3見出し(ベージュ+グリーンの帯。太字ゴシック+字間調整で単調さを解消) */
-.skb-article .article-body h2 {
-  background: linear-gradient(120deg, #f1e9da, #eef2e9 80%);
-  border-left: 6px solid var(--skb-beige);
-  color: var(--skb-ink);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-}
-
-.skb-article .article-body h3 {
-  border-left: 4px solid var(--skb-green);
-  color: var(--skb-green-dark);
-  font-weight: 700;
-}
-
-.skb-article .article-body p,
-.skb-article .article-body li {
-  line-height: 1.8;
-}
-
 /* セクション単位で背景を交互に変える(白 ⇔ テーマカラー5%淡色 ⇔ 罫線カード) */
 .skb-section {
   margin: 0 -1px;
@@ -6414,25 +6168,6 @@ table.admin-table td {
   }
 }
 
-/* =========================================================================
-   「普通肌におすすめの美容成分」記事
-   (content/articles/2026-08-05_普通肌におすすめの美容成分.md)専用スタイル
-   (2026-08-07 スマホ可読性リニューアル)。すべて .perfectskin- プレフィックス
-   または .perfectskin-theme / .perfectskin-summary-box スコープ配下に閉じており、
-   他記事(.article-body のデフォルトスタイル、および他記事専用テーマ)には
-   影響しない。テーマカラー: ソフトイエロー#E8C547 + セージグリーン#9CB380 +
-   オフホワイト#FCFAF2。「今の良さを守る」予防・維持をやわらかく伝えるトーン。
-   ========================================================================= */
-
-.perfectskin-theme {
-  --ps-yellow: #e8c547;
-  --ps-yellow-dark: #a9822a;
-  --ps-sage: #9cb380;
-  --ps-sage-dark: #5f7548;
-  --ps-cream: #fcfaf2;
-  --ps-text: #4a4534;
-}
-
 /* 冒頭「⏱ 30秒でわかる」サマリーカード(article-summary-box)専用の装飾 */
 .perfectskin-summary-box {
   background: linear-gradient(150deg, #fff9e6, var(--ps-cream, #fcfaf2) 70%);
@@ -6446,76 +6181,6 @@ table.admin-table td {
   font-size: 0.95rem;
   letter-spacing: 0.02em;
   color: #a9822a;
-}
-
-/* H2: 太字ゴシック+字間-0.02em。3周期でセクション背景を
-   白⇔テーマカラー淡色⇔罫線カードに交互化する(.article-body側の
-   汎用3周期ルールより詳細度を上げて、この記事だけ配色を上書きする)。 */
-.article-body.perfectskin-theme h2 {
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  background: #fff;
-  border-left: 6px solid var(--ps-sage);
-  color: var(--ps-text);
-}
-
-.article-body.perfectskin-theme h2:nth-of-type(3n+2) {
-  background: linear-gradient(120deg, #fbf1cf, var(--ps-cream) 75%);
-  border-left-color: var(--ps-yellow-dark);
-}
-
-.article-body.perfectskin-theme h2:nth-of-type(3n) {
-  background: #fff;
-  border: 1px solid #dbe6cd;
-  border-left: 6px solid var(--ps-sage-dark);
-}
-
-/* H3: やや細め+左4pxアクセントバー(既存の.article-body h3を継承しつつ配色のみ変更) */
-.article-body.perfectskin-theme h3 {
-  font-weight: 600;
-  border-left-color: var(--ps-sage);
-  color: var(--ps-sage-dark);
-}
-
-.article-body.perfectskin-theme p {
-  line-height: 1.8;
-}
-
-/* 数字・スペックはやや大きめ+等幅数字(早見表・折れ線グラフの数値表示) */
-.article-body.perfectskin-theme .chart-table td,
-.article-body.perfectskin-theme table td {
-  font-variant-numeric: tabular-nums;
-}
-
-/* 引用(NEVORAポイント/注意)をテーマカラーで上書き */
-.article-body.perfectskin-theme .nevora-point-box {
-  background: #fbf1cf;
-  border-color: #ecd98f;
-  border-left-color: var(--ps-yellow-dark);
-}
-
-.article-body.perfectskin-theme .nevora-point-label {
-  /* 背景#fbf1cf上で--ps-yellow-dark(#a9822a)は3.15:1でAA未達のため、
-     --ps-yellow-darkそのものは変えず、同色相で暗くした個別値を使う
-     (2026-08-08、3.15:1→4.61:1)。 */
-  color: #876822;
-}
-
-.article-body.perfectskin-theme .warning-box {
-  background: #f2f6ea;
-  border-color: #d3e0c1;
-  border-left-color: var(--ps-sage-dark);
-}
-
-.article-body.perfectskin-theme .warning-box-label {
-  color: var(--ps-sage-dark);
-}
-
-.article-body.perfectskin-theme .article-chart,
-.article-body.perfectskin-theme .article-accordion,
-.article-body.perfectskin-theme blockquote {
-  margin-top: 32px;
-  margin-bottom: 32px;
 }
 
 /* ==================== ピラミッド図(普通肌を支える3本柱) ==================== */
@@ -6564,26 +6229,6 @@ table.admin-table td {
   font-size: 12px;
   fill: #4a4534;
   font-weight: 600;
-}
-
-/* ==================== 📝体験メモ(既存article-accordionを流用しつつ配色のみ変更) ==================== */
-.article-body.perfectskin-theme .article-accordion {
-  background: var(--ps-cream);
-  border: 1px solid #ecd98f;
-}
-
-.article-body.perfectskin-theme .article-accordion-summary {
-  color: var(--ps-yellow-dark);
-}
-
-/* ==================== ✅ 今日からできるチェックリスト ==================== */
-.article-body.perfectskin-theme li.task-list-item {
-  background: #f2f6ea;
-  border-color: #d3e0c1;
-}
-
-.article-body.perfectskin-theme li.task-list-item input[type="checkbox"] {
-  accent-color: var(--ps-sage-dark);
 }
 
 /* ==================== まとめカード ==================== */
@@ -6886,13 +6531,6 @@ table.admin-table td {
   background: #B79CD1;
 }
 
-/* 数字・スペック表記(タブラー数字で桁が揃うようにする) */
-.smk-article .article-body table td.smk-num,
-.smk-article .article-body table th.smk-num {
-  font-variant-numeric: tabular-nums;
-  font-weight: 700;
-}
-
 @media (max-width: 480px) {
   .smk-flow-q {
     font-size: 12px;
@@ -6900,90 +6538,6 @@ table.admin-table td {
   .smk-toc-item a {
     font-size: 0.92rem;
   }
-}
-
-/* =========================================================================
-   「前髪の巻き方完全ガイド」記事(content/articles/2026-08-02_前髪の巻き方完全ガイド.md)
-   専用スタイル(2026-08-07 スマホ可読性リニューアル)。すべて .maegami- プレフィックス
-   または .maegami-theme スコープ配下に閉じており、他記事(.article-body)の
-   デフォルトスタイルには影響しない。テーマカラー: ピンク#F08CA0 + アイボリー#FFF8F3 +
-   ダークグレー#423A3A(サイト全体のテーマカラーと衝突しないよう記事スコープの
-   CSS変数として定義する)。
-   ========================================================================= */
-
-.maegami-theme {
-  --mg-pink: #f08ca0;
-  --mg-pink-dark: #d96b81;
-  --mg-ivory: #fff8f3;
-  --mg-dark: #423a3a;
-}
-
-/* H2:アイコン付きの帯。奇数/偶数で背景を白⇔淡色⇔罫線カードに交互化する */
-.maegami-theme h2 {
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  background: var(--mg-ivory);
-  border-left: 6px solid var(--mg-pink);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  color: var(--mg-dark);
-  padding: 10px 14px;
-  margin-top: 2.4em;
-  margin-bottom: 0.9em;
-}
-
-.maegami-theme > h2:nth-of-type(3n+2) {
-  background: #fff;
-  border-left-color: var(--mg-pink-dark);
-}
-
-.maegami-theme > h2:nth-of-type(3n) {
-  background: #fff;
-  border: 1px solid #f2d9d0;
-  border-left: 6px solid var(--mg-pink);
-}
-
-/* H3:左4pxアクセントバー+やや細め */
-.maegami-theme h3 {
-  font-weight: 600;
-  border-left: 4px solid var(--mg-pink);
-  padding-left: 10px;
-  color: var(--mg-pink-dark);
-  margin-top: 1.8em;
-}
-
-/* H4:絵文字+太字(記事内で使う場合に備えた共通指定) */
-.maegami-theme h4 {
-  font-weight: 700;
-}
-
-.maegami-theme p {
-  font-size: 1rem;
-  line-height: 1.8;
-}
-
-.maegami-theme .article-chart,
-.maegami-theme .article-accordion,
-.maegami-theme .maegami-matrix,
-.maegami-theme .maegami-checklist,
-.maegami-theme .maegami-conclusion-card,
-.maegami-theme .maegami-quicksummary,
-.maegami-theme .quick-summary-box,
-.maegami-theme .nevora-point-box,
-.maegami-theme .warning-box,
-.maegami-theme blockquote {
-  margin-top: 32px;
-  margin-bottom: 32px;
-}
-
-/* 数字・スペックはやや大きめ+等幅数字 */
-.maegami-theme table td,
-.maegami-theme table th {
-  font-variant-numeric: tabular-nums;
-}
-
-.maegami-theme table td {
-  font-size: 1.05rem;
-  font-weight: 700;
 }
 
 /* ==================== ⏱ 30秒でわかる冒頭サマリーカード ==================== */
@@ -7286,31 +6840,11 @@ table.admin-table td {
 }
 
 @media (max-width: 480px) {
-  .maegami-theme h2 {
-    font-size: 1.08rem;
-  }
-  .maegami-theme h3 {
-    font-size: 0.98rem;
-  }
+
   .maegami-steps-svg,
   .maegami-tradeoff-svg {
     min-width: 420px;
   }
-}
-
-/* =========================================================================
-   「くすみケア比較」記事(content/articles/2026-07-26_くすみケア比較.md)
-   専用スタイル(2026-08-07 スマホ可読性リニューアル・lib/kusumiWidgets.js)。
-   すべて .kusumi- プレフィックスまたは .kusumi-theme スコープ配下に閉じており、
-   他記事(.article-body)のデフォルトスタイルには影響しない。
-   テーマカラー: モーブ#A78BAF / シャンパンピンク#F0DCE0 / チャコール#3E3A42。
-   ========================================================================= */
-
-.kusumi-theme {
-  --ks-mauve: #a78baf;
-  --ks-mauve-dark: #7c5d89;
-  --ks-champagne: #f0dce0;
-  --ks-charcoal: #3e3a42;
 }
 
 /* ---- 独自目次(details) ---- */
@@ -7385,52 +6919,6 @@ table.admin-table td {
   border-radius: var(--radius-md);
   margin: 12px -4px;
   padding: 12px 12px 4px;
-}
-
-.kusumi-theme h2 {
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  background: linear-gradient(120deg, #fbf3f5, #fff 75%) !important;
-  border-left: 6px solid var(--ks-mauve) !important;
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  color: var(--ks-charcoal);
-  padding: 10px 14px;
-  margin-top: 2.4em;
-  margin-bottom: 0.9em;
-}
-
-.kusumi-theme h3 {
-  font-weight: 600;
-  border-left: 4px solid var(--ks-mauve) !important;
-  padding-left: 10px;
-  color: var(--ks-mauve-dark) !important;
-  margin-top: 1.8em;
-}
-
-.kusumi-theme h4 {
-  font-weight: 700;
-}
-
-.kusumi-theme p {
-  font-size: 1rem;
-  line-height: 1.8;
-}
-
-.kusumi-theme .article-chart,
-.kusumi-theme .article-accordion,
-.kusumi-theme .kusumi-checklist,
-.kusumi-theme .kusumi-summary-card,
-.kusumi-theme .quick-summary-box,
-.kusumi-theme .nevora-point-box,
-.kusumi-theme .warning-box,
-.kusumi-theme blockquote {
-  margin-top: 32px;
-  margin-bottom: 32px;
-}
-
-.kusumi-theme table td,
-.kusumi-theme table th {
-  font-variant-numeric: tabular-nums;
 }
 
 /* ---- ① 頬クローズアップ3面図 ---- */
@@ -7616,39 +7104,11 @@ table.admin-table td {
 }
 
 @media (max-width: 480px) {
-  .kusumi-theme h2 {
-    font-size: 1.08rem;
-  }
-  .kusumi-theme h3 {
-    font-size: 0.98rem;
-  }
+
   .kusumi-matrix-table,
   .kusumi-product-table {
     min-width: 520px;
   }
-}
-
-/* ========================================================================
-   「ヒアルロン酸・コラーゲン・セラミドの違い」記事
-   (content/articles/2026-08-02_ヒアルロン酸コラーゲンセラミドの違い.md)専用
-   スマホ最適化スタイル(2026-08-07)。すべて .hyalu- プレフィックスまたは
-   .hyalu-article スコープ配下、もしくは既存の汎用コンポーネント(mn-tip/mn-warning/
-   maegami-quicksummary/maegami-checklist/maegami-conclusion-card)のCSS変数を
-   .hyalu-article内で上書きする形にとどめており、他記事の表示には影響しない。
-   テーマカラー: アクアブルー#3FA9D9 + パールホワイト#F4FAFD + コーラル#F08C7A。
-   ======================================================================== */
-
-.hyalu-article {
-  /* mn-tip/mn-warning(lib/microneedleExtras.js)の配色をこの記事のテーマに寄せる */
-  --mn-purple: #3fa9d9;
-  --mn-gold: #f08c7a;
-  --mn-ink: #1c3a4a;
-  /* maegami-quicksummary/maegami-checklist/maegami-conclusion-card
-     (lib/maegamiWidgets.js)の配色をこの記事のテーマに寄せる */
-  --mg-pink: #3fa9d9;
-  --mg-pink-dark: #2a78d6;
-  --mg-ivory: #f4fafd;
-  --mg-dark: #1c3a4a;
 }
 
 /* 目次(絵文字付き折りたたみ) */
@@ -7699,67 +7159,6 @@ table.admin-table td {
 
 .hyalu-toc-emoji {
   margin-right: 6px;
-}
-
-/* H2:アイコン付きの帯。3の倍数で背景を白⇔淡色⇔罫線カードに交互化する */
-.hyalu-article .article-body h2 {
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  background: #f4fafd;
-  border-left: 6px solid #3fa9d9;
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  color: #1c3a4a;
-  padding: 10px 14px;
-  margin-top: 2.4em;
-  margin-bottom: 0.9em;
-}
-
-.hyalu-article .article-body > h2:nth-of-type(3n+2) {
-  background: #fff;
-  border-left-color: #f08c7a;
-}
-
-.hyalu-article .article-body > h2:nth-of-type(3n) {
-  background: #fff;
-  border: 1px solid #d8ecf5;
-  border-left: 6px solid #3fa9d9;
-}
-
-/* H3:左4pxアクセントバー+やや細め */
-.hyalu-article .article-body h3 {
-  font-weight: 600;
-  border-left: 4px solid #f08c7a;
-  padding-left: 10px;
-  color: #2a78d6;
-  margin-top: 1.8em;
-}
-
-.hyalu-article .article-body h4 {
-  font-weight: 700;
-}
-
-.hyalu-article .article-body p,
-.hyalu-article .article-body li {
-  line-height: 1.8;
-  font-size: 1rem;
-}
-
-.hyalu-article .article-body > * {
-  margin-bottom: 32px;
-}
-
-/* mn-tip/mn-warning(NEVORAポイント/注意ボックス)の背景・枠線をテーマカラーへ */
-.hyalu-article .mn-tip {
-  background: #eaf6fb;
-}
-
-.hyalu-article .mn-warning {
-  background: #fdece7;
-  border-color: #f08c7a;
-}
-
-.hyalu-article .mn-warning-label {
-  color: #c1543a;
 }
 
 /* ① SVG肌3層モデル図 */
@@ -7866,23 +7265,6 @@ table.admin-table td {
   color: var(--color-text-muted);
 }
 
-/* 比較表・目的別選び方表:数値・記号はtabular-numsで桁揃え */
-.hyalu-article .article-body table {
-  font-variant-numeric: tabular-nums;
-}
-
-@media (max-width: 480px) {
-  .hyalu-article .article-body h2 {
-    font-size: 1.08rem;
-  }
-  .hyalu-article .article-body h3 {
-    font-size: 0.98rem;
-  }
-  .hyalu-article .article-body table {
-    min-width: 480px;
-  }
-}
-
 /* ====================================================================
    「基礎化粧品とは？」記事(2026-07-26_基礎化粧品の基本知識と肌質診断.md)専用
    SVG図解ウィジェット(lib/skincareBasicsWidgets.js)。他記事のクラス名と
@@ -7985,12 +7367,10 @@ table.admin-table td {
 }
 
 /* ================================================================
-   「スキンケアの効果、メイクで台無しにしてない？」記事
-   (content/articles/2026-07-21_メイクとスキンケアの相性.md)専用スマホ最適化スタイル。
-   すべて mkskorder- プレフィックスで、この記事のcontentHtmlにしか出現しない
-   クラス名(.mkskorder-article配下)のためスコープしており、他記事の表示には
-   影響しない(lib/hairTypeWidgets.js・lib/azelaicAcidWidgets.js等と同じ設計方針)。
-   テーマカラー: コーラルピンク#FF7B7B / ネイビー#26374F / クリーム#FFF6F2。
+   chart type "mkskorder*"(lib/makeupSkincareOrderWidgets.js)の描画用スタイル。
+   旧・美容サイト時代に1記事専用として作られたものだが、frontmatterで
+   該当typeを指定すれば現在も描画できるため残している(2026-08-28)。
+   記事側の専用ラッパー(.mkskorder-article)を使うルールは削除済み。
    ================================================================ */
 
 /* ① レイヤー断面図(lib/makeupSkincareOrderWidgets.js renderLayerCrossSectionHtml) */
@@ -8130,112 +7510,6 @@ table.admin-table td {
   margin-top: 0;
 }
 
-.mkskorder-article h2 {
-  background: linear-gradient(120deg, #FFE3E3, #FFF6F2 75%);
-  border-left-color: #FF7B7B;
-  color: #26374F;
-}
-
-.mkskorder-article h3 {
-  font-weight: 500;
-  border-left: 4px solid #FF7B7B;
-  color: #26374F;
-}
-
-/* 強調3種の使い分け: ①アクセント色マーカー(既存.hl) ②太字(既存strong)
-   ③色付きバッジ相当として、本文中の==強調==をコーラルピンク基調に上書きする。 */
-.mkskorder-article mark.hl {
-  background: #FFD9D9;
-  color: #26374F;
-}
-
-.mkskorder-article strong {
-  color: #C9483A;
-}
-
-/* 💡 NEVORAポイント / ⚠️ 注意ボックスを、この記事だけテーマカラーで強調する
-   (共通の.nevora-point-box/.warning-boxをベースに、コーラルピンクのアクセント枠へ上書き)。 */
-.mkskorder-article .nevora-point-box {
-  background: #FFF6F2;
-  border-color: #FFD9D9;
-  border-left-color: #FF7B7B;
-}
-
-.mkskorder-article .nevora-point-label {
-  /* 背景#FFF6F2上で#C9483Aは4.41:1でAA未達のため、同色相で暗くする
-     (2026-08-08、4.41:1→4.61:1)。 */
-  color: #c64436;
-}
-
-.mkskorder-article .warning-box {
-  background: #FFF6F2;
-  border-color: #F3C1C1;
-  border-left-color: #26374F;
-}
-
-.mkskorder-article .warning-box-label {
-  color: #26374F;
-}
-
-/* =========================================================================
-   「在宅ワーク時短スキンケア」記事
-   (content/articles/2026-07-21_在宅ワーク時短スキンケア削っていい工程.md)専用スタイル
-   (2026-08-07 スマホ可読性リニューアル)。テーマカラー:
-   モスグリーン#5FA88C(--zwsc-green) / ウォームクリーム#FAF3E7(--zwsc-cream) /
-   テラコッタ#D98F6E(--zwsc-terracotta)。.zwsc-article スコープ配下にのみ適用し、
-   他記事(.article-body)の表示には影響しない。
-   ========================================================================= */
-.zwsc-article {
-  --zwsc-green: #5fa88c;
-  --zwsc-green-dark: #3f7d66;
-  --zwsc-cream: #faf3e7;
-  --zwsc-terracotta: #d98f6e;
-  --zwsc-ink: #3a3530;
-}
-
-.zwsc-article h2 {
-  background: linear-gradient(120deg, #e4f1eb, #faf3e7 75%);
-  border-left: 5px solid var(--zwsc-green);
-  border-radius: var(--radius-md);
-  padding: 10px 14px;
-  margin: 0 0 14px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--zwsc-ink);
-}
-
-.zwsc-article h3 {
-  border-left: 4px solid var(--zwsc-terracotta);
-  padding-left: 10px;
-  font-weight: 600;
-  color: var(--zwsc-ink);
-}
-
-.zwsc-article h4 {
-  font-weight: 700;
-}
-
-.zwsc-article p,
-.zwsc-article li {
-  line-height: 1.8;
-}
-
-.zwsc-article table td,
-.zwsc-article table th {
-  font-variant-numeric: tabular-nums;
-}
-
-/* 強調3種の使い分け: ①アクセント色マーカー(既存.hl) ②太字(既存strong)
-   ③色付きバッジ(.zwsc-priority-badge等)。==強調==はテラコッタ基調に上書きする。 */
-.zwsc-article mark.hl {
-  background: #f5d9c8;
-  color: var(--zwsc-ink);
-}
-
-.zwsc-article strong {
-  color: var(--zwsc-green-dark);
-}
-
 /* セクション単位で背景を交互に変える(白 ⇔ テーマカラー淡色 ⇔ 罫線カード) */
 .zwsc-section {
   margin: 0 0 32px;
@@ -8260,95 +7534,6 @@ table.admin-table td {
 
 .zwsc-section h2 {
   margin-top: 0;
-}
-
-/* 💡NEVORAポイント / ⚠️注意ボックス(共通の.nevora-point-box/.warning-box)を
-   この記事のテーマカラーで上書きする。 */
-.zwsc-article .nevora-point-box {
-  background: #eef6f2;
-  border-color: #cfe6dc;
-  border-left-color: var(--zwsc-green);
-}
-
-.zwsc-article .nevora-point-label {
-  /* 背景#eef6f2上で--zwsc-green-dark(#3f7d66)は4.40:1でAA未達のため、
-     --zwsc-green-darkそのものは変えず、同色相で暗くした個別値を使う
-     (2026-08-08、4.40:1→4.64:1)。 */
-  color: #3d7963;
-}
-
-.zwsc-article .warning-box {
-  background: #fdf3ec;
-  border-color: #ecd0b8;
-  border-left-color: var(--zwsc-terracotta);
-}
-
-.zwsc-article .warning-box-label {
-  /* 背景#fdf3ec上で#b56a3fは3.77:1でAA未達のため、同色相で暗くする
-     (2026-08-08、3.77:1→4.60:1)。 */
-  color: #a15e38;
-}
-
-.zwsc-article .quick-summary-box,
-.zwsc-article .quick-conclusion-box {
-  background: linear-gradient(135deg, var(--zwsc-green-dark), var(--zwsc-terracotta));
-  color: #fff;
-}
-
-.zwsc-article .quick-summary-label,
-.zwsc-article .quick-conclusion-label {
-  color: #fef8ef;
-}
-
-/* 汎用ウィジェット(lib/maegamiWidgets.jsのrenderChecklistHtml/renderConclusionCardHtml/
-   renderQuickSummaryCardHtml)を frontmatter経由で流用しているため、見た目だけこの記事の
-   テーマカラーに上書きする(挙動は共通処理のまま)。 */
-.zwsc-article .maegami-quicksummary {
-  background: var(--zwsc-cream);
-  border: 1px solid #ecd9c8;
-  border-radius: var(--radius-lg);
-  padding: 16px 18px;
-  margin: 24px 0 32px;
-}
-
-.zwsc-article .maegami-quicksummary-heading {
-  color: var(--zwsc-green-dark);
-}
-
-.zwsc-article .maegami-quicksummary-subheading {
-  color: var(--zwsc-ink);
-}
-
-.zwsc-article .maegami-checklist {
-  background: #fff;
-  border: 1px solid #cfe6dc;
-  border-radius: var(--radius-md);
-  padding: 14px 16px;
-}
-
-.zwsc-article .maegami-checklist-title {
-  color: var(--zwsc-green-dark);
-}
-
-.zwsc-article .maegami-check-box {
-  color: var(--zwsc-green);
-}
-
-.zwsc-article .maegami-conclusion-card {
-  background: linear-gradient(135deg, var(--zwsc-green-dark), var(--zwsc-terracotta));
-  color: #fff;
-  border-radius: var(--radius-lg);
-  padding: 20px;
-}
-
-.zwsc-article .maegami-conclusion-links a,
-.zwsc-article .maegami-conclusion-next {
-  color: #fef8ef;
-}
-
-.zwsc-article .maegami-badge {
-  background: rgba(255, 255, 255, 0.25);
-  color: #fff;
 }
 
 /* 横スクロールが必要な図解・表の共通ラッパー */
@@ -8562,25 +7747,6 @@ table.admin-table td {
   }
 }
 
-/* ========================================================================
-   「頭皮のかゆみ・フケに効くシャンプー比較」記事
-   (content/articles/2026-08-02_頭皮かゆみフケシャンプー比較.md)専用
-   スマホ最適化スタイル(2026-08-08)。すべて .kss- プレフィックスまたは
-   .kss-article スコープ配下、もしくは既存の汎用コンポーネント(nevora-point-box/
-   warning-box/quick-summary-box/article-accordion/maegami-quicksummary/
-   maegami-checklist/maegami-conclusion-card)を .kss-article 内で上書きする形に
-   とどめており、他記事の表示には影響しない。
-   テーマカラー: ミントグリーン#4FB49B + スレートグレー#4C5A63 + ペールミント#EAF6F2。
-   ======================================================================== */
-
-.kss-article {
-  --kss-mint: #4fb49b;
-  --kss-mint-dark: #368a76;
-  --kss-slate: #4c5a63;
-  --kss-pale: #eaf6f2;
-  --kss-terracotta: #d98f6e;
-}
-
 /* 目次(絵文字付き折りたたみ) */
 .kss-toc {
   margin: 0 0 24px;
@@ -8632,21 +7798,6 @@ table.admin-table td {
   margin-right: 6px;
 }
 
-/* H2:アイコン付きの帯。3の倍数でセクション背景を白⇔淡色⇔罫線カードに交互化する
-   (実際の背景交互はlib/kayumiScalpWidgets.jsのwrapKssSectionsで.kss-sectionに付与) */
-.kss-article .article-body h2,
-.kss-article h2 {
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  background: var(--kss-pale);
-  border-left: 6px solid var(--kss-mint);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  color: var(--kss-slate);
-  padding: 10px 14px;
-  margin-top: 2.4em;
-  margin-bottom: 0.9em;
-}
-
 .kss-section-tint h2,
 .kss-section-card h2 {
   background: #fff;
@@ -8654,40 +7805,6 @@ table.admin-table td {
 
 .kss-section-card h2 {
   border-left-color: var(--kss-terracotta);
-}
-
-/* H3:左4pxアクセントバー+やや細め */
-.kss-article h3 {
-  font-weight: 600;
-  border-left: 4px solid var(--kss-terracotta);
-  padding-left: 10px;
-  color: var(--kss-mint-dark);
-  margin-top: 1.8em;
-}
-
-.kss-article h4 {
-  font-weight: 700;
-}
-
-.kss-article p,
-.kss-article li {
-  line-height: 1.8;
-  font-size: 1rem;
-}
-
-.kss-article table td,
-.kss-article table th {
-  font-variant-numeric: tabular-nums;
-}
-
-/* 強調3種の使い分け: ①アクセント色マーカー(既存mark.hl) ②太字 ③色付きバッジ */
-.kss-article mark.hl {
-  background: #d6efe8;
-  color: var(--kss-slate);
-}
-
-.kss-article strong {
-  color: var(--kss-mint-dark);
 }
 
 /* セクション単位で背景を交互に変える(白 ⇔ テーマカラー淡色 ⇔ 罫線カード) */
@@ -8714,101 +7831,6 @@ table.admin-table td {
 
 .kss-section h2 {
   margin-top: 0;
-}
-
-/* 💡NEVORAポイント / ⚠️注意ボックス(共通の.nevora-point-box/.warning-box)を
-   この記事のテーマカラーで上書きする。 */
-.kss-article .nevora-point-box {
-  background: var(--kss-pale);
-  border-color: #cfe6dc;
-  border-left-color: var(--kss-mint);
-}
-
-.kss-article .nevora-point-label {
-  /* 背景#eaf6f2上で--kss-mint-dark(#368a76)は3.75:1でAA未達のため、
-     --kss-mint-darkそのものは変えず、同色相で暗くした個別値を使う
-     (2026-08-08、3.75:1→4.61:1)。 */
-  color: #307a69;
-}
-
-.kss-article .warning-box {
-  background: #fdf1ec;
-  border-color: #ecd0b8;
-  border-left-color: var(--kss-terracotta);
-}
-
-.kss-article .warning-box-label {
-  /* 背景#fdf1ec上で#b5602fは4.05:1でAA未達のため、同色相で暗くする
-     (2026-08-08、4.05:1→4.62:1)。 */
-  color: #a7592b;
-}
-
-.kss-article .quick-summary-box {
-  background: linear-gradient(135deg, var(--kss-mint-dark), var(--kss-mint));
-  color: #fff;
-}
-
-.kss-article .quick-summary-label {
-  color: #f2fffb;
-}
-
-/* 汎用ウィジェット(lib/maegamiWidgets.js)を frontmatter経由で流用しているため、
-   見た目だけこの記事のテーマカラーに上書きする(挙動は共通処理のまま)。 */
-.kss-article .maegami-quicksummary {
-  background: var(--kss-pale);
-  border: 1px solid #cfe6dc;
-  border-radius: var(--radius-lg);
-  padding: 16px 18px;
-  margin: 24px 0 32px;
-}
-
-.kss-article .maegami-quicksummary-heading {
-  color: var(--kss-mint-dark);
-}
-
-.kss-article .maegami-quicksummary-subheading {
-  color: var(--kss-slate);
-}
-
-.kss-article .maegami-checklist {
-  background: #fff;
-  border: 1px solid #cfe6dc;
-  border-radius: var(--radius-md);
-  padding: 14px 16px;
-}
-
-.kss-article .maegami-checklist-title {
-  color: var(--kss-mint-dark);
-}
-
-.kss-article .maegami-check-box {
-  color: var(--kss-mint);
-}
-
-.kss-article .maegami-conclusion-card {
-  background: linear-gradient(135deg, var(--kss-slate), var(--kss-mint-dark));
-  color: #fff;
-  border-radius: var(--radius-lg);
-  padding: 20px;
-}
-
-.kss-article .maegami-conclusion-links a,
-.kss-article .maegami-conclusion-next {
-  color: #f2fffb;
-}
-
-.kss-article .maegami-badge {
-  background: rgba(255, 255, 255, 0.25);
-  color: #fff;
-}
-
-/* アコーディオン(FAQ・体験談)をテーマカラーへ */
-.kss-article .article-accordion {
-  border-color: #cfe6dc;
-}
-
-.kss-article .article-accordion-summary {
-  color: var(--kss-mint-dark);
 }
 
 /* 図解共通ラッパー */
@@ -8898,33 +7920,6 @@ table.admin-table td {
   font-variant-numeric: tabular-nums;
 }
 
-@media (max-width: 480px) {
-  .kss-article h2 {
-    font-size: 1.08rem;
-  }
-  .kss-article h3 {
-    font-size: 0.98rem;
-  }
-}
-
-/* ========================================================================
-   「大人のあせも、なぜできる?原因・ニキビとの見分け方・セルフケアと皮膚科受診の目安」記事
-   (content/articles/2026-08-08_大人の汗疹あせも対策.md)専用スマホ最適化スタイル
-   (2026-08-08)。すべて .asemo- プレフィックスまたは .asemo-article スコープ配下、
-   もしくは既存の汎用コンポーネント(nevora-point-box/warning-box/quick-summary-box/
-   article-accordion)を .asemo-article 内で上書きする形にとどめており、他記事の表示には
-   影響しない。テーマカラー: コーラルオレンジ#E8734F(炎症・注意) + クリームピーチ#FFF3EA
-   (背景) + チャコールブラウン#4A3F38(テキスト) + セージグリーン#7FA98B(ケア・回復)。
-   ======================================================================== */
-
-.asemo-article {
-  --asemo-coral: #e8734f;
-  --asemo-coral-dark: #c85a38;
-  --asemo-brown: #4a3f38;
-  --asemo-peach: #fff3ea;
-  --asemo-sage: #7fa98b;
-}
-
 /* 目次(絵文字付き折りたたみ) */
 .asemo-toc {
   margin: 0 0 24px;
@@ -8976,21 +7971,6 @@ table.admin-table td {
   margin-right: 6px;
 }
 
-/* H2:アイコン付きの帯。セクション背景交互化はlib/asemoWidgets.jsのwrapAsemoSectionsで
-   .asemo-sectionに付与する */
-.asemo-article .article-body h2,
-.asemo-article h2 {
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  background: var(--asemo-peach);
-  border-left: 6px solid var(--asemo-coral);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  color: var(--asemo-brown);
-  padding: 10px 14px;
-  margin-top: 2.4em;
-  margin-bottom: 0.9em;
-}
-
 .asemo-section-tint h2,
 .asemo-section-card h2 {
   background: #fff;
@@ -8998,39 +7978,6 @@ table.admin-table td {
 
 .asemo-section-card h2 {
   border-left-color: var(--asemo-sage);
-}
-
-/* H3:左4pxアクセントバー */
-.asemo-article h3 {
-  font-weight: 600;
-  border-left: 4px solid var(--asemo-sage);
-  padding-left: 10px;
-  color: var(--asemo-coral-dark);
-  margin-top: 1.8em;
-}
-
-.asemo-article h4 {
-  font-weight: 700;
-}
-
-.asemo-article p,
-.asemo-article li {
-  line-height: 1.8;
-  font-size: 1rem;
-}
-
-.asemo-article table td,
-.asemo-article table th {
-  font-variant-numeric: tabular-nums;
-}
-
-.asemo-article mark.hl {
-  background: #fbe1d4;
-  color: var(--asemo-brown);
-}
-
-.asemo-article strong {
-  color: var(--asemo-coral-dark);
 }
 
 /* セクション単位で背景を交互に変える(白 ⇔ テーマカラー淡色 ⇔ 罫線カード) */
@@ -9057,49 +8004,6 @@ table.admin-table td {
 
 .asemo-section h2 {
   margin-top: 0;
-}
-
-/* 💡NEVORAポイント / ⚠️注意ボックス(共通の.nevora-point-box/.warning-box)を
-   この記事のテーマカラーで上書きする。 */
-.asemo-article .nevora-point-box {
-  background: var(--asemo-peach);
-  border-color: #f3ded2;
-  border-left-color: var(--asemo-coral);
-}
-
-.asemo-article .nevora-point-label {
-  /* 背景#fff3ea上で--asemo-coral-dark(#c85a38)は3.87:1でAA未達のため、
-     --asemo-coral-darkそのものは変えず、同色相で暗くした個別値を使う
-     (2026-08-08、3.87:1→4.63:1)。 */
-  color: #b45132;
-}
-
-.asemo-article .warning-box {
-  background: #fdece7;
-  border-color: #f0bfa8;
-  border-left-color: var(--asemo-coral-dark);
-}
-
-.asemo-article .warning-box-label {
-  color: #a8442a;
-}
-
-.asemo-article .quick-summary-box {
-  background: linear-gradient(135deg, #c85a38, #e8734f);
-  color: #fff;
-}
-
-.asemo-article .quick-summary-label {
-  color: #fff6f2;
-}
-
-/* アコーディオン(FAQ)をテーマカラーへ */
-.asemo-article .article-accordion {
-  border-color: #f3ded2;
-}
-
-.asemo-article .article-accordion-summary {
-  color: var(--asemo-coral-dark);
 }
 
 /* 図解共通ラッパー */
@@ -9269,30 +8173,10 @@ table.admin-table td {
 }
 
 @media (max-width: 480px) {
-  .asemo-article h2 {
-    font-size: 1.08rem;
-  }
-  .asemo-article h3 {
-    font-size: 0.98rem;
-  }
+
   .asemo-compare-card {
     flex-basis: 84%;
   }
-}
-
-/* =========================================================================
-   「毛穴ケア比較」記事(content/articles/2026-07-26_毛穴ケア比較.md)専用スタイル
-   (2026-08-08 スマホ可読性リニューアル・lib/poreCareWidgets.js)。
-   すべて .pc- プレフィックスまたは .pore-theme スコープ配下に閉じており、
-   他記事(.article-body)のデフォルトスタイルには影響しない。
-   テーマカラー: テラコッタ#D98362 / ピーチクリーム#FBEEE4 / チャコール#40363A。
-   ========================================================================= */
-
-.pore-theme {
-  --pc-terracotta: #d98362;
-  --pc-terracotta-dark: #b4674a;
-  --pc-peach: #fbeee4;
-  --pc-charcoal: #40363a;
 }
 
 /* ---- 独自目次(details) ---- */
@@ -9367,43 +8251,6 @@ table.admin-table td {
   border-radius: var(--radius-md);
   margin: 12px -4px;
   padding: 12px 12px 4px;
-}
-
-.pore-theme h2 {
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  background: linear-gradient(120deg, #fdf5ef, #fff 75%) !important;
-  border-left: 6px solid var(--pc-terracotta) !important;
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  color: var(--pc-charcoal);
-  padding: 10px 14px;
-  margin-top: 2.4em;
-  margin-bottom: 0.9em;
-}
-
-.pore-theme h3 {
-  font-weight: 600;
-  border-left: 4px solid var(--pc-terracotta) !important;
-  padding-left: 10px;
-  color: var(--pc-terracotta-dark) !important;
-  margin-top: 1.8em;
-}
-
-.pore-theme p {
-  font-size: 1rem;
-  line-height: 1.8;
-}
-
-.pore-theme .article-chart,
-.pore-theme .article-accordion,
-.pore-theme .pc-checklist,
-.pore-theme .pc-summary-card,
-.pore-theme .quick-summary-box,
-.pore-theme .nevora-point-box,
-.pore-theme .warning-box,
-.pore-theme blockquote {
-  margin-top: 32px;
-  margin-bottom: 32px;
 }
 
 /* ---- ① 毛穴タイプ3面図 ---- */
@@ -9581,12 +8428,7 @@ table.admin-table td {
 }
 
 @media (max-width: 480px) {
-  .pore-theme h2 {
-    font-size: 1.08rem;
-  }
-  .pore-theme h3 {
-    font-size: 0.98rem;
-  }
+
   .pc-table {
     min-width: 520px;
   }
@@ -9594,7 +8436,6 @@ table.admin-table td {
 
 /* デプロイ確認(nevora-beauty, Root Directory配下) 2026-08-08 */
 /* デプロイ再トリガー確認(3470be4未反映のため) 2026-08-09 */
-
 
 /* 運営者情報ページ末尾の最終更新日 */
 .about-last-updated {

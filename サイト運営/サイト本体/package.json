@@ -18,6 +18,7 @@
     "queue:release": "node scripts/queue-release.js",
     "pins": "node scripts/generate-pinterest-pins.js",
     "ogp": "node scripts/generate-ogp.js",
+    "check:contrast": "node scripts/check-contrast.js",
     "site-images": "node scripts/generate-site-images.js"
   },
   "dependencies": {

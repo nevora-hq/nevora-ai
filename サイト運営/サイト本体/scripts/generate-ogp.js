@@ -55,15 +55,15 @@ function buildHtml() {
     color: #24242b;
     background:
       radial-gradient(620px 520px at 88% 50%, #ffffff 0%, rgba(255,255,255,0) 70%),
-      linear-gradient(118deg, #fff5f8 0%, #fdf3f7 45%, #f2f0fb 100%);
+      linear-gradient(118deg, #f4f8fc 0%, #eef4fb 45%, #e8f0fa 100%);
   }
   .wrap { display: flex; width: 100%; height: 100%; align-items: center; }
   .copy { flex: 0 0 700px; padding-left: 84px; }
   .eyebrow {
     font-size: 24px; font-weight: 700; letter-spacing: 0.34em;
-    /* 淡いピンク背景の上でもコントラスト6:1以上を確保するため、
-       ブランド色そのもの(#d6336c、約4.9:1)ではなくprimary-darkを使う。 */
-    color: #b32657; margin-bottom: 26px;
+    /* 淡いブルー背景の上でコントラスト6:1以上を確保するため、
+       ブランド色そのもの(#1e5fa8、約6.1:1)ではなくprimary-dark(約8.7:1)を使う。 */
+    color: #17497f; margin-bottom: 26px;
   }
   .title {
     font-family: "Shippori Mincho", "Yu Mincho", "YuMincho", serif;
@@ -74,14 +74,14 @@ function buildHtml() {
     font-size: 100px; font-weight: 800; letter-spacing: 0.09em;
     line-height: 1.1; margin: 6px 0 22px;
   }
-  .rule { width: 470px; height: 3px; background: linear-gradient(90deg, #d6336c 0%, #e9a2bd 100%); }
+  .rule { width: 470px; height: 3px; background: linear-gradient(90deg, #1e5fa8 0%, #9dbde0 100%); }
   .tagline { margin-top: 22px; font-size: 26px; letter-spacing: 0.06em; color: #52525f; }
   .art { flex: 1; position: relative; height: 100%; }
   .ring {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
     width: 430px; height: 430px; border-radius: 50%;
-    background: radial-gradient(circle at 50% 45%, #ffffff 0%, #fdeef4 62%, #f6ecfa 100%);
-    box-shadow: 0 18px 48px rgba(214, 51, 108, 0.12);
+    background: radial-gradient(circle at 50% 45%, #ffffff 0%, #eaf2fb 62%, #e6edf9 100%);
+    box-shadow: 0 18px 48px rgba(30, 95, 168, 0.12);
   }
   .mascots {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -46%);

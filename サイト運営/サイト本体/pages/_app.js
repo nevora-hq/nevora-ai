@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Script from "next/script";
 import "../styles/globals.css";
-import "../styles/azelaicArticle.css";
 import { GA_MEASUREMENT_ID, isGAEnabled, pageview } from "../lib/gtag";
 
 export default function MyApp({ Component, pageProps }) {
