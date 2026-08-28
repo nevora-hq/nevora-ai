@@ -1988,7 +1988,7 @@ h1.page-title {
   line-height: 1.7;
   margin: 2.4em 0 1em;
   padding: 0.6em 0.9em;
-  background: linear-gradient(120deg, var(--color-primary-light), #fff6f9 75%);
+  background: linear-gradient(120deg, var(--color-primary-light), #f7fbff 75%);
   border-left: 6px solid var(--color-primary);
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
   color: var(--color-text);
@@ -2675,7 +2675,7 @@ h1.page-title {
   justify-content: space-between;
   width: 100%;
   padding: 14px 18px;
-  background: linear-gradient(120deg, var(--color-primary-light), #fff6f9 75%);
+  background: linear-gradient(120deg, var(--color-primary-light), #f7fbff 75%);
   border: none;
   font-weight: 700;
   font-size: 0.95rem;
@@ -3102,44 +3102,6 @@ h1.page-title {
 }
 
 /* ---- Form ---- */
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  max-width: 480px;
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--color-text-muted);
-}
-
-.form-field input,
-.form-field textarea {
-  padding: 11px 14px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  font-size: 1rem;
-  font-family: inherit;
-  color: var(--color-text);
-  transition: border-color var(--transition);
-}
-
-.form-field input:focus,
-.form-field textarea:focus {
-  border-color: var(--color-primary);
-  outline: none;
-}
-
-.form-submit {
-  border: none;
-  cursor: pointer;
-  width: fit-content;
-}
 
 /* ---- 404 ---- */
 .not-found {
@@ -5383,9 +5345,9 @@ table.admin-table td {
   align-items: flex-start;
   margin: 1.6em 0;
   padding: 16px 18px;
-  background: #FBF3EC;
-  border: 1px solid #E8CFC4;
-  border-left: 5px solid #8B6F52;
+  background: #eef4fb;
+  border: 1px solid #cfe0f2;
+  border-left: 5px solid var(--color-primary);
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 
@@ -5400,9 +5362,8 @@ table.admin-table td {
   font-weight: 800;
   font-size: 0.85rem;
   letter-spacing: 0.02em;
-  /* 背景#FBF3EC上でWCAG AA(4.5:1)を満たすよう、同色相のまま#8B6F52から
-     暗くした値(2026-08-08、4.26:1→4.67:1)。 */
-  color: #83694d;
+  /* 背景#eef4fb上で約8.4:1(CLAUDE.mdの6:1基準を満たす)。 */
+  color: var(--color-primary-dark);
 }
 
 .nevora-point-body p:last-child {
@@ -5447,16 +5408,18 @@ table.admin-table td {
 
 /* セクションごとの背景を白⇔テーマカラー淡色⇔罫線カードで交互にするための
    H2見出し配色バリエーション(3周期)。article-body内のH2の出現順で
-   自動的に交互になる(記事Markdown側での指定は不要)。 */
+   自動的に交互になる(記事Markdown側での指定は不要)。
+   .article-body 全体に効く共通スタイルのため、ブランドカラーのブルー基調で揃える
+   (2026-08-28、旧・美容サイトのチェスナットブラウン系から変更)。 */
 .article-body h2:nth-of-type(3n+2) {
-  background: linear-gradient(120deg, #F3E7DD, #FBF5F0 75%);
-  border-left-color: #8B6F52;
+  background: linear-gradient(120deg, #dfe9f5, #f4f8fc 75%);
+  border-left-color: var(--color-primary-dark);
 }
 
 .article-body h2:nth-of-type(3n) {
-  background: #FFFFFF;
-  border: 1px solid #E8CFC4;
-  border-left: 6px solid #8B6F52;
+  background: #ffffff;
+  border: 1px solid #cfe0f2;
+  border-left: 6px solid var(--color-primary-dark);
 }
 
 /* ✅ 今日からできるチェックリスト */
@@ -8496,21 +8459,3 @@ table.admin-table td {
   text-align: right;
 }
 
-/* お問い合わせフォームの送信結果メッセージ */
-.form-message {
-  margin: 16px 0 0;
-  padding: 12px 16px;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  line-height: 1.7;
-}
-.form-message-success {
-  background: #eef7f0;
-  border: 1px solid #b7ddc2;
-  color: #1d5c31;
-}
-.form-message-error {
-  background: #fdf0ee;
-  border: 1px solid #eebfb7;
-  color: #8a2b1b;
-}

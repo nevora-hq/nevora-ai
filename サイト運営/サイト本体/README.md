@@ -66,14 +66,16 @@ Webサイト
 
 `NEXT_PUBLIC_SITE_URL` が未設定だと `components/Layout.js` の実装上、canonical・og:url・構造化データのタグ自体が出力されず、ローカルでは正しいURLが出ているか確認できない(本番Vercelの環境変数には設定済み)。ローカルで検証する場合は以下の手順で設定する。
 
-1. `.env.local.example` の内容(`NEXT_PUBLIC_SITE_URL=https://nevora-beauty.vercel.app`)を `.env.local` に追記する(無ければ `.env.local.example` をコピーしてもよい)
-2. `npm run build` を実行し、`.next/server/pages/worry/[slug].html` 等の出力HTML内で `<link rel="canonical" ...>` と `<meta property="og:url" ...>` が英語slugのURL(例: `https://nevora-beauty.vercel.app/worry/dryness`)になっていることを確認する
+1. `.env.local.example` の内容(`NEXT_PUBLIC_SITE_URL=https://nevora-ai.vercel.app`)を `.env.local` に追記する(無ければ `.env.local.example` をコピーしてもよい)
+2. `npm run build` を実行し、`.next/server/pages/worry/[slug].html` 等の出力HTML内で `<link rel="canonical" ...>` と `<meta property="og:url" ...>` が英語slugのURL(例: `https://nevora-ai.vercel.app/worry/prompt`)になっていることを確認する
 
-## お問い合わせフォーム
+## お問い合わせ
 
 - 実装箇所: `pages/contact.js`
-- 送信ボタンを押すと`mailto:`リンクで`nevora01123@gmail.com`宛のメール下書きが開く方式(サーバー側の送信処理は無し)
-- Web3Forms等の外部フォームサービスと連携すればサーバー側送信に切り替えられるが、外部サービスのアカウント登録が必要なため現時点では見送っている
+- **入力フォームは設置していない。**メールアドレス(`nevora01123@gmail.com`)の明示と、
+  宛先・件名・記入項目を埋めた`mailto:`リンクを主動線にしている(2026-08-28、Formspree廃止)
+- 外部のフォーム配信サービスは利用しない方針。プライバシーポリシーにも同じ旨を記載しているため、
+  フォームを再導入する場合は`pages/privacy-policy.js`の記述もあわせて更新すること
 
 ## アフィリエイトASP(A8.net等)提携の今後の設定手順
 
