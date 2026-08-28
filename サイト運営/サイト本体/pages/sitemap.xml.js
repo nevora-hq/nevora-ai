@@ -57,7 +57,6 @@ export async function getServerSideProps({ req, res }) {
     ...(hasCompareItems ? ["/compare"] : []),
     "/ranking",
     "/search",
-    "/diagnosis/skin-type",
     "/category",
   ];
 
@@ -76,7 +75,9 @@ export async function getServerSideProps({ req, res }) {
         p.updatedDate || p.date || undefined
       )
     ),
-    urlEntry(`${siteUrl}/worry`),
+    // 困りごとページは専用本文があるものだけ存在する(lib/worryTopics.js)。
+    // 1件も無い間はハブ /worry も生成されないため、サイトマップにも載せない。
+    ...(worryItems.length > 0 ? [urlEntry(`${siteUrl}/worry`)] : []),
     ...worryItems.map((item) => {
       const worryPosts = posts.filter(
         (p) => Array.isArray(p.worry) && p.worry.includes(item.slug)

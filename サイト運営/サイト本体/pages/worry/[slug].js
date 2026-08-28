@@ -7,6 +7,7 @@ import WorrySelfCheck from "../../components/WorrySelfCheck";
 import {
   getAllWorryItems,
   getWorryItemBySlug,
+  getWorryPageItems,
 } from "../../lib/worryTopics";
 import { getWorryContent } from "../../lib/worryContent";
 import { getCategoryMeta } from "../../lib/categoryMeta";
@@ -18,7 +19,7 @@ import {
 } from "../../lib/structuredData";
 
 export async function getStaticPaths() {
-  const items = getAllWorryItems();
+  const items = getWorryPageItems();
   return {
     paths: items.map((item) => ({ params: { slug: item.slug } })),
     fallback: false,
@@ -36,8 +37,10 @@ export async function getStaticProps({ params }) {
     (post) => Array.isArray(post.worry) && post.worry.includes(params.slug)
   );
   const { image: categoryImage } = getCategoryMeta(item.primaryCategory);
+  const publishedSlugs = new Set(getWorryPageItems().map((x) => x.slug));
   const relatedWorries = getAllWorryItems().filter(
-    (other) => other.group === item.group && other.slug !== item.slug
+    (other) =>
+      other.group === item.group && other.slug !== item.slug && publishedSlugs.has(other.slug)
   );
 
   // 困りごとCTA(ブロック9)の遷移先。その困りごとのprimaryCategoryの

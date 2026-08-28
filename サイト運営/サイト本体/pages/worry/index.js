@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Layout from "../../components/Layout";
-import { WORRY_GROUPS } from "../../lib/worryTopics";
+import { getPublishedWorryGroups } from "../../lib/worryTopics";
 import { getWorryContent } from "../../lib/worryContent";
 import { getAllPostsMeta } from "../../lib/posts";
 import { buildBreadcrumbJsonLd, buildItemListJsonLd } from "../../lib/structuredData";
@@ -8,7 +8,7 @@ import { buildBreadcrumbJsonLd, buildItemListJsonLd } from "../../lib/structured
 export async function getStaticProps() {
   const allPosts = getAllPostsMeta();
 
-  const groups = WORRY_GROUPS.map((group) => ({
+  const groups = getPublishedWorryGroups().map((group) => ({
     heading: group.heading,
     items: group.items.map((item) => {
       const content = getWorryContent(item.slug);
@@ -23,6 +23,11 @@ export async function getStaticProps() {
       };
     }),
   }));
+
+  // 専用ページが1件も無い状態では、ハブ自体が空のページになるため公開しない。
+  if (groups.length === 0) {
+    return { notFound: true };
+  }
 
   return { props: { groups } };
 }

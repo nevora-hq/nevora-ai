@@ -5,6 +5,7 @@
 // importされるため、Node専用のlib/posts.js(fs使用)を絶対にimportしないこと。
 // 記事一覧の絞り込み(getPostsByWorry相当)はpages/worry/[slug].jsのgetStaticProps側で行う。
 
+import { getWorryContent } from "./worryContent";
 import {
   CHAMIN,
   EGAMIN,
@@ -56,9 +57,20 @@ export function getAllWorryItems() {
   );
 }
 
-// /worry/[slug] を生成する対象。現在は全15件。
+// /worry/[slug] を生成する対象。
+// 専用ページの本文(lib/worryContent.js)が用意できているものだけを返す。
+// 本文が無いslugまで静的生成すると、getStaticPropsがnotFoundを返して
+// 「リンクはあるが404」というダミーリンクになるため(2026-08-28、本番で発覚)。
 export function getWorryPageItems() {
-  return getAllWorryItems();
+  return getAllWorryItems().filter((item) => getWorryContent(item.slug));
+}
+
+// ホーム・ハブでチップを出す対象。ページが存在するものだけに絞る。
+export function getPublishedWorryGroups() {
+  return WORRY_GROUPS.map((group) => ({
+    ...group,
+    items: group.items.filter((item) => getWorryContent(item.slug)),
+  })).filter((group) => group.items.length > 0);
 }
 
 export function getWorryItemBySlug(slug) {

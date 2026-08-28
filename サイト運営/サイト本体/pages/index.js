@@ -11,7 +11,7 @@ import SectionBand from "../components/SectionBand";
 import { getAllPostsMeta, getAllMajorCategories } from "../lib/posts";
 import { getCategoryMeta } from "../lib/categoryMeta";
 import { getCategoryMascot, AIMIN } from "../lib/categoryMascot";
-import { WORRY_GROUPS, getWorryHref } from "../lib/worryTopics";
+import { getPublishedWorryGroups, getWorryHref } from "../lib/worryTopics";
 import Link from "next/link";
 
 // 「人気カテゴリー」として常時表示する3カテゴリ(残りはアコーディオンで展開)。
@@ -19,6 +19,8 @@ const PINNED_CATEGORY_NAMES = ["AIチャット・対話AI", "画像生成AI", "A
 
 export async function getStaticProps() {
   const posts = getAllPostsMeta();
+  // 専用ページが用意できている困りごとだけをチップに出す(404リンクを作らない)
+  const worryGroups = getPublishedWorryGroups();
   const categories = getAllMajorCategories();
 
   const categorySummaries = categories.map((c) => ({
@@ -69,6 +71,7 @@ export async function getStaticProps() {
 
   return {
     props: {
+      worryGroups,
       newPosts,
       featuredPosts,
       popularPosts,
@@ -80,6 +83,7 @@ export async function getStaticProps() {
 }
 
 export default function Home({
+  worryGroups = [],
   newPosts,
   featuredPosts,
   popularPosts,
@@ -169,46 +173,51 @@ export default function Home({
           </div>
         </section>
 
-        {/* 左側に白壁の余白がある写真。見出しは1180pxグリッドの左端に揃えて白抜きで重ねる */}
-        <SectionBand
-          base="/images/band/band-01"
-          widths={[640, 1024, 1536]}
-          objectPosition="50% 8%"
-        >
-          <h2 id="worry-finder-title" className="section-band-title">
-            あなたのAIの困りごとから探す
-          </h2>
-          <p className="section-band-lead">
-            気になる困りごとをタップすると、関連する記事やカテゴリをまとめて見られます。
-          </p>
-        </SectionBand>
+        {/* 困りごとの専用ページが1件も無い間はセクションごと隠す(空の帯・404リンクを作らない) */}
+        {worryGroups.length > 0 && (
+          <>
+          {/* 左側に白壁の余白がある写真。見出しは1180pxグリッドの左端に揃えて白抜きで重ねる */}
+          <SectionBand
+            base="/images/band/band-01"
+            widths={[640, 1024, 1536]}
+            objectPosition="50% 8%"
+          >
+            <h2 id="worry-finder-title" className="section-band-title">
+              あなたのAIの困りごとから探す
+            </h2>
+            <p className="section-band-lead">
+              気になる困りごとをタップすると、関連する記事やカテゴリをまとめて見られます。
+            </p>
+          </SectionBand>
 
-        <section
-          className="home-stripe home-stripe--tint worry-finder-section"
-          aria-labelledby="worry-finder-title"
-        >
-          <div className="container container--wide">
-            <Link href="/worry" className="worry-finder-all-link">
-              すべての困りごとを見る →
-            </Link>
-            {WORRY_GROUPS.map((group) => (
-              <div className="worry-finder-group" key={group.heading}>
-                <p className="worry-finder-group-title">{group.heading}</p>
-                <div className="worry-finder-chips">
-                  {group.items.map((item) => (
-                    <Link
-                      key={item.slug}
-                      href={getWorryHref(item)}
-                      className="worry-chip"
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
+          <section
+            className="home-stripe home-stripe--tint worry-finder-section"
+            aria-labelledby="worry-finder-title"
+          >
+            <div className="container container--wide">
+              <Link href="/worry" className="worry-finder-all-link">
+                すべての困りごとを見る →
+              </Link>
+              {worryGroups.map((group) => (
+                <div className="worry-finder-group" key={group.heading}>
+                  <p className="worry-finder-group-title">{group.heading}</p>
+                  <div className="worry-finder-chips">
+                    {group.items.map((item) => (
+                      <Link
+                        key={item.slug}
+                        href={getWorryHref(item)}
+                        className="worry-chip"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
+              ))}
+            </div>
+          </section>
+          </>
+        )}
 
         <section className="home-stripe home-stripe--cream">
           <div className="container container--wide">
