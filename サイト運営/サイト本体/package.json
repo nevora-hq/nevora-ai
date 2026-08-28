@@ -16,7 +16,9 @@
     "queue": "node scripts/queue.js",
     "queue:status": "node scripts/queue-status.js",
     "queue:release": "node scripts/queue-release.js",
-    "pins": "node scripts/generate-pinterest-pins.js"
+    "pins": "node scripts/generate-pinterest-pins.js",
+    "ogp": "node scripts/generate-ogp.js",
+    "site-images": "node scripts/generate-site-images.js"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
