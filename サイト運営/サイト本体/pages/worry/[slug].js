@@ -71,7 +71,7 @@ function buildWorryJsonLd(slug, label, content, posts, siteUrl) {
     { name: label, url: pageUrl },
   ]);
   const itemList = buildItemListJsonLd(
-    posts.map((p) => ({ name: p.title, url: `${siteUrl}/posts/${p.slug}` }))
+    posts.map((p) => ({ name: p.title, url: `${siteUrl}/posts/${encodeURIComponent(p.slug)}` }))
   );
   const faq = buildFaqJsonLd(content.faq);
   return [breadcrumb, itemList, faq].filter(Boolean);
