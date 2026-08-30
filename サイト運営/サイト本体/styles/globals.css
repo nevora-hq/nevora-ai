@@ -297,7 +297,7 @@ img {
   position: absolute;
   top: 100%;
   left: 0;
-  min-width: 180px;
+  min-width: 220px;
   padding: 8px;
   margin-top: 8px;
   background: var(--color-surface);
@@ -305,6 +305,12 @@ img {
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
   z-index: 30;
+  /* カテゴリが12件あるため、ビューポート下端をはみ出して下の方の項目が
+     読めなくなる。ヘッダー下端から画面下までに収め、あふれたら内部スクロール
+     させる(2026-08-30)。 */
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .nav-dropdown:hover .nav-dropdown-menu,
@@ -323,6 +329,7 @@ img {
   border-radius: var(--radius-sm);
   font-size: 0.9rem;
   color: var(--color-text);
+  white-space: nowrap;
 }
 
 .nav-dropdown-menu a:hover {
