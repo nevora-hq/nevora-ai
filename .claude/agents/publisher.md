@@ -50,6 +50,13 @@ model: sonnet
    教訓と同種のリスク)、対象コミットの差分に`lib/posts.js`が含まれるかを
    `git diff --stat`等で機械的に確認したうえで要否を判断すること。記事
    Markdownの追加・修正のみ(`lib/posts.js`に変更なし)の場合は不要
+5. **対象記事のfrontmatter`thumbnail`と本文中の`![]()`が参照する`/images/articles/*.webp`
+   をすべて洗い出し、`git ls-files -- "サイト運営/サイト本体/public/images/articles/{ファイル名}"`
+   で1件ずつ(またはまとめてglobで)git管理下にあることを確認してからcommit・pushする。
+   ファイルがディスク上に存在するだけでgit未追跡のまま記事Markdownだけpushすると、
+   公開後に画像が404(リンク切れ)になる。本来はimage-placerの完了条件で防ぐべき項目だが、
+   publisherの公開ゲートでも独立して確認する(2026-09-04、直近10記事・30ファイル分の
+   画像がimage-placer側でcommit漏れしたままpublisherも検知せずpushしていた事例による)**
 
 ## 確定稿への保存ゲート(2026-08-14追加/2026-08-19改訂)
 `サイト運営\記事データ\確定稿\`へ記事を新規保存する作業を依頼された場合も、公開と同じ考え方で`node scripts/verify-article.js "<対象記事の絶対パス>"`を実行し、`overall`が`"Yes"`であることを確認してから保存する。overall=Noのまま確定稿に置かない(保存作業報告には必ず実行結果〔overallとviolated itemsの一覧〕を添付する。詳細は`docs/CONTRIBUTING.md` 26節(a)参照)。
@@ -81,6 +88,9 @@ model: sonnet
 4. 新規公開ゲートの4と同じ条件(`lib/posts.js`のレンダリングロジックに変更が
    含まれる回)に該当する場合は、`npm run verify:rendered`を実行しUNMATCHED
    0件を確認する。記事Markdownのみの再pushでは不要
+5. 新規公開ゲートの5と同じく、対象記事が参照する`/images/articles/*.webp`が
+   git管理下にあるかを確認してから再pushする(image-placer等による事後の画像追加・
+   差し替えを反映する回に特に注意)
 
 # 役割
 - `確定稿` フォルダに公開待ちの記事があるかを確認する
