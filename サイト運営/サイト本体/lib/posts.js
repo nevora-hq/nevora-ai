@@ -499,6 +499,50 @@ function splitLabelForWrap(label, maxLineChars) {
   return [chars.slice(0, chosen).join(""), chars.slice(chosen).join("")];
 }
 
+// 行数無制限の折り返し(2026-09-07)。splitLabelForWrapは中央付近で1回だけ
+// 分割する=最大2行の実装で、maxLineCharsは分割位置の目安にしか使われず
+// 結果が上限内に収まる保証がない。そのため42文字のnoteが1行21文字となり、
+// steps型の1行上限18文字を超えて項目35のOVERFLOWを踏んだ
+// (2026-09-03_生成AIを使わない理由の内訳、幅768px)。
+// splitLabelForWrap自体を多行化しないのは、棒グラフ側が「2行なら行高+34」と
+// 2行前提で高さを計算しており、3行が返ると別の崩れを生むため。
+// steps型はrowHeightsを行数から動的に算出しているので多行化しても破綻しない。
+function wrapLabelLines(label, maxLineChars) {
+  const text = String(label || "");
+  const chars = Array.from(text);
+  const max = Math.max(1, maxLineChars);
+  if (chars.length <= max) return text ? [text] : [""];
+  // 区切りに適した文字。この文字の「直後」で改行すると読点・句点が行頭に
+  // 落ちない(行頭禁則)。splitLabelForWrapのbreakCharsと同じ考え方。
+  const breakAfter = new Set(["の", "・", " ", "、", "。", "!", "?", "！", "？", "」", ")", "）"]);
+  // 行頭に来てはいけない文字。ハードカットの結果これらが行頭に落ちる場合は
+  // 1文字ぶん手前で切り直す。
+  const noLineStart = new Set(["、", "。", "!", "?", "！", "？", "」", ")", "）"]);
+  const lines = [];
+  let i = 0;
+  while (i < chars.length) {
+    const rest = chars.length - i;
+    if (rest <= max) {
+      lines.push(chars.slice(i).join(""));
+      break;
+    }
+    let cut = max;
+    // 上限位置から最大4文字ぶん手前まで戻り、区切り文字の直後を探す
+    for (let d = 0; d < 4; d += 1) {
+      const idx = max - d;
+      if (idx >= 1 && breakAfter.has(chars[i + idx - 1])) {
+        cut = idx;
+        break;
+      }
+    }
+    // 区切り文字が見つからずハードカットになる場合の行頭禁則の後始末
+    if (cut === max && noLineStart.has(chars[i + cut])) cut = Math.max(1, cut - 1);
+    lines.push(chars.slice(i, i + cut).join(""));
+    i += cut;
+  }
+  return lines;
+}
+
 function renderBarChartHtml(chart) {
   const { title, unit = "", data, source, sourceUrl } = chart;
   if (!Array.isArray(data) || data.length === 0) return "";
@@ -1186,8 +1230,10 @@ function renderGenericStepsHtml(chart) {
   const GAP_AFTER_STEP = 4;
   const BOTTOM_PAD = 10;
 
-  const stepLinesList = items.map((it) => splitLabelForWrap(it.step, MAX_LINE_CHARS));
-  const noteLinesList = items.map((it) => splitLabelForWrap(it.note, MAX_LINE_CHARS));
+  // 行数無制限のwrapLabelLinesを使う。splitLabelForWrap(最大2行)では
+  // 40文字前後のnoteが1行あたりMAX_LINE_CHARSを超えてはみ出すため(2026-09-07)。
+  const stepLinesList = items.map((it) => wrapLabelLines(it.step, MAX_LINE_CHARS));
+  const noteLinesList = items.map((it) => wrapLabelLines(it.note, MAX_LINE_CHARS));
   const rowHeights = items.map((_, i) => {
     const n1 = stepLinesList[i].length;
     const n2 = noteLinesList[i].length;
