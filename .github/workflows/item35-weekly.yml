@@ -49,7 +49,14 @@ jobs:
 
       - name: Chromiumのインストール
         working-directory: サイト運営/サイト本体
-        run: npx playwright install --with-deps chromium
+        # --no-install を付けてローカル(package.jsonでpinned)のplaywrightだけを使う。
+        # 付けないとnpxがレジストリから最新版CLIを取得してしまい、
+        # scripts/verify-rendered-layout.js が読む playwright-core と
+        # ブラウザのリビジョンがズレて
+        # "Executable doesn't exist at .../chromium_headless_shell-XXXX/..." で落ちる(2026-09-07)。
+        run: |
+          npx --no-install playwright --version
+          npx --no-install playwright install --with-deps chromium
 
       - name: ビルド(prebuildでsync-contentが走る)
         working-directory: サイト運営/サイト本体
