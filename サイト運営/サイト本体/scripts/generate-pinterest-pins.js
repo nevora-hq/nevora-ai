@@ -15,8 +15,9 @@
  *   3段レイアウトに差し替えて1000x1500でスクリーンショットする方式を採る
  *   (verify-rendered-layout.jsと同じ「next start + playwright-core」の構成)。
  *
- * 出力先はリポジトリ直下の pinterest-pins/(public配下ではないため公開ビルドには
- * 含まれない)。既存のサムネイル生成・記事ビルド処理には一切手を入れていない。
+ * 出力先はリポジトリ直下の pinterest-pins-AI/(public配下ではないため公開ビルドには
+ * 含まれない。2026-09-09、他サイトの pinterest-pins-美容 と区別するためリネーム)。
+ * 既存のサムネイル生成・記事ビルド処理には一切手を入れていない。
  *
  * 記事側で図解・タイトルを指定したい場合はfrontmatterに以下を追加できる(任意):
  *   pinFigure: 3        … 何番目の図解を使うか(1始まり。既定は最後の図解=結論に最も近い)
@@ -32,7 +33,7 @@ const BASE_URL = `http://127.0.0.1:${PORT}`;
 const SITE_URL = "https://nevora-ai.vercel.app";
 const ARTICLES_DIR = path.join(__dirname, "..", "content", "articles");
 // リポジトリ直下(サイト運営/サイト本体 から2つ上)に出力する。
-const OUT_DIR = path.join(__dirname, "..", "..", "..", "pinterest-pins");
+const OUT_DIR = path.join(__dirname, "..", "..", "..", "pinterest-pins-AI");
 
 const PIN_WIDTH = 1000;
 const PIN_HEIGHT = 1500;
@@ -181,35 +182,70 @@ function buildRow(slug, fm) {
     url: `${SITE_URL}/posts/${encodeURIComponent(slug)}`,
     category,
     board: BOARD_BY_CATEGORY[category] || "AIの基礎知識",
+    status: "未投稿",
     pinTitle: buildPinTitle(fm),
     pinDescription: buildPinDescription(fm),
   };
 }
 
+// 簡易CSV1行パーサ(値はすべて"..."で囲まれている前提。writeManifestの出力形式に対応)。
+function parseCsvLine(line) {
+  const cells = [];
+  const re = /"((?:[^"]|"")*)"\s*(?:,|$)/g;
+  let m;
+  while ((m = re.exec(line))) {
+    cells.push(m[1].replace(/""/g, '"'));
+    if (re.lastIndex >= line.length) break;
+  }
+  return cells;
+}
+
 // マニフェスト: 既存行はslug単位でマージし、今回生成した分で上書きする
-// (部分生成のときに過去分が消えないようにするため)。
+// (部分生成のときに過去分が消えないようにするため)。ステータス列(Pinterestへの
+// 投稿可否を手動管理する欄。既定値は「未投稿」)は生成のたびに手作業の記録が
+// 消えないよう、既存行にあればその値を引き継ぐ。
 function writeManifest(rows) {
   const manifestPath = path.join(OUT_DIR, "manifest.csv");
   const merged = new Map();
+  const prevStatusBySlug = new Map();
   if (fs.existsSync(manifestPath)) {
-    const prev = fs.readFileSync(manifestPath, "utf8").replace(/^﻿/, "").split(/\r?\n/).slice(1);
+    const raw = fs.readFileSync(manifestPath, "utf8");
+    const noBom = raw.charCodeAt(0) === 0xfeff ? raw.slice(1) : raw;
+    const prev = noBom.split(/\r?\n/).slice(1);
     prev.forEach((line) => {
       if (!line.trim()) return;
-      const m = line.match(/^"((?:[^"]|"")*)"/);
-      if (m) merged.set(m[1].replace(/""/g, '"'), line);
+      const cells = parseCsvLine(line);
+      if (!cells.length) return;
+      merged.set(cells[0], line);
+      if (cells.length >= 5) prevStatusBySlug.set(cells[0], cells[4]);
     });
   }
   rows.forEach((r) => {
+    const status = prevStatusBySlug.get(r.slug) || r.status;
     merged.set(
       r.slug,
-      [r.slug, r.url, r.category, r.board, r.pinTitle, r.pinDescription].map(csvCell).join(",")
+      [r.slug, r.url, r.category, r.board, status, r.pinTitle, r.pinDescription]
+        .map(csvCell)
+        .join(",")
     );
   });
-  const header = ["slug", "記事URL", "カテゴリ名", "ボード名", "ピンタイトル案", "ピン説明文案"]
+  const header = [
+    "slug",
+    "記事URL",
+    "カテゴリ名",
+    "ボード名",
+    "ステータス",
+    "ピンタイトル案",
+    "ピン説明文案",
+  ]
     .map(csvCell)
     .join(",");
   // Excelで文字化けしないようUTF-8 BOM付きで書き出す
-  fs.writeFileSync(manifestPath, `\ufeff${header}\n${[...merged.values()].join("\n")}\n`, "utf8");
+  fs.writeFileSync(
+    manifestPath,
+    `${String.fromCharCode(0xfeff)}${header}\n${[...merged.values()].join("\n")}\n`,
+    "utf8"
+  );
   return merged.size;
 }
 
@@ -298,13 +334,13 @@ function buildPinInPage(opts) {
   // --- 1) 上部: タイトル帯(〜350px) ---
   const head = document.createElement("div");
   head.style.cssText =
-    "height:350px;flex:0 0 350px;background:#fff5f8;border-bottom:6px solid #d6336c;" +
+    "height:350px;flex:0 0 350px;background:#f4f8fc;border-bottom:6px solid #1e5fa8;" +
     "box-sizing:border-box;padding:40px 60px;display:flex;flex-direction:column;" +
     "align-items:center;justify-content:center;gap:16px;";
   const cat = document.createElement("div");
   cat.textContent = category;
   cat.style.cssText =
-    "font-family:var(--font-sans);font-size:30px;font-weight:700;color:#fff;background:#d6336c;" +
+    "font-family:var(--font-sans);font-size:30px;font-weight:700;color:#fff;background:#1e5fa8;" +
     "padding:6px 24px;border-radius:999px;letter-spacing:.04em;";
   const h = document.createElement("div");
   h.textContent = title;
@@ -329,7 +365,7 @@ function buildPinInPage(opts) {
   // --- 3) 下部: サイト名 + マスコット + ドメイン(〜250px) ---
   const foot = document.createElement("div");
   foot.style.cssText =
-    "height:250px;flex:0 0 250px;background:#d6336c;box-sizing:border-box;" +
+    "height:250px;flex:0 0 250px;background:#1e5fa8;box-sizing:border-box;" +
     "padding:40px 60px;display:flex;align-items:center;justify-content:space-between;gap:32px;";
   const brand = document.createElement("div");
   brand.style.cssText = "display:flex;flex-direction:column;gap:10px;";
@@ -352,7 +388,7 @@ function buildPinInPage(opts) {
   const bdomain = document.createElement("div");
   bdomain.textContent = domain;
   bdomain.style.cssText =
-    "font-family:var(--font-sans);font-size:28px;font-weight:500;color:#ffe3ec;letter-spacing:.04em;white-space:nowrap;";
+    "font-family:var(--font-sans);font-size:28px;font-weight:500;color:#cfe0f4;letter-spacing:.04em;white-space:nowrap;";
   brand.appendChild(bname);
   brand.appendChild(bdomain);
   const mascot = document.createElement("img");

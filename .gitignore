@@ -5,4 +5,4 @@ memory/
 
 # Pinterest用ピン画像(生成物。スクリプトで再生成できるためPNGは追跡しない。
 # 投稿作業用の manifest.csv はコミット対象に含める)
-pinterest-pins/*.png
+pinterest-pins-AI/*.png
