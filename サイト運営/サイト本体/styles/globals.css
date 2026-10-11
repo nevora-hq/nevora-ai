@@ -8491,3 +8491,53 @@ table.admin-table td {
   color: var(--chart-accent-dark);
   flex-shrink: 0;
 }
+
+/* 診断の図の「診断結果タイプ一覧」を、最初は閉じた折りたたみ(details/summary)にする(2026-10-12、依頼者の決定)。
+   見た目はこのサイトの折りたたみ(.article-accordion)に合わせる(枠・角の丸み・見出しの色・▼の印)。
+   開いたときの中身(タイプ名のラベルと説明文)は、これまでと同じ見た目(.chart-diagnosis-outcome-* は変えない)。
+   指で押しやすいよう、見出しの高さは44px以上にする。 */
+details.chart-diagnosis-outcomes {
+  margin-top: 20px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-bg);
+  text-align: left;
+}
+
+.chart-diagnosis-outcomes-summary {
+  cursor: pointer;
+  list-style: none;
+  min-height: 44px;
+  padding: 12px 18px;
+  box-sizing: border-box;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--color-primary-dark);
+  background: var(--color-primary-surface);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.chart-diagnosis-outcomes-summary::-webkit-details-marker {
+  display: none;
+}
+
+.chart-diagnosis-outcomes-summary::after {
+  content: "▼";
+  font-size: 0.7em;
+  color: var(--color-primary);
+  transition: transform var(--transition);
+  flex-shrink: 0;
+}
+
+details.chart-diagnosis-outcomes[open] > .chart-diagnosis-outcomes-summary::after {
+  transform: rotate(180deg);
+}
+
+details.chart-diagnosis-outcomes > .chart-diagnosis-outcomes-list {
+  padding: 14px 18px 16px;
+}
