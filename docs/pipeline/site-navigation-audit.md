@@ -19,7 +19,7 @@
 
 確認観点: ドメイン移行後、サイトのコード・公開記事に旧`vercel.app`のハードコードが残っていないか(URLは`NEXT_PUBLIC_SITE_URL`で一元管理)。調査メモ・作業ログ・移行記録は対象外。
 
-Grep範囲: `pages/`・`components/`・`lib/`・`記事データ/確定稿`・`記事データ/公開済み`・`next.config.js`・`pages/robots.txt.js`・`sitemap.xml.js`・環境変数ファイル(キー名のみ)。
+Grep範囲: `pages/`・`components/`・`lib/`・`記事データ/公開済み`・`next.config.js`・`pages/robots.txt.js`・`sitemap.xml.js`・環境変数ファイル(キー名のみ)。
 
 | ファイル | 内容 | 判定 |
 |---|---|---|
