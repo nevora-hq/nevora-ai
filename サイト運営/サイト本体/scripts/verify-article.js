@@ -1379,7 +1379,7 @@ function checkItem22(ctx) {
 // という2つの抜け道を検出できないため、これを補う3項目を追加する。
 // ---------------------------------------------------------------------------
 
-const CONTINUOUS_TEXT_MAX_CHARS = 300; // 2026-08-13、400字でも詰まりが体感で解消されないとの実機判定によりユーザー指示で300字へ再改訂
+const CONTINUOUS_TEXT_MAX_CHARS = 400; // 2026-10-11、ルール最新版の決まり(400字)に合わせて300→400へ。導入(最初の見出しより前)は数えない。出典の印(%%…%%)は字数に数えない
 
 // lib/posts.jsのEND_OF_SECTION_CHART_TYPES(embedChartsでセクション末尾に描画する
 // chart type)と同じ値を、verify-article.js側でも保持する(このスクリプトは
@@ -1523,6 +1523,7 @@ function checkItem23(ctx) {
   let flaggedForCurrentRun = false;
   let currentHeadingText = null;
   let pendingEndOfSectionReset = false;
+  let seenFirstHeading = false;
 
   function reset() {
     runChars = 0;
@@ -1539,6 +1540,7 @@ function checkItem23(ctx) {
       const m = line.match(RE_HEADING);
       const level = m ? m[1].length : 0;
       const headingText = m ? m[2].trim() : "";
+      seenFirstHeading = true;
       // 直前セクションがセクション末尾リセット対象だった場合、そのリセットは
       // 「次の見出しの直前」で実際に発生するため、次の見出しに入る直前(=ここ)で反映する
       if (pendingEndOfSectionReset) {
@@ -1557,11 +1559,16 @@ function checkItem23(ctx) {
     if (type === "blank" || type === "hr") return;
 
     // type === "text" または "list"(箇条書きも地の文としてカウントする)
+    // 導入(最初の見出しより前)は数えない(2026-10-11、ルール最新版の400字ルール)
+    if (!seenFirstHeading) return;
+    // 出典の印(%%…%%)は字数に数えない(2026-10-11)
+    const countedLine = line.replace(/%%.*?%%/g, "");
+    if (countedLine.trim() === "") return;
     if (runStartLine === null) {
       runStartLine = lineNo;
       runStartHeading = currentHeadingText;
     }
-    runChars += zenkakuLength(stripMarkdownLinkSyntax(line));
+    runChars += zenkakuLength(stripMarkdownLinkSyntax(countedLine));
     if (runChars >= CONTINUOUS_TEXT_MAX_CHARS && !flaggedForCurrentRun) {
       violations.push({
         heading: runStartHeading,
@@ -2373,6 +2380,13 @@ function main() {
     checkItem34(ctx), // 2026-08-14新設、ブロッキング(crossSection leaderラベル同士の衝突検出。項目33はscripts/verify-declared-vs-rendered.jsの独立スクリプトのためここには存在しない)
     checkItem36(ctx), // 2026-08-17新設(計測モード)→2026-08-18ブロッキング化。tip/ポイント系コールアウトの見出し先頭配置検出。項目35はscripts/verify-rendered-layout.jsの独立スクリプトのためここには存在しない
   ];
+  // 2026-10-11 ルール最新版で廃止された項目(番号は残し、判定の対象から外す)
+  const RETIRED_ITEMS = new Set([3, 4, 6, 8, 22, 24]);
+  items.forEach((it, i) => {
+    if (RETIRED_ITEMS.has(it.id)) {
+      items[i] = { id: it.id, name: it.name, result: "N/A", violations: [], note: "ルール最新版で廃止された項目(2026-10-11)。判定の対象外。" };
+    }
+  });
   const blockingItems = items.filter((it) => it.result !== "N/A");
   const overall = blockingItems.every((it) => it.result === "Yes") ? "Yes" : "No";
 

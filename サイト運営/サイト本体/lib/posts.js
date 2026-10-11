@@ -236,6 +236,34 @@ function applyInlineMarkup(html) {
     .replace(/%%((?:(?!%%)[^\n])+?)%%/g, '<span class="article-note">$1</span>');
 }
 
+// 本文中の出典の印(%%出典:…%%)を、画面に出さないように取り除く(2026-10-11、依頼者の決定
+// 「毎回出典を記載するの禁止」)。印は原稿に残してよい。出典は記事末の出典の欄(sources)と、
+// 図表の下の「出典:」(図の一部)だけを画面に出す。出典以外の印(%%補足の注記%%)は変えない。
+// 取り除いたあとに、空の括弧・句読点の重なり・印だけの行(空の段落)が残らないようにする。
+const SOURCE_MARK_RE = /[ \t　]*%%\s*出典\s*[:：](?:(?!%%)[^\n])*%%/g;
+function stripSourceMarks(text) {
+  if (typeof text !== "string" || text.indexOf("%%") < 0) return text;
+  return text
+    .split("\n")
+    .map((line) => {
+      if (line.indexOf("%%") < 0) return line;
+      const stripped = line.replace(SOURCE_MARK_RE, "");
+      if (stripped === line) return line;
+      // 印だけの行は、行ごと取り除く(空の段落を残さない)
+      // 引用(>)・箇条書き(- * + 1.)の記号だけが残る行も、同様に取り除く
+      if (/^(\s*(>|[-*+]|\d+[.)])\s*)*$/.test(stripped)) return null;
+      return stripped
+        .replace(/[（(]\s*[）)]/g, "")
+        .replace(/、\s*。/g, "。")
+        .replace(/。、/g, "。")
+        .replace(/。{2,}/g, "。")
+        .replace(/、{2,}/g, "、")
+        .replace(/[ \t　]+$/g, "");
+    })
+    .filter((line) => line !== null)
+    .join("\n");
+}
+
 // 本文中の「> 💡 NEVORAポイント」「> ⚠️ 注意」形式のblockquoteを、
 // マスコットの一言・注意喚起として視覚的に区別できるボックスに変換する。
 // remark-htmlの生HTML不許可方針を維持したまま(記事Markdown側は素の
@@ -2248,7 +2276,7 @@ async function renderAccordionHtml(accordion) {
     .use(remarkGfm)
     .use(remarkBreaks)
     .use(remarkHtml)
-    .process(content || "");
+    .process(stripSourceMarks(content || ""));
   const innerHtml = applyInlineMarkup(processedContent.toString());
 
   return `<details class="article-accordion"><summary class="article-accordion-summary">${escapeHtmlText(
@@ -2616,7 +2644,7 @@ function estimateReadTimeMinutes(html) {
 // Markdown記法(リンク・見出し記号等)を取り除いたプレーンテキストを作る。
 // 一覧用の抜粋(excerpt)・検索用の全文インデックス(searchText)の両方で使う共通処理。
 function buildPlainText(content) {
-  return stripTags(stripHtmlComments(content))
+  return stripTags(stripSourceMarks(stripHtmlComments(content)))
     .replace(/!?\[([^\]]*)\]\([^)]*\)/g, "$1")
     .replace(/[#*`>\-\[\]!]/g, "")
     .trim();
@@ -2711,7 +2739,7 @@ export async function getPostBySlug(slug) {
     .use(remarkGfm)
     .use(remarkBreaks)
     .use(remarkHtml)
-    .process(stripHtmlComments(content));
+    .process(stripSourceMarks(stripHtmlComments(content)));
   const rawHtml = enhanceAnnotationBlockquotes(applyInlineMarkup(processedContent.toString()));
   // 目次(TOC)表示・アンカーリンクのため、H2/H3見出しにid属性を付与する。
   // charts/アフィリエイトバナーの挿入(段落単位の分割・再結合)より前に行う
