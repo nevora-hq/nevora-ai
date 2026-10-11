@@ -8465,3 +8465,29 @@ table.admin-table td {
   text-align: right;
 }
 
+
+/* チェックリスト(chart type: "checklist")の通常項目: 黒丸をやめ、各項目の左に四角(☐)を出す。
+   診断形式(.chart-checklist-list-diagnostic)は専用のレイアウトなので対象にしない。
+   色は既存のチェック系と同じく、記事のアクセント色(--chart-accent-dark)を使う。 */
+.chart-checklist ul:not(.chart-checklist-list-diagnostic) {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chart-checklist ul:not(.chart-checklist-list-diagnostic) > li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0;
+}
+
+.chart-checklist ul:not(.chart-checklist-list-diagnostic) > li::before {
+  content: "\2610";
+  font-size: 1.2rem;
+  line-height: 1.4;
+  color: var(--chart-accent-dark);
+  flex-shrink: 0;
+}
