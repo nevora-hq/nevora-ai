@@ -8541,3 +8541,27 @@ details.chart-diagnosis-outcomes[open] > .chart-diagnosis-outcomes-summary::afte
 details.chart-diagnosis-outcomes > .chart-diagnosis-outcomes-list {
   padding: 14px 18px 16px;
 }
+
+/* 診断の結果名(ラベル)が長いときに、スマホ幅で横にはみ出さないようにする(2026-10-12、依頼者の決定)。
+   「16字以内」の決まりはそのまま残し、部品の側でも防ぐ。長い名前はラベルの中で折り返す。
+   対象: 折りたたみの中の一覧のラベル(.chart-diagnosis-outcome-badge)と、質問に答えたあとの
+   「あなたの結果」のラベル(.chart-diagnosis-result-badge)。短い名前は1行のまま(見た目は変わらない)。 */
+.chart-diagnosis-outcome-badge,
+.chart-diagnosis-result-badge {
+  max-width: 100%;
+  box-sizing: border-box;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.chart-diagnosis-outcome-badge {
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.chart-diagnosis-outcome-item,
+.chart-diagnosis-result {
+  min-width: 0;
+  max-width: 100%;
+}
