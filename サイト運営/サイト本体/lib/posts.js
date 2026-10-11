@@ -170,7 +170,7 @@ import {
 } from "./asemoWidgets";
 
 // npm run sync-content (predev/prebuild) によって
-// サイト運営/記事データ/確定稿 から自動コピーされるディレクトリ
+// サイト運営/記事データ/公開済み から自動コピーされるディレクトリ
 const ARTICLES_DIR = path.join(process.cwd(), "content", "articles");
 
 // 本文冒頭に記事専用の折りたたみ目次を埋め込んでいるslug一覧。
