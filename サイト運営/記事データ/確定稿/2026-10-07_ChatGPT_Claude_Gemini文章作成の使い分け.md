@@ -5,7 +5,7 @@ category: "AIチャット・対話AI"
 tags: ["ChatGPT Claude Gemini 違い", "文章作成 使い分け", "AIチャット 比較", "ツール選び"]
 date: "2026-10-07"
 thumbnail: "/images/articles/ChatGPT_Claude_Gemini文章作成の使い分け.webp"
-sectionAlternate: true
+sectionAlternate: false
 summaryPoints:
   - "「どれが最強か」ではなく「何を頼むか」で選ぶと迷いにくい"
   - "同じ依頼文を3つに投げ、4つの観点で並べて見比べるのが一番確実"
