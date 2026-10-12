@@ -4,10 +4,9 @@ const { PHASE_PRODUCTION_BUILD } = require("next/constants");
 const nextConfig = {
   reactStrictMode: true,
   // 完全静的エクスポート(out/ に静的ファイルだけを出力し、サーバー実行の Function を使わない)。
-  // redirects() は静的エクスポートでは使えないため、旧記事URLの転送は vercel.json に置く。
-  // 記事を「記事データ/非公開アーカイブ」へ移すとそのslugは404になるため、統合先への
-  // 301は vercel.json の redirects に定義する(復活させる記事は先にその定義を削除する)。
-  // 日本語スラッグはクローラーからは percent-encoded で届くため、sourceはエンコード済みで書く。
+  // redirects()・headers()・middleware は静的エクスポートでは使えない。
+  // 記事を非公開にして旧URLを統合先へ転送したいときは、サイト本体に vercel.json を置き、
+  // redirects に定義する(日本語スラッグは percent-encoded の source と日本語のままの source の両方を書く)。
   output: "export",
 };
 

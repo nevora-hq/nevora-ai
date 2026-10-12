@@ -151,7 +151,6 @@ remarkは未知の記法をプレーンテキストとして通すため、`rema
 | `ImageSlider` | `components/ImageSlider.js:4` | `slides=[]` | 画像スライダー |
 | `SkinTypeQuiz` | `components/SkinTypeQuiz.js:113`〔このサイトには無い。読まずに進める〕 | なし | 診断クイズ(診断ページ用) |
 | `SkinTypeArticleCards` / `SkinTypeArticleCarousel` | 同名ファイル〔このサイトには無い。読まずに進める〕 | `posts=[]` | 特定の分類の関連記事の一覧・カルーセル |
-| `AdminLayout` | `components/AdminLayout.js:14` | `children,title` | 管理ダッシュボード用外枠 |
 | `DrySkinSelfCheck` | `components/DrySkinSelfCheck.js:73`〔このサイトには無い。読まずに進める〕 | なし | **ある記事1本専用**のインタラクティブ診断。`pages/posts/[slug].js:55-56,258-261`で本文HTMLを見出しテキストで前後分割し、その間に直接挿入するハードコードされたハック |
 | `SeasonalSkinChangeArticle` | `components/articles/SeasonalSkinChangeArticle.js:374`〔このサイトには無い。読まずに進める〕 | `post` | **ある記事1本専用**の本文まるごと差し替えコンポーネント。`pages/posts/[slug].js:12`の`CUSTOM_LAYOUT_SLUGS`に載る記事だけ、通常のMarkdown→HTMLパイプライン自体を迂回する |
 
@@ -427,7 +426,7 @@ PHOTOプレースホルダー設計のための集中調査。§4.3と重複す�
 - `サイト運営\サイト本体\components\Mascot.js`
 - `サイト運営\サイト本体\components\ArticleToc.js`
 - `サイト運営\サイト本体\components\AffiliateBanner.js`
-- `サイト運営\サイト本体\components\*.js`(シグネチャ一覧をgrepで確認: AdminLayout / SkinTypeQuiz / ScrollProgressBar / Layout / PostCard / SkinTypeArticleCarousel / Sidebar / ImageSlider / SkinTypeArticleCards / Footer / Header / HeroBanner / DrySkinSelfCheck / articles/SeasonalSkinChangeArticle。SkinTypeQuiz・SkinTypeArticleCarousel・SkinTypeArticleCards・DrySkinSelfCheck・SeasonalSkinChangeArticle は美容サイトの部品で、このサイトには無い。読まずに進める)
+- `サイト運営\サイト本体\components\*.js`(シグネチャ一覧をgrepで確認: SkinTypeQuiz / ScrollProgressBar / Layout / PostCard / SkinTypeArticleCarousel / Sidebar / ImageSlider / SkinTypeArticleCards / Footer / Header / HeroBanner / DrySkinSelfCheck / articles/SeasonalSkinChangeArticle。SkinTypeQuiz・SkinTypeArticleCarousel・SkinTypeArticleCards・DrySkinSelfCheck・SeasonalSkinChangeArticle は美容サイトの部品で、このサイトには無い。読まずに進める)
 - `サイト運営\サイト本体\styles\globals.css`(該当箇所抜粋: 1-30行, 665-700行, 1290-1340行, 2450-2670行、および`@media`一覧)
 - `.claude\agents\site-engineer.md`(全文)
 - `.claude\skills\ライター\web-article-writing\SKILL.md`(全文)

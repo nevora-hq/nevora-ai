@@ -125,6 +125,7 @@ for (const v of [
 
 - `NEXT_PUBLIC_SITE_URL` は **3で確認した実際のドメイン**に合わせる
 - `ADMIN_BASIC_AUTH_*` は未設定だと `middleware.js` が `/admin` で500を返すので必ず設定する。
+  (※ nevora-ai は2026-10-12に完全静的エクスポートへ切り替え、`/admin`・`middleware.js` を外したため、この2つは不要。middleware.js が残っているサイトの手順として読むこと)
   値は `crypto.randomBytes(24).toString("base64url")` 等で生成し、**チャットに出さず**
   git管理外の場所へ直接書き出す(このリポジトリでは `.gitignore` の1行目が `memory/` なので
   `memory/vercel-basic-auth.txt`。**別リポジトリでは `git check-ignore -v <path>` で除外を必ず確認する**)
@@ -158,7 +159,7 @@ const d = await api("GET", "/v6/deployments?projectId=nevora-money&limit=3");
 ```bash
 U=https://nevora-money.vercel.app
 curl -s -o /dev/null -w '%{http_code}\n' $U/            # 200
-curl -s -o /dev/null -w '%{http_code}\n' $U/admin       # 401(Basic認証が効いている)
+curl -s -o /dev/null -w '%{http_code}\n' $U/admin       # 401(Basic認証が効いている。nevora-ai は /admin 自体を外したので404)
 curl -s $U/robots.txt                                   # SNS UA例外 + Disallow: /
 curl -s $U/ | grep 'name="robots"'                      # noindex, nofollow
 curl -s -A 'Twitterbot/1.0' $U/ | grep 'og:image'       # OGPが返る
@@ -189,10 +190,10 @@ curl -s -A 'Twitterbot/1.0' $U/ | grep 'og:image'       # OGPが返る
 | Root Directory | `サイト運営/サイト本体` |
 | Git連携 | github:nevora-hq/nevora-ai(production branch = main) |
 | 本番ドメイン | `nevora-ai.vercel.app`(APIで確認。サフィックスなし) |
-| 環境変数 | `NEXT_PUBLIC_SITE_URL` / `ADMIN_BASIC_AUTH_USER` / `ADMIN_BASIC_AUTH_PASSWORD`(3環境・認証情報はencrypted) |
+| 環境変数 | `NEXT_PUBLIC_SITE_URL`(3環境)。`ADMIN_BASIC_AUTH_*` は2026-10-12に削除(`/admin`・middleware を外したため) |
 | `NEXT_PUBLIC_ALLOW_INDEX` | 未設定(noindexのまま公開) |
 
-- Basic認証の値の書き出し先は `サイト運営\サイト本体\.env.local`。
+- (経緯)Basic認証の値の書き出し先は `サイト運営\サイト本体\.env.local`。
   このリポジトリの `memory/` はgit管理外だが、サイト本体の `.gitignore` に `.env*` があり、
   アプリからも同じ値を参照できるため `.env.local` を選んだ(`git check-ignore -v` で除外を確認済み)。
 - 初回デプロイは空コミット(`6454ba1`)のpushで起動した。
