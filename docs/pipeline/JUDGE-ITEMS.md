@@ -224,7 +224,7 @@
 | サムネイル(`thumbnail` が空のことは差し戻さない) | イ |
 | サムネイルの人物の構図・本文内画像の置き方 | イ |
 | charts の数値が確認メモにあるか | ア |
-| charts の afterHeading 一致・本数・prosCons の使い方 | イ |
+| charts の afterHeading 一致・本数・prosCons と versus の使い分け(対比になっていないものを置かない・本数に数えない。同じ内容を横スライドと対比の両方に重ねない) | イ |
 | summaryPoints と本文冒頭の要約の二重・accordions の本文重複 | イ |
 | 装飾記法(規則27)・1段落の文数・mascotComment | イ |
 | verify-article.js のブロッキング項目 | E-1 のとおり |
