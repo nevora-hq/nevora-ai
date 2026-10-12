@@ -7,17 +7,31 @@ description: 公開済み記事への修正をサイト本体へ反映(Git commi
 
 > **【ルール本体は`.claude/agents/publisher.md`が正】** 詳細な手順・判定基準・出力フォーマットは`.claude/agents/publisher.md`を参照すること。**このファイルとpublisher.mdの記述が食い違った場合は、常にpublisher.mdを正としてこのファイル側を修正する。**
 
-## 記事が公開される経路(このスキルは新規公開を行わない)
+## 記事が公開される経路
 
-新規記事は、多層判定(`scripts/autonomy/run-local.js`)を通過して `記事データ\公開待ち\` に置かれ、`npm run queue` で公開予定日時が割り当てられ、GitHub Actions(`.github\workflows\publish-queue.yml`)が30分おきに `scripts\queue-release.js` を動かして、公開時刻の到来した記事を `記事データ\公開済み\` へ移してcommit・pushする。pushでVercelが自動デプロイし、そこで初めてサイト・sitemapに出る。
+記事は、最後の判定を通って `記事データ\公開待ち\` に置かれ、`publishAt`(公開の時刻)が入っている。GitHub Actions(`.github\workflows\publish-queue.yml`)が30分おきに `scripts\queue-release.js` を動かして、公開時刻の到来した記事を `記事データ\公開済み\` へ移してcommit・pushする。pushでVercelが自動デプロイし、そこで初めてサイト・sitemapに出る。
 
-このスキルの担当は、(a) 既に公開済みの記事に加えられた修正をサイトへ反映すること、(b) 公開後のPinterest追記・ピン画像作成 の2つである。新規記事の公開を依頼された場合は、作業を行わずにユーザーへ報告し、上の経路を案内する。
+このスキルは記事を新規に書かない・判定しない。担当は、(a) 既に公開済みの記事に加えられた修正をサイトへ反映すること、(b) 公開後のPinterest追記・ピン画像作成、(c) 公開待ちに置かれた記事のpush(下のイ)と、「すぐ公開」と指定された記事の公開の処理(下のア)である。
 
-**自動処理を待たない(2026-10-11 依頼者の決定)**: 記事を公開待ちに置いて push したあとは、自動処理(30分おきの公開キューの実行)を待たず、公開キューを手動で実行して、すぐ公開する(依頼者の決定 2026-10-11「なぜ1時間も待つ必要があるの？おかしいですよね？」)。手順: push の前に、公開待ちに置く記事の frontmatter へ `publishAt` を、実行する時刻より前の時刻(今日すぐ公開される指定。例: 実行の数分前の `publishAt: "2026-10-11T12:00:00+09:00"`)で付けておく(`npm run queue` は未来の日付を割り当てるので、すぐ公開するときは使わない。`publishAt` が無い記事は、公開キューは移さない)。そのうえで、`gh workflow run publish-queue.yml` で公開キュー(GitHub Actions の publish-queue)を実行し、`gh run watch <実行ID> --exit-status` で完了を待ち、`git pull --ff-only` で取り込む。手動で実行できない場合は、`サイト運営\サイト本体` で `node scripts/queue-release.js` を手元で実行し、移ったファイルだけをファイル名を指定して commit・push する(`git add -A`・`git add .` は使わない)。公開されたら、本番の URL で表示・画像・図解を確かめる。公開時刻や次の自動処理を待つ前提の手順は使わない。
+**公開の決まり(2026-10-12 依頼者の決定。予約投稿を基本にする)**
 
-## 公開ゲート(下のゲートより先に確認する)
+- **ア. 依頼者が「すぐ公開」と指定した記事(1本でも複数でも)**
+  1. 公開待ちに置くとき、`publishAt` を今の時刻以前(日本時間。例: 実行の数分前の `publishAt: "2026-10-12T09:00:00+09:00"`)にする。
+  2. commit して push したあと、公開の処理を手動で実行する。`gh workflow run publish-queue.yml`(GitHub Actions の publish-queue の手動実行)→ `gh run watch <実行ID> --exit-status` で完了を待つ → `git pull --ff-only` で取り込む。または、`サイト運営\サイト本体` で `node scripts/queue-release.js` を手元で実行し、移ったファイルだけをファイル名を指定して commit・push する(`git add -A`・`git add .` は使わない)。
+  3. 本番でその記事の表示・画像・図解を確かめて、報告する。
+- **イ. それ以外の記事(「すぐ公開」の指定が無い記事。複数の記事をまとめて作る場合を含む)は、予約投稿にする**
+  1. 公開の時刻(`publishAt`)は、割り振りの仕組み(`サイト運営\サイト本体` で `npm run queue`。実体は `scripts/queue.js` と `scripts/queue-schedule.js`)で決める。担当が手で決めない。`npm run queue` は、ファイル名の日付と `date` も公開予定日にそろえる。
+  2. 公開待ちに置き、`publishAt` が入っていることを確かめてから、commit して push する。そこで終わる。
+  3. 公開は自動処理(30分おきの公開キュー)に任せる。公開されるのを待たない。手動でも実行しない(`queue-release.js` も `gh workflow run publish-queue.yml` も実行しない)。
+  4. 報告に、記事ごとの予約した時刻と、「公開後の確認は未実施」と書く。
+- **ウ. 公開待ちに置いて push する時点で、`publishAt` は必ず入っている**(ア・イのどちらも)。`publishAt` が無い記事は、公開の処理が移さないため、いつまでも公開されない。
+- アとイは記事ごとに決める。同じ回に「すぐ公開」の記事と予約の記事があるときは、「すぐ公開」の指定がある記事だけがアになる。
 
-サイトのビルドと公開キューは、多層判定を通過した内容(`scripts/autonomy/publish-ledger.json` に指紋がある内容)だけを取り込む。commit・pushの前に、公開済み\ へ上書きして台帳に記録したあと、`node scripts/autonomy/publish-gate.js --check "<対象記事の絶対パス>"` を実行し、`publishable` が `true` であることを確かめる。`false` の記事は反映しても公開されないため、作業を行わずユーザーに報告して停止する。
+(正本は `.claude/agents/publisher.md`。食い違ったらpublisher.mdを正とする。)
+
+## 公開できる内容の確認
+
+このサイトに公開ゲートの台帳(`publish-gate.js`・`publish-ledger.json`)は無い。公開してよい内容かどうかは、下の「反映の前提」の `verify-article.js` で確かめる。
 
 ## 反映の前提(ゲート、詳細はpublisher.md参照)
 
@@ -30,7 +44,7 @@ description: 公開済み記事への修正をサイト本体へ反映(Git commi
 
 1. `git status` で `サイト運営\記事データ\公開済み\` 配下に未コミットの変更が無いか確認する
 2. 変更があれば、内容(記事タイトル・変更概要)を報告に書いたうえで、確認を待たずに該当ファイルを明示的に指定して`git add`→`git commit`(記事タイトルを含むメッセージ)
-3. `git push`の前に、依頼者の確認は取らない(2026-10-03 依頼者の決定)。公開の手順(最後の関門の表・公開ゲート・台帳)を満たしたら push する
+3. `git push`の前に、依頼者の確認は取らない(2026-10-03 依頼者の決定)。公開の手順(最後の関門の表・公開前の必須確認)を満たしたら push する
 4. push後、Vercel側の自動デプロイ完了を確認する(反映確認は最低5分待つ、`CLAUDE.md`のデプロイ運用ルール参照)
 
 ## サイト未実装の場合
