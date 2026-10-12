@@ -134,7 +134,7 @@ frontmatterの`charts[]`で`type: "quadrant"`の要素について、`source`が
 `title`/`description`/`category`/`date`が空でないか(`thumbnail`は2026-09-12に外した。下記)、`summaryPoints`が空でない配列かを確認する。
 
 - 1項目でも欠けていれば**No**
-- **`thumbnail`は2026-09-12に項目16(frontmatter必須項目)から外した。** サムネイルは記事の中身の品質要件ではなく公開の前提条件であり、検査は公開の直前(`scripts/queue.js`・`scripts/queue-release.js`)が行う。この段階でも、記事の最終チェックでも、`thumbnail`が空であることを理由に差し戻さない(項目16は空でもYesになる)。画像は依頼者が用意する
+- **`thumbnail`は2026-09-12に項目16(frontmatter必須項目)から外した。** サムネイルは記事の中身の品質要件ではなく、無くても公開される(記事は画像なしで公開してよい。2026-10-12 依頼者の決定)。この段階でも、記事の最終チェックでも、`thumbnail`が空であることを理由に差し戻さない(項目16は空でもYesになる)。画像は依頼者が用意する
 
 ## 17. sourcesのURL形式・editorial必須項目
 
