@@ -475,6 +475,30 @@ async function measurePage(page, slug) {
       });
     });
 
+    // (B2) 2列の比較ブロック(versus)。列の見出し・箇条書きが枠から横にはみ出して
+    // いないかを、コールアウトと同じ許容(6px)で確認する。
+    document.querySelectorAll("figure.versus-block").forEach((box, boxIndex) => {
+      const CALLOUT_TOLERANCE_PX = 6;
+      box.querySelectorAll("p, li").forEach((el) => {
+        if (el.scrollWidth > el.clientWidth + CALLOUT_TOLERANCE_PX) {
+          results.push({
+            type: "callout-overflow",
+            boxIndex,
+            className: box.className,
+            text: el.textContent.slice(0, 40),
+          });
+        }
+      });
+      if (box.scrollWidth > box.clientWidth + CALLOUT_TOLERANCE_PX) {
+        results.push({
+          type: "callout-overflow",
+          boxIndex,
+          className: box.className,
+          text: "(versus枠全体)",
+        });
+      }
+    });
+
     // (A3-2) 実インク確認パス。矩形近似はpathや円の「角」で誤検知するため
     // (曲線のバウンディングボックスだけが重なり、実際の線は離れているケース)、
     // 候補ごとに図形を画面内へスクロールし、重なり矩形上をサンプリングして

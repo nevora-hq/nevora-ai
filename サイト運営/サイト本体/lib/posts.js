@@ -824,6 +824,29 @@ function renderProsConsHtml(chart) {
   return `<figure class="pros-cons-block">${titleHtml}<div class="pros-cons-grid"><div class="pros-cons-col pros-cons-pros"><p class="pros-cons-head">◎ メリット</p><ul>${prosItems}</ul></div><div class="pros-cons-col pros-cons-cons"><p class="pros-cons-head">△ デメリット</p><ul>${consItems}</ul></div></div></figure>`;
 }
 
+// frontmatterのcharts(type: "versus")から、2つのものを並べて見せる2列の比較ブロック
+// を組み立てる。prosCons(◎メリット/△デメリット固定)と違い、列の見出しを記事ごとに
+// 書ける(leftLabel/rightLabel)。違い・使い分け・向く場合を見せる用途。どちらの列も
+// 同じ見た目にし、片方が劣って見える記号・色は付けない。書き方は prosCons と同じ作り
+// (title・左の中身 left・右の中身 right は文字列の配列)。見出しか中身が無い場合は、
+// 空表示のまま通らないよう空文字を返す(検査で拾う)。
+function renderVersusHtml(chart) {
+  const { title, leftLabel, rightLabel, left, right } = chart;
+  if (!leftLabel || !rightLabel) return "";
+  const toItems = (arr) =>
+    (Array.isArray(arr) ? arr : [])
+      .map((x) => `<li>${escapeHtmlText(x)}</li>`)
+      .join("");
+  const leftItems = toItems(left);
+  const rightItems = toItems(right);
+  if (!leftItems || !rightItems) return "";
+  const titleHtml = title
+    ? `<figcaption class="chart-title">${escapeHtmlText(title)}</figcaption>`
+    : "";
+
+  return `<figure class="versus-block">${titleHtml}<div class="versus-grid"><div class="versus-col"><p class="versus-head">${escapeHtmlText(leftLabel)}</p><ul>${leftItems}</ul></div><div class="versus-col"><p class="versus-head">${escapeHtmlText(rightLabel)}</p><ul>${rightItems}</ul></div></div></figure>`;
+}
+
 // frontmatterのcharts(type: "quadrant")から、2軸(縦軸・横軸)上に複数の項目を
 // 位置づける散布図(ポジショニングマップ)をSVGで組み立てる。数値の大小比較ではなく
 // 「洗浄力は高いが摩擦は起きやすい」のような2つの性質の組み合わせを一目で見せたい
@@ -2069,6 +2092,7 @@ function renderChartHtml(chart, toc, debugSlug) {
   if (chart.type === "pie" || chart.type === "donut")
     return renderDonutChartHtml(chart);
   if (chart.type === "prosCons") return renderProsConsHtml(chart);
+  if (chart.type === "versus") return renderVersusHtml(chart);
   if (chart.type === "quadrant") return renderQuadrantChartHtml(chart);
   if (chart.type === "crossSection") return renderCrossSectionDiagramHtml(chart, debugSlug);
   if (chart.type === "depthComparison") return renderDepthComparisonHtml(chart);

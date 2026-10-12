@@ -2291,6 +2291,61 @@ h1.page-title {
   margin-bottom: 6px;
 }
 
+/* ---- 2つを並べる比較ブロック(versus。列の見出しは記事ごと。どちらも同じ調子) ---- */
+.versus-block {
+  margin: 2em 0;
+  padding: 20px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.versus-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.versus-col {
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  background: #f1f5fb;
+  border: 1px solid #c9d6ea;
+}
+
+.versus-head {
+  margin: 0 0 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #1c3556;
+}
+
+.versus-col ul {
+  margin: 0;
+  padding-left: 1.1em;
+  font-size: 0.9rem;
+}
+
+.versus-col li {
+  margin-bottom: 6px;
+}
+
+@media (max-width: 720px) {
+  .versus-block {
+    padding: 14px;
+  }
+
+  .versus-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .versus-col {
+    padding: 12px 14px;
+  }
+}
+
 .article-body table {
   width: 100%;
   border-collapse: collapse;
