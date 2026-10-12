@@ -72,7 +72,7 @@ image-selectorの指示ファイルの「対象記事」欄が`サイト運営\�
 4. **変えてよいのは、画像・画像だけの行・alt・図の位置(`afterParagraph`)だけ。** 地の文・見出し・title・description・出典などには触れない
 5. **顔・読める文字・ロゴが写っていても、置いて進める。** 配置をやめず、写っていた内容を報告に書く(上の「画像の扱いのルール」と同じ向き)
 6. **図解の直後に写真を続けない**(`writer.md`「本文内画像の配置優先順位」3が正。地の文を挟む決まりもそちらのとおり)
-7. **画像を入れたら、同じ見出しの中の図・アコーディオンの `afterParagraph` を数え直す。** 画像だけの行は段落1つに数える(数え方は `writer.md` 規則32(a)が正で、ここには書き写さない)。見出し(H2かH3か)のどの単位で並びを見るかは `writer.md` の規則に従う。画像だけの行の追加は公開ゲートの照合に影響しないが、**`afterParagraph` を直すと記事の内容の指紋が変わる**(`afterParagraph` は frontmatter の `charts[]`・`accordions[]` の中にあり、指紋の計算から除かれる項目〔date・publishAt・updatedDate・thumbnail・heroImage・popular・featured〕に入っていないため。`publish-gate.js` で確認)。直した記事は、変えたファイルの一覧に「`afterParagraph` を直した(指紋が変わる)」と明記して報告する。台帳への記録は束ねる側が行う
+7. **画像を入れたら、同じ見出しの中で、図(見出しの直後に出る。`afterParagraph` は効かない。writer.md 規則9)と画像が続けて並んでいないかを見る。並ぶときは、画像の行を、同じ見出しの次の段落のあとへ動かす。** 画像だけの行は段落1つに数える(数え方は `writer.md` 規則32(a)が正で、ここには書き写さない)。見出し(H2かH3か)のどの単位で並びを見るかは `writer.md` の規則に従う。画像だけの行の追加は公開ゲートの照合に影響しないが、**`afterParagraph` を直すと記事の内容の指紋が変わる**(`afterParagraph` は frontmatter の `charts[]`・`accordions[]` の中にあり、指紋の計算から除かれる項目〔date・publishAt・updatedDate・thumbnail・heroImage・popular・featured〕に入っていないため。`publish-gate.js` で確認)。直した記事は、変えたファイルの一覧に「`afterParagraph` を直した(指紋が変わる)」と明記して報告する。台帳への記録は束ねる側が行う
 
 # 作業方針
 - **記事本文の文章(見出し・地の文・frontmatterのtitle/description等)は一切編集しない。** 変えてよいのは、画像・画像だけの行(`![]()`)・altと、図の位置(`afterParagraph`)だけ(下の「画像の配置の決まり」の4)
