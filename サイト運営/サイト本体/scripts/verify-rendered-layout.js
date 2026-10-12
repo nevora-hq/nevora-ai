@@ -93,8 +93,22 @@ function killPort(port) {
 const VIEWPORT_WIDTHS = process.env.NEVORA_ITEM35_WIDTHS
   ? process.env.NEVORA_ITEM35_WIDTHS.split(",").map((n) => Number(n.trim())).filter(Boolean)
   : [320, 375, 768];
-const PORT = 4319;
-const BASE_URL = `http://127.0.0.1:${PORT}`;
+// ポートは固定にしない。固定(旧: 4319)だと、同じPCで別サイトの同じ検査が動いているとき、
+// 起動前の killPort が相手のサーバーを落とし、相手のサイトのページ(404)や無応答を
+// 取得して「ページ取得失敗」になっていた。空いているポートをOSに選ばせる。
+function findFreePort() {
+  return new Promise((resolve, reject) => {
+    const srv = require("net").createServer();
+    srv.unref();
+    srv.on("error", reject);
+    srv.listen(0, "127.0.0.1", () => {
+      const { port } = srv.address();
+      srv.close(() => resolve(port));
+    });
+  });
+}
+let PORT;
+let BASE_URL;
 
 function waitForServer(url, timeoutMs) {
   const start = Date.now();
@@ -517,7 +531,8 @@ async function main() {
     process.exit(1);
   }
 
-  killPort(PORT);
+  PORT = await findFreePort();
+  BASE_URL = `http://127.0.0.1:${PORT}`;
   console.log(`[item35] next start をポート${PORT}で起動します(事前に npm run build 済みであること)...`);
   const server = spawn("npx", ["next", "start", "-p", String(PORT)], {
     cwd: process.cwd(),
@@ -539,15 +554,21 @@ async function main() {
 
   const browser = await playwright.chromium.launch();
   const allFindings = [];
+  const fetchFailures = [];
 
   try {
     for (const slug of slugs) {
       for (const width of VIEWPORT_WIDTHS) {
         const page = await browser.newPage({ viewport: { width, height: 1200 } });
         const url = `${BASE_URL}/posts/${encodeURIComponent(slug)}`;
-        const resp = await page.goto(url, { waitUntil: "networkidle", timeout: 20000 }).catch((e) => null);
+        let resp = await page.goto(url, { waitUntil: "networkidle", timeout: 20000 }).catch((e) => null);
+        if (!resp || !resp.ok()) {
+          // 一時的な無応答に備えて1回だけやり直す
+          resp = await page.goto(url, { waitUntil: "networkidle", timeout: 20000 }).catch((e) => null);
+        }
         if (!resp || !resp.ok()) {
           console.error(`[item35] ページ取得失敗: ${url} (status=${resp ? resp.status() : "no response"})`);
+          fetchFailures.push({ slug, width });
           await page.close();
           continue;
         }
@@ -613,6 +634,11 @@ async function main() {
     ancestorClip.length +
     ancestorClipText.length +
     imageCropRisk.length;
+  // 開けなかったページが1つでもあれば、検査できていないので「検出0件」にせず失敗で終わる
+  if (fetchFailures.length > 0) {
+    console.error(`[item35] ページを開けなかった箇所が${fetchFailures.length}件あります(対象${slugs.length}記事×幅${VIEWPORT_WIDTHS.length}のうち)。検査できていないため失敗として扱います。`);
+    process.exit(1);
+  }
   if (strict && total > 0) {
     console.error(`[item35] --strict指定のため、検出${total}件をFailとして扱います。`);
     process.exit(1);
