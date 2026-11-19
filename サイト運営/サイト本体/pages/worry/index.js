@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Layout from "../../components/Layout";
+import PageHero from "../../components/PageHero";
 import { getPublishedWorryGroups } from "../../lib/worryTopics";
 import { getWorryContent } from "../../lib/worryContent";
 import { getAllPostsMeta } from "../../lib/posts";
@@ -51,6 +52,13 @@ export default function WorryHubPage({ groups }) {
   return (
     <Layout
       panel
+      hero={
+        <PageHero
+          eyebrow="Trouble"
+          title="あなたのAIの困りごとから探す"
+          lead="気になる困りごとを選ぶと、専用ページに移動します。"
+        />
+      }
       title="あなたのAIの困りごとから探す｜AI活用の総合ガイド｜NEVORA"
       description="プロンプトの書き方、ツールの選び方、著作権や情報漏えいの不安、副業への活かし方まで。15のAIの困りごとから、原因の整理やセルフチェック、今日からできる対処がまとまった記事ページを探せます。"
       canonicalPath="/worry"
@@ -63,7 +71,6 @@ export default function WorryHubPage({ groups }) {
         <span className="current">困りごとから探す</span>
       </nav>
 
-      <h1 className="page-title">あなたのAIの困りごとから探す</h1>
       <p className="home-section-lead">
         気になる困りごとを選ぶと、原因の整理からセルフチェック、今日からできる対処までをまとめた専用ページに移動します。
       </p>

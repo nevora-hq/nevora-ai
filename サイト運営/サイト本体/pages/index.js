@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import Head from "next/head";
 import Layout from "../components/Layout";
 import PostCard from "../components/PostCard";
@@ -13,6 +13,10 @@ import { getCategoryMeta } from "../lib/categoryMeta";
 import { getCategoryMascot, AIMIN } from "../lib/categoryMascot";
 import { getPublishedWorryGroups, getWorryHref } from "../lib/worryTopics";
 import Link from "next/link";
+import CategoryGenreNav from "../components/CategoryGenreNav";
+import { CATEGORY_GENRES, GENRE_NAV_MIN_CATEGORIES } from "../lib/categoryGenres";
+
+const useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 // 「人気カテゴリー」として常時表示する3カテゴリ(残りはアコーディオンで展開)。
 const PINNED_CATEGORY_NAMES = ["AIチャット・対話AI", "画像生成AI", "AIの基礎知識"];
@@ -82,6 +86,40 @@ export async function getStaticProps() {
   };
 }
 
+// 帯の背景に敷く英単語を、スクロール量の半分の速さで縦に流す(視差)。
+// 装飾なので reduced-motion では動かさない。
+function useBgWordParallax() {
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const els = [...document.querySelectorAll(".home-stripe[data-bg-word]")];
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const vh = window.innerHeight;
+      els.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > vh + 200) return;
+        const wordH = parseFloat(getComputedStyle(el, "::before").fontSize) || 120;
+        const screenY = vh / 2 + 0.5 * (r.top + r.height / 2 - vh / 2);
+        const y = screenY - r.top - wordH / 2;
+        const clamped = Math.min(Math.max(0, r.height - wordH), Math.max(0, y));
+        el.style.setProperty("--bg-y", `${clamped.toFixed(1)}px`);
+      });
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+}
+
 export default function Home({
   worryGroups = [],
   newPosts,
@@ -91,6 +129,7 @@ export default function Home({
   categorySummaries,
   sliderPosts,
 }) {
+  useBgWordParallax();
   return (
     <Layout
       title="AI活用の総合ガイド｜NEVORA｜ChatGPT・画像生成AI・業務効率化の情報"
@@ -192,6 +231,7 @@ export default function Home({
 
           <section
             className="home-stripe home-stripe--tint worry-finder-section"
+            data-bg-word="Question"
             aria-labelledby="worry-finder-title"
           >
             <div className="container container--wide">
@@ -219,7 +259,7 @@ export default function Home({
           </>
         )}
 
-        <section className="home-stripe home-stripe--cream">
+        <section className="home-stripe home-stripe--cream" data-bg-word="Topics">
           <div className="container container--wide">
             {categorySummaries.length > 0 && (
               <CategorySummarySection categorySummaries={categorySummaries} />
@@ -240,7 +280,7 @@ export default function Home({
           objectPosition="50% 45%"
         />
 
-        <section className="home-stripe home-stripe--tint">
+        <section className="home-stripe home-stripe--tint" data-bg-word="Pickup">
           <div className="container container--wide">
             <div className="home-layout">
               <div className="home-main">
@@ -283,6 +323,48 @@ export default function Home({
 // HTMLは常に全12カテゴリ分を出力するためクロール性は維持する。
 function CategorySummarySection({ categorySummaries }) {
   const [expanded, setExpanded] = useState(false);
+  const [genreId, setGenreId] = useState(null);
+  const [animated, setAnimated] = useState(false);
+  const swapRef = useRef(null);
+  const prevHeight = useRef(null);
+
+  const showGenreNav =
+    CATEGORY_GENRES.length >= 3 && categorySummaries.length >= GENRE_NAV_MIN_CATEGORIES;
+
+  const handleSelectGenre = (id) => {
+    if (id === genreId) return;
+    if (swapRef.current) prevHeight.current = swapRef.current.offsetHeight;
+    setAnimated(true);
+    setGenreId(id);
+  };
+
+  // 一覧の高さが変わるとき、旧→新の高さを0.3秒でなめらかにつなぐ(reduced-motionでは何もしない)
+  useIsoLayoutEffect(() => {
+    const el = swapRef.current;
+    const from = prevHeight.current;
+    prevHeight.current = null;
+    if (!el || from == null || typeof el.animate !== "function") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const to = el.offsetHeight;
+    if (Math.abs(to - from) < 2) return;
+    el.style.overflow = "hidden";
+    const anim = el.animate([{ height: `${from}px` }, { height: `${to}px` }], {
+      duration: 300,
+      easing: "ease",
+    });
+    const done = () => {
+      el.style.overflow = "";
+    };
+    anim.onfinish = done;
+    anim.oncancel = done;
+  }, [genreId]);
+
+  const genre = CATEGORY_GENRES.find((g) => g.id === genreId) || null;
+  const filtered = genre
+    ? genre.categories
+        .map((name) => categorySummaries.find((c) => c.name === name))
+        .filter(Boolean)
+    : [];
 
   const pinned = categorySummaries.filter((c) => PINNED_CATEGORY_NAMES.includes(c.name));
   const rest = categorySummaries.filter((c) => !PINNED_CATEGORY_NAMES.includes(c.name));
@@ -305,6 +387,17 @@ function CategorySummarySection({ categorySummaries }) {
           中の2つのグリッドとアコーディオンは display:contents で透過して
           12枚が同一グリッドの要素になる(=行ごとに高さが揃う)。
           1024px未満では従来どおり「人気3件+アコーディオン9件」として機能する。 */}
+      {showGenreNav && <CategoryGenreNav selected={genreId} onSelect={handleSelectGenre} />}
+
+      <div ref={swapRef} className={`category-summary-swap${animated ? " is-animated" : ""}`} key={genreId || "all"}>
+      {genre ? (
+        <div className="category-summary-filtered">
+          {filtered.map((cat, i) => (
+            <CategorySummaryCard key={cat.name} cat={cat} index={i} />
+          ))}
+        </div>
+      ) : (
+      <>
       <p className="category-summary-pinned-label">人気カテゴリー</p>
       <div className="category-summary-grids">
         <div className="category-summary-grid">
@@ -334,6 +427,9 @@ function CategorySummarySection({ categorySummaries }) {
       >
         {expanded ? "− カテゴリーを閉じる" : "＋ すべてのカテゴリーを見る"}
       </Link>
+      </>
+      )}
+      </div>
     </section>
   );
 }

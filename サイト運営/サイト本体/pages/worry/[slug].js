@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Layout from "../../components/Layout";
+import PageHero from "../../components/PageHero";
 import PostCard from "../../components/PostCard";
 import MascotComment from "../../components/MascotComment";
 import FaqAccordion from "../../components/FaqAccordion";
@@ -92,6 +93,15 @@ export default function WorryPage({
   return (
     <Layout
       panel
+      hero={
+        <PageHero
+          eyebrow="Trouble"
+          title={`${label}に悩んでいる方へ`}
+          lead="原因の整理から、セルフチェックと対処まで。"
+          base="/images/band/band-02"
+          objectPosition="50% 45%"
+        />
+      }
       title={content.title}
       description={content.description}
       canonicalPath={`/worry/${slug}`}
@@ -108,7 +118,6 @@ export default function WorryPage({
       </nav>
 
       {/* 2. H1 + intro */}
-      <h1 className="page-title">{label}に悩んでいる方へ</h1>
       <p className="home-section-lead">{content.intro}</p>
 
       {/* 3. まずは結論(keyPoints) */}

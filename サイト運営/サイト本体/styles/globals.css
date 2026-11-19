@@ -8538,3 +8538,85 @@ details.chart-diagnosis-outcomes > .chart-diagnosis-outcomes-list {
   min-width: 0;
   max-width: 100%;
 }
+
+/* ==================== 円形ジャンルナビ(カテゴリで探す) ==================== */
+.genre-nav { margin: 0 auto 32px; }
+.genre-nav-ring { position: relative; width: min(520px, 100%); aspect-ratio: 1 / 1; margin: 0 auto; }
+
+.genre-circle {
+  position: absolute; aspect-ratio: 1 / 1; transform: translate(-50%, -50%);
+  display: flex; align-items: center; justify-content: center; padding: 0;
+  border: 1px solid var(--g-line); border-radius: 50%;
+  background: color-mix(in srgb, var(--g-soft) 45%, transparent);
+  color: var(--color-text); font-family: inherit; text-align: center; cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.genre-circle:hover { background: color-mix(in srgb, var(--g-soft) 75%, transparent); }
+.genre-circle.is-active { background: var(--g-soft); border-width: 1.5px; z-index: 1; }
+.genre-circle:focus-visible, .genre-hub:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; z-index: 3; }
+
+.genre-circle-body {
+  display: flex; flex-direction: column; align-items: center; gap: 6px; width: 52%;
+  transform: translate(var(--ox, 0), var(--oy, 0));
+}
+.genre-circle-label { font-family: var(--font-serif); font-weight: 700; font-size: 0.95rem; line-height: 1.4; letter-spacing: 0.04em; }
+.genre-circle-count { font-size: 0.75rem; color: var(--color-text-muted); }
+
+.genre-hub {
+  position: absolute; left: 50%; top: 50%; width: 21%; aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%); z-index: 2; padding: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  border-radius: 50%; border: 2px solid var(--color-primary-dark);
+  background: var(--color-primary-dark); color: #fff; font-family: inherit; cursor: pointer;
+}
+.genre-hub.is-active { box-shadow: 0 0 0 5px rgba(23, 73, 127, 0.16); }
+.genre-hub-mark { width: 38%; height: auto; background: #fff; border-radius: 50%; padding: 2px; }
+.genre-hub-name { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; }
+
+.category-summary-swap.is-animated { animation: category-swap-in 300ms ease both; }
+@keyframes category-swap-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.category-summary-filtered { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+@media (min-width: 1024px) { .category-summary-filtered { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; } }
+@media (min-width: 1280px) { .category-summary-filtered { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+@media (max-width: 600px) {
+  .genre-nav-ring { width: min(100%, 400px); }
+  .genre-circle-body { width: 56%; gap: 3px; }
+  .genre-circle-icon { width: 20px; height: 20px; }
+  .genre-circle-label { font-size: 0.7rem; letter-spacing: 0; }
+  .genre-circle-count { display: none; }
+  .genre-hub-name { font-size: 0.62rem; }
+}
+
+/* ==================== 帯の背景に敷く英単語(視差) ==================== */
+.home-stripe[data-bg-word] { overflow: clip; }
+.home-stripe[data-bg-word]::before {
+  content: attr(data-bg-word);
+  position: absolute; right: -1%; top: 0;
+  transform: translateY(var(--bg-y, 0px)); will-change: transform; z-index: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(72px, 15vw, 260px); line-height: 1; letter-spacing: 0.02em;
+  white-space: nowrap; color: rgba(30, 95, 168, 0.07); pointer-events: none; user-select: none;
+}
+.home-stripe[data-bg-word] > .container { position: relative; z-index: 1; }
+
+/* ==================== 下層ページの写真ヒーロー ==================== */
+main:has(> .page-hero) { padding-top: 0; }
+.page-hero .section-band-img { height: clamp(190px, 20vw, 300px); }
+.page-hero-eyebrow {
+  margin: 0 0 6px; font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: #eef3f9;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+}
+.page-hero-title {
+  margin: 0 0 8px; font-family: var(--font-serif); font-weight: 700; letter-spacing: 0.06em;
+  font-size: clamp(1.35rem, 1rem + 1.6vw, 2.05rem); line-height: 1.4; color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
+}
+.page-hero + .container > .page-panel { margin-top: -28px; position: relative; z-index: 1; }
+@media (max-width: 720px) { .page-hero + .container > .page-panel { margin-top: -16px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .category-summary-swap.is-animated { animation: none; }
+  .home-stripe[data-bg-word]::before { will-change: auto; }
+}
