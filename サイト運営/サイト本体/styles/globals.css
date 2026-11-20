@@ -479,7 +479,14 @@ img {
 @media (max-width: 767px) {
   .hero-banner-scrim {
     background:
-      linear-gradient(100deg, rgba(13, 29, 51, 0.84) 0%, rgba(17, 36, 62, 0.72) 100%),
+      /* 文字は左〜約60%に収まるので、そこまで濃く保ち、人物の顔(右寄り)では消える */
+      linear-gradient(
+        90deg,
+        rgba(13, 29, 51, 0.84) 0%,
+        rgba(13, 29, 51, 0.78) 58%,
+        rgba(17, 36, 62, 0.3) 70%,
+        rgba(20, 42, 70, 0) 84%
+      ),
       radial-gradient(160px 110px at 90% 86%, rgba(11, 25, 44, 0.3), transparent 72%),
       linear-gradient(to top, rgba(11, 25, 44, 0.3) 0%, rgba(11, 25, 44, 0) 46%);
   }
@@ -560,8 +567,108 @@ img {
   font-size: clamp(0.85rem, 0.8rem + 0.3vw, 0.98rem);
   line-height: 1.7;
   color: #eef3f9;
-  max-width: 460px;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* 見出しのメリハリ(2026-11-21)。em=読者に最初に伝える1語(薄い金のグラデーション文字)。
+   区切り「｜」は文字列として残し、見た目だけ隠す。NEVORAは欧文セリフ体で下の段に小さく置く。 */
+.hero-banner-title-em {
+  font-style: normal;
+  font-size: 1.08em;
+  background: linear-gradient(180deg, #fffaf0 10%, #fbe6a6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.6));
+}
+
+.hero-banner-title-sep {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.hero-banner-title-brand {
+  display: block;
+  margin-top: 2px;
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  font-weight: 600;
+  font-size: 0.6em;
+  line-height: 1.2;
+  letter-spacing: 0.4em;
+  color: #cfe3fb;
+}
+
+/* リード文+飾り罫の入れ物。幅は文章に揃える */
+.hero-banner-lead-wrap {
+  width: fit-content;
+  max-width: min(100%, 460px);
+}
+
+.hero-banner-lead-nb {
+  white-space: nowrap;
+}
+
+.hero-banner-lead-s {
+  font-size: 0.72em;
+}
+
+.hero-banner-orn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  margin: 0 0 8px;
+  color: rgba(200, 224, 250, 0.6);
+}
+
+.hero-banner-orn--bottom {
+  margin: 8px 0 0;
+}
+
+.hero-banner-orn svg {
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-linecap: round;
+  overflow: visible;
+}
+
+.hero-banner-orn-curl {
+  flex: none;
+  width: 12px;
+  height: 12px;
+}
+
+.hero-banner-orn-curl--r,
+.hero-banner-orn-wave--r {
+  transform: scaleX(-1);
+}
+
+.hero-banner-orn-wave {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 9px;
+}
+
+.hero-banner-orn-wave path {
+  vector-effect: non-scaling-stroke;
+}
+
+.hero-banner-orn-center {
+  flex: none;
+  width: 30px;
+  height: 11px;
+}
+
+.hero-banner-orn-fill {
+  fill: currentColor;
+  stroke: none;
 }
 
 /* PC(768px〜)のみ、ファーストビューを大きく取る */
@@ -614,7 +721,10 @@ img {
   /* キャッチコピー(26文字)が最大サイズでも1行に収まる幅 */
   .hero-banner-lead {
     font-size: clamp(0.98rem, 0.85rem + 0.35vw, 1.12rem);
-    max-width: 540px;
+  }
+
+  .hero-banner-lead-wrap {
+    max-width: min(100%, 540px);
   }
 
   .hero-banner-inner {
@@ -626,8 +736,31 @@ img {
    マスコットはヒーロー下端にありタイトルの高さとは重ならないため、
    逃げ幅はリード文だけに付ける(コピー全体に付けるとタイトルが折り返す)。 */
 @media (max-width: 767px) {
-  .hero-banner-lead {
+  .hero-banner-lead-wrap {
     padding-right: 62px;
+    box-sizing: content-box;
+  }
+
+  /* 見出しは1行に収める。リード文はPCの約0.85倍。飾り罫は文章に寄せて詰める */
+  .hero-banner-title {
+    white-space: nowrap;
+    font-size: clamp(1.1rem, 5.4vw, 1.6rem);
+  }
+
+  .hero-banner-lead {
+    font-size: 0.8rem;
+  }
+
+  .hero-banner-orn {
+    margin-bottom: 6px;
+  }
+
+  .hero-banner-orn--bottom {
+    margin: 6px 0 0;
+  }
+
+  .hero-banner-copy {
+    max-width: 66vw;
   }
 }
 
@@ -835,6 +968,47 @@ img {
   font-size: 1rem;
   padding-left: 10px;
   border-left: 4px solid var(--color-primary);
+}
+
+/* カテゴリのアコーディオン(JSなし。閉じていてもリンクはHTMLに残る) */
+.sidebar-accordion > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  list-style: none;
+}
+
+.sidebar-accordion > summary::-webkit-details-marker {
+  display: none;
+}
+
+.sidebar-accordion > summary .sidebar-widget-title {
+  margin: 0;
+}
+
+.sidebar-accordion[open] > summary {
+  margin-bottom: 16px;
+}
+
+.sidebar-accordion > summary:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+}
+
+.sidebar-accordion-chevron {
+  width: 8px;
+  height: 8px;
+  margin-right: 4px;
+  border-right: 2px solid var(--color-primary);
+  border-bottom: 2px solid var(--color-primary);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.sidebar-accordion[open] .sidebar-accordion-chevron {
+  transform: rotate(-135deg);
 }
 
 .sidebar-post-list {
