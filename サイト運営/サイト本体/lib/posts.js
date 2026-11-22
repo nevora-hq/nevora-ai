@@ -7,6 +7,7 @@ import remarkBreaks from "remark-breaks";
 import remarkHtml from "remark-html";
 import { getCategoryMascot, getMascotIntroComment, getMascotOutroComment } from "./categoryMascot";
 import { MAJOR_CATEGORIES } from "./categoryMeta";
+import { postHref, rewritePostLinks, findUnmappedSlugs } from "./permalinks";
 import {
   LIP_COMPARE_SLUG,
   renderLipCrossSectionHtml,
@@ -2597,6 +2598,8 @@ function normalizeSources(rawSources, slug) {
 
 function normalizeFrontmatter(data, slug) {
   return {
+    // 記事ページのパス(/posts/大/中/小-NN)。slug は内部の識別子のまま変えない。
+    href: postHref(slug),
     title: data.title || slug,
     description: data.description || "",
     category: data.category || "未分類",
@@ -2820,6 +2823,9 @@ export async function getPostBySlug(slug) {
     contentHtml = wrapArticleSections(contentHtml);
   }
 
+  // 本文中の旧形式の内部リンク(/posts/<slug>)を新URLへ解決する。
+  contentHtml = rewritePostLinks(contentHtml);
+
   return {
     slug,
     ...meta,
@@ -2839,7 +2845,14 @@ export async function getPostBySlug(slug) {
 }
 
 export function getAllSlugs() {
-  return readArticleFiles().map((filename) => slugFromFilename(filename));
+  const slugs = readArticleFiles().map((filename) => slugFromFilename(filename));
+  const unmapped = findUnmappedSlugs(slugs);
+  if (unmapped.length > 0) {
+    console.warn(
+      `[permalinks] lib/permalinks.json に無い記事があります(旧形式のURLになります): ${unmapped.join(", ")}`
+    );
+  }
+  return slugs;
 }
 
 export function getAllCategories() {

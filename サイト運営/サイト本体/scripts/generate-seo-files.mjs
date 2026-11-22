@@ -149,7 +149,7 @@ function buildSitemap() {
     }),
     ...posts.map((p) =>
       urlEntry(
-        `${siteUrl}/posts/${encodeURIComponent(p.slug)}`,
+        `${siteUrl}${p.href}`,
         p.updatedDate || p.date || undefined
       )
     ),

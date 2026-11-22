@@ -18,6 +18,7 @@ export async function getStaticProps() {
         worry: post.worry,
         sourcePost: post.title,
         sourceSlug: post.slug,
+        sourceHref: post.href,
       });
     }
   }
@@ -149,7 +150,7 @@ export default function ComparePage({ items, categories }) {
                     <td>{item.name}</td>
                     <td>{item.category}</td>
                     <td>
-                      <a href={`/posts/${item.sourceSlug}`}>{item.sourcePost}</a>
+                      <a href={item.sourceHref}>{item.sourcePost}</a>
                     </td>
                     <td>
                       <a href={item.url} target="_blank" rel="nofollow sponsored noopener noreferrer">

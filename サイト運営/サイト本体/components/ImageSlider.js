@@ -34,7 +34,7 @@ export default function ImageSlider({ slides = [] }) {
             {slides.map((slide, i) => (
               <Link
                 key={slide.key || slide.slug}
-                href={slide.href || `/posts/${slide.slug}`}
+                href={slide.href}
                 className="hero-slider-slide"
               >
                 {/* 先頭スライドは初期表示範囲に入るため遅延読み込みにしない(LCP対策) */}

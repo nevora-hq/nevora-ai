@@ -27,13 +27,13 @@ export default function RankingPage({ posts }) {
           <li key={post.slug} className="ranking-item">
             <span className="rank-number">{i + 1}</span>
             {post.thumbnail && (
-              <a href={`/posts/${post.slug}`} className="ranking-thumb-link">
+              <a href={post.href} className="ranking-thumb-link">
                 <img src={post.thumbnail} alt="" loading="lazy" className="ranking-thumb" />
               </a>
             )}
             <div>
               <h2>
-                <a href={`/posts/${post.slug}`}>{post.title}</a>
+                <a href={post.href}>{post.title}</a>
               </h2>
             </div>
           </li>

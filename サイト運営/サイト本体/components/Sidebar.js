@@ -9,7 +9,7 @@ export default function Sidebar({ popularPosts = [], categories = [] }) {
           {popularPosts.map((post, i) => (
             <li key={post.slug} className="sidebar-post">
               <span className="sidebar-post-rank">{i + 1}</span>
-              <Link href={`/posts/${post.slug}`} className="sidebar-post-link">
+              <Link href={post.href} className="sidebar-post-link">
                 {post.thumbnail && (
                   <img
                     src={post.thumbnail}

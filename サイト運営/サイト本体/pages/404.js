@@ -44,7 +44,7 @@ export default function NotFound({ categories = [], popularPosts = [] }) {
             <ul className="not-found-link-list">
               {popularPosts.map((p) => (
                 <li key={p.slug}>
-                  <Link href={`/posts/${p.slug}`}>{p.title}</Link>
+                  <Link href={p.href}>{p.title}</Link>
                 </li>
               ))}
             </ul>

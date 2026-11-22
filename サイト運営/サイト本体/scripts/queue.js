@@ -4,7 +4,7 @@
  *   npm run queue -- --weekly-min 2 --weekly-max 3 [--start 2026-09-01] [--dry-run]
  *
  * 「記事データ/公開待ち」内の publishAt 未割当の記事に、公開予定日時を採番する。
- * あわせて、URLに日付が含まれる構成(/posts/YYYY-MM-DD_タイトル)に合わせて
+ * あわせて、記事のファイル名の日付(内部の識別子。URL は lib/permalinks.json の /posts/大/中/小-NN)に合わせて
  * ファイル名の日付プレフィックスと frontmatter の date も公開予定日に揃える
  * (未公開=まだ誰も踏んでいないURLのため、この時点でのリネームは安全)。
  *

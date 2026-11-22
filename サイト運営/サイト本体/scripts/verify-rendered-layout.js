@@ -28,6 +28,7 @@
 // `npm run build`を先に実行しておくことで保証する)。
 
 const fs = require("fs");
+const { postPath } = require("./permalink-path");
 const http = require("http");
 const path = require("path");
 
@@ -608,7 +609,7 @@ async function main() {
     for (const slug of slugs) {
       for (const width of VIEWPORT_WIDTHS) {
         const page = await browser.newPage({ viewport: { width, height: 1200 } });
-        const url = `${BASE_URL}/posts/${encodeURIComponent(slug)}`;
+        const url = `${BASE_URL}${postPath(slug)}`;
         let resp = await page.goto(url, { waitUntil: "networkidle", timeout: 20000 }).catch((e) => null);
         if (!resp || !resp.ok()) {
           // 一時的な無応答に備えて1回だけやり直す
