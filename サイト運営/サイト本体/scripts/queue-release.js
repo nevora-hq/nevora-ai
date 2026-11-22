@@ -25,6 +25,7 @@ const {
   removeTopLevelKey,
   toDateStr,
 } = require("./queue-lib");
+const { checkMapping } = require("./permalink-path");
 
 function main() {
   const dryRun = process.argv.includes("--dry-run");
@@ -49,6 +50,15 @@ function main() {
     const body = m ? m[2] : item.filename;
     const newFilename = `${today}_${body}`;
     const destPath = path.join(PUBLISHED_DIR, newFilename);
+
+    // URLの対応表(lib/permalinks.json)に無い・大が category と合わない記事は公開しない。
+    const catMatch = String(item.raw).match(/^category:\s*"?(.*?)"?\s*$/m);
+    const mapProblems = checkMapping(item.filename, catMatch ? catMatch[1] : "");
+    if (mapProblems.length > 0) {
+      console.error(`[queue:release] URLの対応表に不備があるため公開しません(スキップ): ${item.filename} / ${mapProblems.join(" / ")}`);
+      process.exitCode = 1;
+      continue;
+    }
 
     if (fs.existsSync(destPath)) {
       console.error(`[queue:release] 移動先に同名ファイルが既にあります(スキップ): ${newFilename}`);

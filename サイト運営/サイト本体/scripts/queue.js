@@ -11,6 +11,7 @@
  * 既に publishAt を持つ記事は再割当しない。公開済みには一切触れない。
  */
 const fs = require("fs");
+const { checkMapping } = require("./permalink-path");
 const path = require("path");
 const {
   QUEUE_DIR,
@@ -72,6 +73,19 @@ function main() {
   const queue = loadQueue();
   const assigned = queue.filter((q) => q.publishAt);
   const pending = queue.filter((q) => !q.publishAt);
+
+  // URLの対応表(lib/permalinks.json)に無い記事には公開時刻を割り当てない。
+  const unmapped = pending
+    .map((q) => {
+      const c = String(q.raw || "").match(/^category:\s*"?(.*?)"?\s*$/m);
+      return { q, problems: checkMapping(q.filename, c ? c[1] : "") };
+    })
+    .filter((x) => x.problems.length > 0);
+  if (unmapped.length > 0) {
+    for (const x of unmapped) console.error(`[queue] URLの対応表に不備: ${x.q.filename} / ${x.problems.join(" / ")}`);
+    console.error("lib/permalinks.json に1行足してから、もう一度実行してください(docs/pipeline/パーマリンク運用.md)。");
+    process.exit(1);
+  }
 
   if (pending.length === 0) {
     console.log(`[queue] 未割当の記事はありません(割当済み ${assigned.length}件)`);
