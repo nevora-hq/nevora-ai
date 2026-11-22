@@ -84,14 +84,6 @@ export default function PostPage({ post, related, nextPost }) {
     >
       <ScrollProgressBar />
       <article>
-        <nav className="breadcrumb" aria-label="パンくずリスト">
-          <a href="/">トップ</a>
-          <span className="sep">/</span>
-          <a href={`/category/${encodeURIComponent(post.category)}`}>{post.category}</a>
-          <span className="sep">/</span>
-          <span className="current">{post.title}</span>
-        </nav>
-
         <div className="article-header">
           <span className="category-badge">{post.category}</span>
           <h1>{post.title}</h1>
