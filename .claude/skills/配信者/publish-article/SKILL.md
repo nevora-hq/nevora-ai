@@ -26,6 +26,7 @@ description: 公開済み記事への修正をサイト本体へ反映(Git commi
   4. 報告に、記事ごとの予約した時刻と、「公開後の確認は未実施」と書く。
 - **ウ. 公開待ちに置いて push する時点で、`publishAt` は必ず入っている**(ア・イのどちらも)。`publishAt` が無い記事は、公開の処理が移さないため、いつまでも公開されない。
 - アとイは記事ごとに決める。同じ回に「すぐ公開」の記事と予約の記事があるときは、「すぐ公開」の指定がある記事だけがアになる。
+- **エ. 公開待ちの記事を直したとき**は、公開済みへ移さず、公開待ちのまま直す。直したあとに `publishAt` が入ったままか(`npm run queue:status`)、`verify-article.js` を直した版で実行し直したか、ファイル名の日付と `date` が `publishAt` の日とそろったままかを確かめてから commit・push する。公開待ちの書き直しには `updatedDate` を付けない。予約の時刻までに push が終わらないときは `npm run queue` で割り振り直す(詳細は publisher.md)。
 
 (正本は `.claude/agents/publisher.md`。食い違ったらpublisher.mdを正とする。)
 
@@ -39,6 +40,8 @@ description: 公開済み記事への修正をサイト本体へ反映(Git commi
 
 - 実行そのものは必須で、`overall=No`の記事は公開せず、直してから公開する(publisher.mdの「公開前の必須確認(ゲート)」節参照)。信頼性系ブロッキング違反(item10/11/12等)が公開済みの記事に見つかった場合は即時修正が原則、修正に時間を要する場合の非公開化は**必ずユーザー決裁を経る**(`docs/CONTRIBUTING.md` 26節(b))
 - 実行結果のJSONは `docs/pipeline/verify/{slug}_{実行日 YYYY-MM-DD}.json` に保存する
+- `verify-article.js` の項目37以降はコードに無い(未実装。`docs/pipeline/verify-article-未実装項目の仕様.md`)。項目16の No が `thumbnail` の空だけのときは差し戻さない(publisher.md)
+- 取り下げ・題や slug の変更・公開の作業を戻すときの確認は publisher.md の「記事を取り下げる・題や slug を変えるときの確認」「公開の作業を戻すとき」
 
 ## 反映の流れ(概要)
 
