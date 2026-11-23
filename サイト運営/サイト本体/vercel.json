@@ -379,6 +379,16 @@
       "source": "/posts/2026-08-31_画像生成AIを公開前に確認する",
       "destination": "/posts/basics/rights/training-data-copyright-01",
       "statusCode": 301
+    },
+    {
+      "source": "/posts/coding/beginners/novice-code-01",
+      "destination": "/posts/coding/beginners/run-code-safely-01",
+      "statusCode": 301
+    },
+    {
+      "source": "/posts/image/publishing/publish-check-01",
+      "destination": "/posts/basics/rights/training-data-copyright-01",
+      "statusCode": 301
     }
   ]
 }

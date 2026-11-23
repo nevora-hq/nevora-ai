@@ -43,8 +43,9 @@ for (const slug of legacy) {
 const MERGED = path.join(ROOT, "lib", "merged-slugs.json");
 if (fs.existsSync(MERGED)) {
   for (const [slug, p] of Object.entries(JSON.parse(fs.readFileSync(MERGED, "utf8")))) {
-    redirects.push({ source: `/posts/${encodeURI(slug)}`, destination: `/posts/${p}`, statusCode: 301 });
-    redirects.push({ source: `/posts/${slug}`, destination: `/posts/${p}`, statusCode: 301 });
+    for (const src of new Set([encodeURI(slug), slug])) {
+      redirects.push({ source: `/posts/${src}`, destination: `/posts/${p}`, statusCode: 301 });
+    }
   }
 }
 if (missing.length) {
