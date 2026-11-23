@@ -39,6 +39,14 @@ for (const slug of legacy) {
   redirects.push({ source: `/posts/${encodeURI(slug)}`, destination: dest, statusCode: 301 });
   redirects.push({ source: `/posts/${slug}`, destination: dest, statusCode: 301 });
 }
+// 集約(吸収)で消した記事の旧URL。吸収先の新URLへ転送する(lib/merged-slugs.json: {旧slug: 吸収先の大/中/小-NN})。
+const MERGED = path.join(ROOT, "lib", "merged-slugs.json");
+if (fs.existsSync(MERGED)) {
+  for (const [slug, p] of Object.entries(JSON.parse(fs.readFileSync(MERGED, "utf8")))) {
+    redirects.push({ source: `/posts/${encodeURI(slug)}`, destination: `/posts/${p}`, statusCode: 301 });
+    redirects.push({ source: `/posts/${slug}`, destination: `/posts/${p}`, statusCode: 301 });
+  }
+}
 if (missing.length) {
   console.error("対応表に無い旧slug:", missing.join(", "));
   process.exit(1);
