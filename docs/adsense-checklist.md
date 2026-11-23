@@ -4,7 +4,7 @@
 
 ## 背景
 
-Googleアドセンスの審査で「コンテンツの量や質が不十分」とされないための準備状況を、本ファイルで管理する。独自ドメイン(未確定: AIサイトは独自ドメイン未取得で、現在は`https://nevora-ai.vercel.app`。`docs/domain-migration-plan.md`参照)への移行後に申請する。
+Googleアドセンスの審査で「コンテンツの量や質が不十分」とされないための準備状況を、本ファイルで管理する。独自ドメイン(`https://ai.nevora.jp`。2026-11-24に接続済み。`docs/domain-migration-plan.md`参照)での運用を前提に申請する。
 
 ---
 

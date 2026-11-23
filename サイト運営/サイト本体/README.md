@@ -7,7 +7,7 @@
 - フレームワーク: Next.js(React)
 - コード管理: GitHub
 - ホスティング: Vercel(無料枠でデプロイ。Gitへのpushで自動デプロイされる)
-- ドメイン: 当面はVercelが発行する `*.vercel.app` を使用し、後日独自ドメインを購入してVercelに接続する
+- ドメイン: 独自ドメイン `ai.nevora.jp`(Vercelに接続済み)。`nevora-ai.vercel.app` もVercelの自動割り当てURLとして有効なまま残している
 - 記事データ: 当面はMarkdownファイル(frontmatterに `title` / `category` / `tags` / `affiliateLinks` 等を持たせる)で管理し、`サイト運営\記事データ\公開済み\` から本サイトのcontentディレクトリへ配置する
 - データベース: 記事数・機能が増え、Markdown管理では厳しくなった段階で導入(例: Vercel Postgres等)。導入時期・方式は`site-engineer`が提案する
 
@@ -60,8 +60,8 @@ Webサイト
 
 `NEXT_PUBLIC_SITE_URL` が未設定だと `components/Layout.js` の実装上、canonical・og:url・構造化データのタグ自体が出力されず、ローカルでは正しいURLが出ているか確認できない(本番Vercelの環境変数には設定済み)。ローカルで検証する場合は以下の手順で設定する。
 
-1. `.env.local.example` の内容(`NEXT_PUBLIC_SITE_URL=https://nevora-ai.vercel.app`)を `.env.local` に追記する(無ければ `.env.local.example` をコピーしてもよい)
-2. `npm run build` を実行し、`.next/server/pages/worry/[slug].html` 等の出力HTML内で `<link rel="canonical" ...>` と `<meta property="og:url" ...>` が英語slugのURL(例: `https://nevora-ai.vercel.app/worry/prompt`)になっていることを確認する
+1. `.env.local.example` の内容(`NEXT_PUBLIC_SITE_URL=https://ai.nevora.jp`)を `.env.local` に追記する(無ければ `.env.local.example` をコピーしてもよい)
+2. `npm run build` を実行し、`.next/server/pages/worry/[slug].html` 等の出力HTML内で `<link rel="canonical" ...>` と `<meta property="og:url" ...>` が英語slugのURL(例: `https://ai.nevora.jp/worry/prompt`)になっていることを確認する
 
 ## お問い合わせフォーム
 
