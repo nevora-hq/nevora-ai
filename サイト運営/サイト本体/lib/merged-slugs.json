@@ -2,5 +2,9 @@
  "2026-08-31_未経験者がAIにコードを書かせるとき": "coding/beginners/run-code-safely-01",
  "2026-08-31_画像生成AIを公開前に確認する": "basics/rights/training-data-copyright-01",
  "coding/beginners/novice-code-01": "coding/beginners/run-code-safely-01",
- "image/publishing/publish-check-01": "basics/rights/training-data-copyright-01"
+ "image/publishing/publish-check-01": "basics/rights/training-data-copyright-01",
+ "2026-10-16_AIで問い合わせ返信の下書き": "chat/safety/input-prohibited-01",
+ "business/communication/inquiry-reply-01": "chat/safety/input-prohibited-01",
+ "2026-08-30_AI事業者ガイドラインを利用者目線で読む": "automation/workplace/internal-adoption-01",
+ "business/guidelines/business-guideline-01": "automation/workplace/internal-adoption-01"
 }
