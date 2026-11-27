@@ -189,7 +189,7 @@ curl -s -A 'Twitterbot/1.0' $U/ | grep 'og:image'       # OGPが返る
 | チーム | nevora-hq |
 | Root Directory | `サイト運営/サイト本体` |
 | Git連携 | github:nevora-hq/nevora-ai(production branch = main) |
-| 本番ドメイン | `ai.nevora.jp`(2026-11-24に独自ドメインを接続。Vercel自動割り当ての `nevora-ai.vercel.app` も有効) |
+| 本番ドメイン | `ai.nevora.jp`(2026-11-24に独自ドメインを接続。Vercel自動割り当ての旧URLは `vercel.json` の301で本番ドメインへ転送) |
 | 環境変数 | `NEXT_PUBLIC_SITE_URL`(3環境)。`ADMIN_BASIC_AUTH_*` は2026-10-12に削除(`/admin`・middleware を外したため) |
 | `NEXT_PUBLIC_ALLOW_INDEX` | 未設定(noindexのまま公開) |
 

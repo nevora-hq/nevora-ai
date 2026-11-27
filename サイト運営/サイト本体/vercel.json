@@ -1,6 +1,12 @@
 {
   "redirects": [
     {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "nevora-ai.vercel.app" }],
+      "destination": "https://ai.nevora.jp/$1",
+      "statusCode": 301
+    },
+    {
       "source": "/posts/2026-08-28_%E7%94%9F%E6%88%90AI%E3%81%A8AI%E3%81%AE%E9%81%95%E3%81%84",
       "destination": "/posts/basics/concepts/ai-vs-genai-01",
       "statusCode": 301
