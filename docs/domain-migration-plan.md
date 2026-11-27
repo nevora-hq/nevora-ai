@@ -4,7 +4,7 @@
 
 ## 前提
 
-- 新ドメイン: `ai.nevora.jp`(2026-11-24にVercelへ追加・DNS(CNAME)設定・HTTPS確認まで完了。旧公開URL(Vercel自動割り当て)は `vercel.json` のホスト別301で新ドメインへ転送し、サイトとしては使わない)。以下、手順中では `<独自ドメイン>` と書く
+- 新ドメイン: `ai.nevora.jp`(2026-11-24にVercelへ追加・DNS(CNAME)設定・HTTPS確認まで完了。旧公開URL(Vercel自動割り当て)は `vercel.json` のホスト別rewriteで404を返し、新ドメインへも転送しない)。以下、手順中では `<独自ドメイン>` と書く
 - レジストラ: (未確定)
 - ホスティング: **Vercel**(現行のまま)。レンタルサーバーは契約していない
 - 現行の公開URL: `NEXT_PUBLIC_SITE_URL`環境変数(Vercelダッシュボードで設定、`.env.example`参照)で管理されている `https://xxx.vercel.app` 系のURL

@@ -7,7 +7,7 @@
 - フレームワーク: Next.js(React)
 - コード管理: GitHub
 - ホスティング: Vercel(無料枠でデプロイ。Gitへのpushで自動デプロイされる)
-- ドメイン: 独自ドメイン `ai.nevora.jp`(Vercelに接続済み)。Vercel自動割り当ての旧URLは `vercel.json` のホスト別301で独自ドメインへ転送している(旧URLは文書にも書かない)
+- ドメイン: 独自ドメイン `ai.nevora.jp`(Vercelに接続済み)。Vercel自動割り当ての旧URLは `vercel.json` のホスト別rewriteで404を返している(転送はしない)(旧URLは文書にも書かない)
 - 記事データ: 当面はMarkdownファイル(frontmatterに `title` / `category` / `tags` / `affiliateLinks` 等を持たせる)で管理し、`サイト運営\記事データ\公開済み\` から本サイトのcontentディレクトリへ配置する
 - データベース: 記事数・機能が増え、Markdown管理では厳しくなった段階で導入(例: Vercel Postgres等)。導入時期・方式は`site-engineer`が提案する
 
